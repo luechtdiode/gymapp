@@ -1,5 +1,7 @@
 # GymappBootstrap
 
+[![bitHound Overall Score](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap/badges/score.svg)](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap)
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.25.5.
 
 ## Development server
