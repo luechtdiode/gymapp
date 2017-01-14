@@ -18,9 +18,13 @@
       "prefix": "gymapp",
       "mobile": false,
       "styles": [
+        "../node_modules/font-awesome/scss/font-awesome.scss",
+        "../node_modules/bootstrap/scss/bootstrap.scss",
         "styles.scss"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/tether/dist/js/tether.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environments": {
@@ -30,7 +34,9 @@
       }
     }
   ],
-  "addons": [],
+  "addons": [
+    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
+  ],
   "packages": [],
   "e2e": {
     "protractor": {

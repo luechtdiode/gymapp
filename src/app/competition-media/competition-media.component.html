@@ -1,0 +1,24 @@
+<div class="media-left media-top">
+  <!--a ui-sref="wkapp({id: competition._id})"-->
+  <img class="media-object img-thumbnail" [src]="competition.image" [alt]="competition.name">
+  <!--/a-->
+</div>
+<div class="media-body">
+  <h2 class="media-heading">{{competition.name}}
+    <span class="label label-warning" font-size="10px">{{competition.kind}}</span></h2>
+  <p>{{competition.description}}</p>
+  <div ng-repeat="date in competition.dates">
+    <span><i class="fa fa-calendar" aria-hidden="true"></i> {{date | date: 'MM-dd-yyyy'}}
+  </span>
+  </div>
+  <cite>{{competition.location}}, {{competition.club}}</cite>
+  <div ng-if="competition.editable">
+    <button type="button" class="btn btn-danger pull-right" (click)="delete(competition._id)">
+      Delete
+    </button>
+    <button type="button" class="btn btn-success pull-right">
+      <!-- ui-sref="app.editcompetition({id: competition._id}) -->
+      Edit Competition
+    </button>
+  </div>
+</div>
