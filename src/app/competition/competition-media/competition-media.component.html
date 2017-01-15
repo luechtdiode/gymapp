@@ -1,18 +1,18 @@
-<div class="media-left media-top">
+<div class="media-left media-top" *ngIf="competition">
   <!--a ui-sref="wkapp({id: competition._id})"-->
-  <img class="media-object img-thumbnail" [src]="competition.image" [alt]="competition.name">
+  <img class="media-object img-thumbnail" [src]="'assets/' + competition.image" [alt]="competition.name">
   <!--/a-->
 </div>
-<div class="media-body">
+<div class="media-body" *ngIf="competition">
   <h2 class="media-heading">{{competition.name}}
     <span class="label label-warning" font-size="10px">{{competition.kind}}</span></h2>
   <p>{{competition.description}}</p>
-  <div ng-repeat="date in competition.dates">
+  <div *ngFor="let date of competition.dates">
     <span><i class="fa fa-calendar" aria-hidden="true"></i> {{date | date: 'MM-dd-yyyy'}}
   </span>
   </div>
   <cite>{{competition.location}}, {{competition.club}}</cite>
-  <div ng-if="competition.editable">
+  <div *ngIf="competition.editable">
     <button type="button" class="btn btn-danger pull-right" (click)="delete(competition._id)">
       Delete
     </button>

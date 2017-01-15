@@ -6,10 +6,10 @@
     </div>
     <!-- Task 2: take care of remoting-troubles ... -->
     <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-      <div ng-if="!showCompetition">
-        <h3>{{competitionmessage}}</h3>
+      <div *ngIf="(isFeaturedCompetitionloading | async)">
+        <h3>featured competition loading ...</h3>
       </div>
-      <gymapp-competition-media class="media" ng-if="showCompetition">
+      <gymapp-competition-media [competition] = "competition | async" class="media" *ngIf="!(isFeaturedCompetitionloading | async)">
       </gymapp-competition-media>
     </div>
   </div>
@@ -19,7 +19,7 @@
       <h3 align=center>Our Club of the month</h3>
     </div>
     <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-      <div ng-if="!showClub">
+      <div *ngIf="!showClub">
         <h3>{{clubmessage}}</h3>
       </div>
       <gymapp-club-media class="media" ng-if="showClub">
