@@ -1,3 +1,72 @@
-<p>
-  header works!
-</p>
+
+<nav class="navbar navbar-toggleable-sm sticky-top navbar-inverse">
+  <!--<div class="container">-->
+    <a class="navbar-brand" routerLink="app"><img src="/assets/images/logo.png" height=30 width=30></a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" 
+        data-toggle="collapse" data-target="#navbar" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="app">
+            <i class="fa fa-home" aria-hidden="true"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="app.aboutus" class="nav-link">
+            <i class="fa fa-info" aria-hidden="true"></i> About</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="app.competitions" class="nav-link">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Competitions
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="app.clubs" class="nav-link">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Clubs
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="app.sponsors" class="nav-link">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Sponsors
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="app.contactus" class="nav-link">
+            <i class="fa fa-envelope-o"></i> Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right mr-auto">
+        <li class="nav-item" *ngIf="!loggedIn">
+          <a routerLink="app.login" class="nav-link">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn && clubid > '-1'">
+          <a routerLink="app.editclub" class="nav-link">{{username}} (as Club)</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn && sponsorid > '-1'">
+          <a routerLink="app.editsponsor" class="nav-link">{{username}} (as Sponsor)</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a (click)="logOut()" class="nav-link">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  <!--</div>-->
+</nav>
+<header class="jumbotron hidden-xs-down">
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="container">
+    <div class="row row-header">
+      <div class="col-xs-12 col-sm-6">
+        <h1>Gym Competition</h1>
+        <p>We bring Clubs and Sponsors together.</p>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <img src="/assets/images/logo.png" class="img-responsive">
+      </div>
+    </div>
+  </div>
+</header>

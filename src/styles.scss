@@ -87,18 +87,6 @@
   color: dimgray;
   background-color: #ffd800;
 }
-div.navbar-collapse.collapse {
-	display: block;
-	overflow: hidden;
-	max-height: 0px;
-	-webkit-transition: max-height .3s ease;
-	-moz-transition: max-height .3s ease;
-	-o-transition: max-height .3s ease;
-	transition: max-height .3s ease;
-}
-div.navbar-collapse.collapse.in {
-	max-height: 2000px;
-}
 
 address {
   color: white;
@@ -107,7 +95,7 @@ address {
 }
 body {
   align: center;
-  padding: 50px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   z-index: 0;
   color: rgb(174, 192, 208);
   background-color: #333333;
