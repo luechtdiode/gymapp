@@ -18,8 +18,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   }), http, options);
 }
 
+const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+
 @Injectable()
 export class CrudService {
+  
 
   constructor(private authHttp: AuthHttp) {
   }
@@ -30,12 +33,12 @@ export class CrudService {
 
   public post<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.authHttp.post(UrlProvider.getBackendUrl(url), json));
+    return this.wrapCallAndMap<T>(this.authHttp.post(UrlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public put<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.authHttp.put(UrlProvider.getBackendUrl(url), json));
+    return this.wrapCallAndMap<T>(this.authHttp.put(UrlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public doDelete(url: string): Observable<Response> {
