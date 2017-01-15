@@ -2,12 +2,24 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { ClubMediaComponent } from './club-media/club-media.component';
+import { SponsorMediaComponent } from './sponsor-media/sponsor-media.component';
+import { CompetitionMediaComponent } from './competition-media/competition-media.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        FooterComponent,
+        HeaderComponent,
+        HomeComponent,
+        ClubMediaComponent,
+        SponsorMediaComponent,
+        CompetitionMediaComponent
       ],
     });
     TestBed.compileComponents();
@@ -25,10 +37,17 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('app works!');
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in a gymapp-header tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
+    expect(compiled.querySelector('gymapp-header')).toBeDefined();
+  }));
+
+  it('should render title in a gymapp-footer tag', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('gymapp-footer')).toBeDefined();
   }));
 });
