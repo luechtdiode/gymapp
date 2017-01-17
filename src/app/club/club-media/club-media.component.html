@@ -17,7 +17,7 @@
     <h2 class="media-heading">{{club.name}}
     <span class="label label-warning">{{club.label}}</span></h2>
     <p>{{club.description}}</p>
-    <div ng-if="club.editable">
+    <div *ngIf="club.editable">
       <button type="button" class="btn btn-danger pull-right" (click)="delete(club._id)">
         Delete me
       </button>

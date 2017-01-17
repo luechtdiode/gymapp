@@ -14,17 +14,15 @@ export class HomePageComponent implements OnInit {
   competition: Observable<Competition>;
   isFeaturedCompetitionloading: Observable<boolean>;
   showClub = true;
-  clubmessage: string;
   showSponsor = true;
-  sponsormessage: string;
-
 
   constructor(private store: Store<AppState>) {
-    this.competition = this.store.select(fromRoot.getFeaturedCompetition);
-    this.isFeaturedCompetitionloading = this.store.select(fromRoot.isLoadingFeatured);
+
   }
 
   ngOnInit() {
+    this.competition = this.store.select(fromRoot.getFeaturedCompetition);
+    this.isFeaturedCompetitionloading = this.store.select(fromRoot.isLoadingFeatured);
   }
 
 }
