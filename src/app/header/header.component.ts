@@ -9,8 +9,6 @@ export class HeaderComponent implements OnInit {
   loggedIn = false;
   clubid = 0;
   username = '';
-  isCollapsed = true;
-
   constructor() { }
 
   ngOnInit() {
@@ -18,10 +16,6 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
 
-  }
-
-  public get menuIcon(): string {
-    return this.isCollapsed ? '☰' : '✖';
   }
 
 }

@@ -22,7 +22,6 @@ const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
 export class CrudService {
-  
 
   constructor(private authHttp: AuthHttp) {
   }
