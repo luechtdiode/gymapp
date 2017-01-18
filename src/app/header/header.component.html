@@ -6,50 +6,50 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
-    <a class="navbar-brand" routerLink="app"><img src="/assets/images/logo.png" height=30 width=30></a>
+    <a class="navbar-brand" routerLink="home"><img src="/assets/images/logo.png" height=30 width=30></a>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="app">
+        <li class="nav-item" routerLink="home" routerLinkActive="active">
+          <a routerLink="home" routerLinkActive="active" class="nav-link">
             <i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </li>
-        <li class="nav-item">
-          <a routerLink="app.aboutus" class="nav-link">
+        <li class="nav-item" routerLink="about" routerLinkActive="active">
+          <a routerLink="aboutus" class="nav-link">
             <i class="fa fa-info" aria-hidden="true"></i> About</a>
         </li>
-        <li class="nav-item">
-          <a routerLink="app.competitions" class="nav-link">
+        <li class="nav-item" routerLink="competitions" routerLinkActive="active">
+          <a routerLink="competitions" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Competitions
           </a>
         </li>
-        <li class="nav-item">
-          <a routerLink="app.clubs" class="nav-link">
+        <li class="nav-item" routerLink="clubs" routerLinkActive="active">
+          <a routerLink="clubs" routerLinkActive="active" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Clubs
           </a>
         </li>
-        <li class="nav-item">
-          <a routerLink="app.sponsors" class="nav-link">
+        <li class="nav-item" routerLink="sponsors" routerLinkActive="active">
+          <a routerLink="sponsors" routerLinkActive="active" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Sponsors
           </a>
         </li>
-        <li class="nav-item">
-          <a routerLink="app.contactus" class="nav-link">
+        <li class="nav-item" routerLink="contact" routerLinkActive="active">
+          <a routerLink="contact" routerLinkActive="active" class="nav-link">
             <i class="fa fa-envelope-o"></i> Contact</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right mr-auto">
-        <li class="nav-item" *ngIf="!loggedIn">
-          <a routerLink="app.login" class="nav-link">
+        <li class="nav-item" routerLinkActive="active" *ngIf="!loggedIn">
+          <a routerLink="login" class="nav-link" routerLinkActive="active">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn && clubid > '-1'">
-          <a routerLink="app.editclub" class="nav-link">{{username}} (as Club)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn && clubid > '-1'">
+          <a routerLink="editclub" class="nav-link" routerLinkActive="active">{{username}} (as Club)</a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn && sponsorid > '-1'">
-          <a routerLink="app.editsponsor" class="nav-link">{{username}} (as Sponsor)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn && sponsorid > '-1'">
+          <a routerLink="editsponsor" class="nav-link" routerLinkActive="active">{{username}} (as Sponsor)</a>
         </li>
         <li class="nav-item" *ngIf="loggedIn">
-          <a (click)="logOut()" class="nav-link">
+          <a (click)="logOut()" class="nav-link" >
             <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
       </ul>

@@ -18,7 +18,7 @@
     <div class="well">
       <p>{{sponsor.slogan}}</p>
       <footer *ngIf="sponsor.homepage !== undefined">See more on, <i class="fa fa-link"></i>
-        <a href='{{sponsor.homepage}}' target='_blank'><cite title="Homepage">{{sponsor.homepage}}</cite></a></footer>
+        <a [href]="sponsor.homepage" target="_blank"><cite title="Homepage">{{sponsor.homepage}}</cite></a></footer>
     </div>
     <div *ngIf="sponsor.editable">
       <button type="button" class="btn btn-danger pull-right" (click)="delete(sponsor._id)">

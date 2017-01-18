@@ -7,7 +7,8 @@ import { CachedCrudService } from './shared/cached-crud.service';
 import { CrudService, authHttpServiceFactory } from './shared/crud.service';
 import { AuthHttp } from 'angular2-jwt';
 
-//import * as routes from './app.routing';
+import { RouterModule, Routes } from '@angular/router';
+import { appRoutes } from './app.routing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducer } from './app-state.reducer';
@@ -23,6 +24,12 @@ import { SponsorMediaComponent } from './sponsor/sponsor-media/sponsor-media.com
 import { CompetitionMediaComponent } from './competition/competition-media/competition-media.component';
 import { CompetitionService } from './competition/competition.service';
 import { CompetitionEffects } from './competition/competition.effects';
+import { CompetitionListComponent } from './competition/competition-list/competition-list.component';
+import { CompetitionsPageComponent } from './competition/competitions-page/competitions-page.component';
+import { ClubsPageComponent } from './club/clubs-page/clubs-page.component';
+import { SponsorsPageComponent } from './sponsor/sponsors-page/sponsors-page.component';
+import { AboutusPageComponent } from './about/aboutus-page/aboutus-page.component';
+import { ContactPageComponent } from './contact/contact-page/contact-page.component';
 
 @NgModule({
   declarations: [
@@ -32,14 +39,21 @@ import { CompetitionEffects } from './competition/competition.effects';
     HomePageComponent,
     CompetitionMediaComponent,
     ClubMediaComponent,
-    SponsorMediaComponent
+    SponsorMediaComponent,
+    CompetitionListComponent,
+    CompetitionsPageComponent,
+    ClubsPageComponent,
+    SponsorsPageComponent,
+    AboutusPageComponent,
+    ContactPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     StoreModule.provideStore(reducer),
-    //RouterStoreModule.connectRouter(),
+    RouterModule.forRoot(appRoutes),
+    RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(CompetitionEffects),
   ],

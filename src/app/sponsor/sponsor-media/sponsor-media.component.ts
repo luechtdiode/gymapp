@@ -12,7 +12,7 @@ export class SponsorMediaComponent implements OnInit {
     image: '/assets/images/sponsor.png',
     label: 'label',
     slogan: 'Slogan of sponsor',
-    homepage: 'www.sponsor.com'
+    homepage: 'https://www.sponsor.com'
   };
 
   constructor() { }
