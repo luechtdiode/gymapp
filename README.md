@@ -31,3 +31,8 @@ Run `ng github-pages:deploy` to deploy to GitHub Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Update to latest dependencies
+
+watch out what `npm outdated` is reporting to the console. 
+Then carefully compare with the vesions in package.json, update, reload new deps with `npm cache clean`, `npm install` and run all tests.
