@@ -15,6 +15,7 @@ import { reducer } from './app-state.reducer';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { LocalStorageService } from './shared/local-storage.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -30,6 +31,9 @@ import { ClubsPageComponent } from './club/clubs-page/clubs-page.component';
 import { SponsorsPageComponent } from './sponsor/sponsors-page/sponsors-page.component';
 import { AboutusPageComponent } from './about/aboutus-page/aboutus-page.component';
 import { ContactPageComponent } from './contact/contact-page/contact-page.component';
+import { AuthService } from './shared/auth.service';
+import { AuthEffects } from './shared/auth.effects';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { ContactPageComponent } from './contact/contact-page/contact-page.compon
     ClubsPageComponent,
     SponsorsPageComponent,
     AboutusPageComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,11 +60,14 @@ import { ContactPageComponent } from './contact/contact-page/contact-page.compon
     RouterModule.forRoot(appRoutes),
     RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(AuthEffects),
     EffectsModule.run(CompetitionEffects),
   ],
   providers: [
     CachedCrudService,
     CrudService,
+    LocalStorageService,
+    AuthService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

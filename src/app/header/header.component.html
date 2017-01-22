@@ -38,19 +38,19 @@
         </li>
       </ul>
       <ul class="navbar-nav navbar-right mr-auto">
-        <li class="nav-item" routerLinkActive="active" *ngIf="!loggedIn">
+        <li class="nav-item" routerLinkActive="active" *ngIf="!(loggedIn | async)">
           <a routerLink="login" class="nav-link" routerLinkActive="active">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn && clubid > '-1'">
-          <a routerLink="editclub" class="nav-link" routerLinkActive="active">{{username}} (as Club)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (clubid | async)> '-1'">
+          <a routerLink="editclub" class="nav-link" routerLinkActive="active">{{username | async}} (as Club)</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn && sponsorid > '-1'">
-          <a routerLink="editsponsor" class="nav-link" routerLinkActive="active">{{username}} (as Sponsor)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (sponsorid | async) > '-1'">
+          <a routerLink="editsponsor" class="nav-link" routerLinkActive="active">{{username | async}} (as Sponsor)</a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn">
+        <li class="nav-item" *ngIf="(loggedIn | async)">
           <a (click)="logOut()" class="nav-link" >
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout {{username | async}}</a>
         </li>
       </ul>
     </div>

@@ -4,6 +4,7 @@ import * as fromRoot from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 import {Competition} from '../model/backend-typings';
 import { Store } from '@ngrx/store';
+import { loadFeaturedAction } from '../competition/competition.actions';
 
 @Component({
   selector: 'gymapp-home',
@@ -21,6 +22,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(loadFeaturedAction());
     this.competition = this.store.select(fromRoot.getFeaturedCompetition);
     this.isFeaturedCompetitionloading = this.store.select(fromRoot.isLoadingFeatured);
   }

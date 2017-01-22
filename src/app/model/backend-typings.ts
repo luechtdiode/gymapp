@@ -1,3 +1,10 @@
+export interface User {
+    username?: string;
+    token?: string;
+    password?: string;
+    isMemberOfSponsor?: string;
+    isMemberOfClub?: string;
+}
 
 export interface Club {
     _id?: string;

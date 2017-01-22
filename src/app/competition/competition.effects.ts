@@ -28,25 +28,25 @@ export class CompetitionEffects {
   @Effect()
   loadFeaturedCompetition = this.actions$
     .ofType(ActionTypes.LOAD_FEATURED_COMPETITION)
-    .startWith(loadFeaturedAction())
-    .switchMapTo(this.compService.getFeaturedCompetition())
+    .mergeMap(() => this.compService.getFeaturedCompetition())
     .map(comps => loadFeaturedSuccessAction(comps))
-    .catch(() => Observable.of(
-      loadFeaturedFailedAction()
-    ));
-
+    .catch((err) => {
+      console.log(err);
+      return Observable.of(loadFeaturedFailedAction());
+    });
   @Effect()
   loadCompetitions = this.actions$
     .ofType(ActionTypes.LOAD_COMPETITIONS)
-    .switchMapTo(this.compService.getCompetitions())
+    .mergeMap(() => this.compService.getCompetitions())
     .map(comps => loadAllSuccessAction(comps));
-
+/*
   @Effect()
   loadCompetitionsOnInit = this.actions$
     .ofType(ActionTypes.LOAD_COMPETITIONS)
-    .startWith(loadAllAction())
+    // .startWith(loadAllAction())
     .switchMapTo(this.compService.getCompetitions())
     .map(comps => loadAllSuccessAction(comps));
+*/
 
   @Effect()
   saveCompetition = this.actions$

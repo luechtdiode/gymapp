@@ -31,14 +31,18 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import { combineReducers } from '@ngrx/store';
 import * as fromCompetitions from './competition/competition.reducer';
+import * as fromAuth from './shared/auth.reducer';
+import { gwtoken, backUrl } from './shared/auth.reducer';
 
 export interface AppState {
   competitions: fromCompetitions.CompetitionsState;
+  auth: fromAuth.AuthState;
   router: fromRouter.RouterState;
 }
 
 const reducers = {
   competitions: fromCompetitions.reducer,
+  auth: fromAuth.reducer,
   router: fromRouter.routerReducer
 };
 
@@ -53,6 +57,14 @@ export function reducer(state: any, action: any) {
   }
 }
 
+export const activeRoute = (state: AppState) => state.router;
+export const getAuthState = (state: AppState) => state.auth;
+export const isLoggedIn = createSelector(getAuthState, fromAuth.isLoggedIn);
+export const isMemberOfClub = createSelector(getAuthState, fromAuth.isMemberOfClub);
+export const isMemberOfSponsor = createSelector(getAuthState, fromAuth.isMemberOfSponsor);
+export const getUsername = createSelector(getAuthState, fromAuth.username);
+export const getGWToken = createSelector(getAuthState, fromAuth.gwtoken);
+export const getBackUrl = createSelector(getAuthState, fromAuth.backUrl);
 export const getCompetitionsState = (state: AppState) => state.competitions;
 export const getCompetitions = createSelector(getCompetitionsState, fromCompetitions.getCompetitions);
 export const getFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.getFeatured);

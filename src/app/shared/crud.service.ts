@@ -5,16 +5,23 @@ import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {UrlProvider} from './urlProvider';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute, Params  } from '@angular/router';
+import { AuthService } from './auth.service';
+import { Store } from '@ngrx/store';
+import { AppState, activeRoute } from '../app-state.reducer';
+import * as fromRoot from '../app-state.reducer';
+import { go, show } from '@ngrx/router-store';
+import { loginAction, elevateAction } from './auth.actions';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     headerName: 'Authorization',
     headerPrefix: 'Bearer',
-    tokenName: 'token',
-    tokenGetter: (() => sessionStorage.getItem('token')),
+    noTokenScheme: true,
+    tokenName: 'x-access-token',
+    //tokenGetter: (() => sessionStorage.getItem('x-access-token')),
     globalHeaders: [{'Content-Type': 'application/json'}],
-    noJwtError: true
+    noJwtError: true,
   }), http, options);
 }
 
@@ -23,7 +30,20 @@ const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 @Injectable()
 export class CrudService {
 
-  constructor(private authHttp: AuthHttp) {
+  private currentUrl: string;
+
+  constructor(
+    private authHttp: AuthHttp,
+    private store: Store<AppState>,
+    private route: ActivatedRoute) {
+    store.select(fromRoot.getGWToken).subscribe((token) => {
+      console.log('set token in sessionStorage: ', token);
+      sessionStorage.setItem('x-access-token', token);
+    } );
+    store.select(activeRoute).subscribe((rt) => {
+      console.log('new url: ', rt);
+      this.currentUrl = rt.path;
+    } );
   }
 
   public get<T>(url: string): Observable<T> {
@@ -71,7 +91,12 @@ export class CrudService {
     console.log('error', error);
     if (error.message === 'No JWT present or has expired') {
       console.log('no JWT, redirecting to login page');
-      // this.router.navigate(['/login']);
+      this.store.dispatch(elevateAction(this.currentUrl));
+      return true;
+    }
+    if (error.message === 'JWT must have 3 parts') {
+      console.log('invalid jwt-token', error);
+      this.store.dispatch(elevateAction(this.currentUrl));
       return true;
     }
     return false;

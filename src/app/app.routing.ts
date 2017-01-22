@@ -5,6 +5,7 @@ import { AboutusPageComponent } from './about/aboutus-page/aboutus-page.componen
 import { ClubsPageComponent } from './club/clubs-page/clubs-page.component';
 import { SponsorsPageComponent } from './sponsor/sponsors-page/sponsors-page.component';
 import { ContactPageComponent } from './contact/contact-page/contact-page.component';
+import { LoginComponent } from './login/login.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const appRoutes: Routes = [
   { path: 'clubs', component: ClubsPageComponent },
   { path: 'sponsors', component: SponsorsPageComponent },
   { path: 'contact', component: ContactPageComponent },
+  { path: 'login', component: LoginComponent },
 ];
