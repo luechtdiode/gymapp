@@ -38,12 +38,10 @@ export function reducer(state = initialState, action: Action): AuthState {
         }
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.ActionTypes.LOGIN_SUCCESS: {
-            const user = {user: action.payload.user};
-            console.log('login successful: ', user );
-            return Object.assign({}, state, user, {
-                isAuthenticated: true,
+            return Object.assign({}, state, {
+                user: action.payload.user,
+                isAuthenticated: action.payload.user.success
             });
-
         }
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.ActionTypes.LOGOUT_SUCCESS: {

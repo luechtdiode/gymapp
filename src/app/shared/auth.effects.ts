@@ -13,7 +13,7 @@ import 'rxjs/add/operator/do';
 import { User } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
-import { backUrl } from './auth.reducer';
+import { backUrl, isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
 import {
     ActionTypes, loadCredentialsAction, loginAction,
     removeCredentialsAction, loginSuccessAction, logoutSuccessAction
@@ -41,10 +41,13 @@ export class AuthEffects {
         .ofType(ActionTypes.LOGIN)
         .mergeMap((action) => this.authService.login(action.payload.user)
             .map((credentialsAccepted) => {
+                console.log('login success: ' + credentialsAccepted);
                 if (action.payload.rememberMe) {
                     this.localStorage.storeObject(this.TOKEN_KEY, {
                         username: credentialsAccepted.username,
-                        token: credentialsAccepted.token
+                        token: credentialsAccepted.token,
+                        isMemberOfClub: credentialsAccepted.isMemberOfClub,
+                        isMemberOfSponsor: credentialsAccepted.isMemberOfSponsor,
                     });
                 }
                 return loginSuccessAction( credentialsAccepted, action.payload.backUrl);
@@ -52,6 +55,11 @@ export class AuthEffects {
             .catch(() => [removeCredentialsAction(), go(['/home/'])])
         // TODO integrate toastr component
         );
+
+    @Effect({ dispatch: false })
+    removeCredentials = this.actions$
+        .ofType(ActionTypes.REMOVE_CREDENTIALS)
+        .map(() => this.localStorage.storeObject(this.TOKEN_KEY, {}));
 
     @Effect()
     loginSuccess = this.actions$
@@ -62,14 +70,14 @@ export class AuthEffects {
     @Effect()
     logout = this.actions$
         .ofType(ActionTypes.LOGOUT)
-        .switchMapTo(this.authService.logout())
+        .map(() => this.authService.logout())
         .map(logoutCompleted => logoutSuccessAction())
         .catch(() => Observable.of(logoutSuccessAction()));
 
     @Effect()
     logoutSuccess = this.actions$
         .ofType(ActionTypes.LOGOUT_SUCCESS/*, ActionTypes.LOGIN_SUCCESS*/)
-        .map(() => go(['/home/']));
+        .flatMap(() => [removeCredentialsAction(), go(['/home/'])]);
 
     constructor(private actions$: Actions,
         private authService: AuthService,

@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Response, Headers, RequestOptions, Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
+import {tokenNotExpired} from 'angular2-jwt';
 import {UrlProvider} from './urlProvider';
 import { Router, ActivatedRoute, Params  } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -19,49 +21,71 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     headerPrefix: 'Bearer',
     noTokenScheme: true,
     tokenName: 'x-access-token',
-    //tokenGetter: (() => sessionStorage.getItem('x-access-token')),
+    tokenGetter: (() => sessionStorage.getItem('x-access-token')),
     globalHeaders: [{'Content-Type': 'application/json'}],
-    noJwtError: true,
+    noJwtError: false,
   }), http, options);
 }
 
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
-export class CrudService {
+export class CrudService implements OnDestroy {
 
   private currentUrl: string;
+  private useAuth = true;
+  private subscriptions: Subscription[] = [];
 
   constructor(
+    private http: Http,
     private authHttp: AuthHttp,
     private store: Store<AppState>,
     private route: ActivatedRoute) {
-    store.select(fromRoot.getGWToken).subscribe((token) => {
-      console.log('set token in sessionStorage: ', token);
+
+    this.subscriptions.push(store.select(fromRoot.getGWToken).subscribe((token) => {
       sessionStorage.setItem('x-access-token', token);
-    } );
-    store.select(activeRoute).subscribe((rt) => {
-      console.log('new url: ', rt);
+    } ));
+    this.subscriptions.push(store.select(activeRoute).subscribe((rt) => {
       this.currentUrl = rt.path;
-    } );
+    } ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public authenticated() {
+    return sessionStorage.getItem('x-access-token') !== undefined;
+  }
+
+  public unsave(): CrudService {
+    return Object.assign(Object.create(this), this, {useAuth: false});
+  }
+
+  private getRemote(): Http | AuthHttp {
+    if (this.useAuth) {
+      return this.authHttp;
+    } else {
+      return this.http;
+    }
   }
 
   public get<T>(url: string): Observable<T> {
-    return this.wrapCallAndMap<T>(this.authHttp.get(UrlProvider.getBackendUrl(url)));
+    return this.wrapCallAndMap<T>(this.getRemote().get(UrlProvider.getBackendUrl(url)));
   }
 
   public post<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.authHttp.post(UrlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCallAndMap<T>(this.getRemote().post(UrlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public put<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.authHttp.put(UrlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCallAndMap<T>(this.getRemote().put(UrlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public doDelete(url: string): Observable<Response> {
-    return this.wrapCall<Response>(this.authHttp.delete(UrlProvider.getBackendUrl(url)));
+    return this.wrapCall<Response>(this.getRemote().delete(UrlProvider.getBackendUrl(url)));
   }
 
   private wrapCallAndMap<T>(observable: Observable<Response>): Observable<T> {
