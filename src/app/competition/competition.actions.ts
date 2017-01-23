@@ -14,75 +14,75 @@ export const ActionTypes = {
   LOAD_COMPETITION:                  type('[COMPETITION] Load COMPETITION'),
   LOAD_FEATURED_COMPETITION:         type('[COMPETITION] Load featured COMPETITION'),
   LOAD_FEATURED_COMPETITION_SUCCESS: type('[COMPETITION] Load featured COMPETITION success'),
-  LOAD_FEATURED_COMPETITION_FAIL:    type('[COMPETITION] Load featured COMPETITION fail')
+  LOAD_FEATURED_COMPETITION_FAIL:    type('[COMPETITION] Load featured COMPETITION fail'),
 };
 
 export function loadAllAction(): Action {
   return {
-    type: ActionTypes.LOAD_COMPETITIONS
+    type: ActionTypes.LOAD_COMPETITIONS,
   };
 }
 export function loadAllSuccessAction(payload: Competition[]): Action {
   return {
     type: ActionTypes.LOAD_COMPETITIONS_SUCCESS,
-    payload: payload
+    payload: payload,
   };
 }
 export function saveAction(payload: Competition): Action {
   return {
     type: ActionTypes.SAVE_COMPETITION,
-    payload: payload
+    payload: payload,
   };
 }
 export function saveSuccessAction(payload: Competition): Action {
   return {
     type: ActionTypes.SAVE_COMPETITION_SUCCESS,
-    payload: payload
+    payload: payload,
   };
 }
 export function saveFailedAction(payload: Competition): Action {
   return {
     type: ActionTypes.SAVE_COMPETITION_FAIL,
-    payload: payload
+    payload: payload,
   };
 }
 export function deleteAction(payload: Competition): Action {
   return {
     type: ActionTypes.DELETE_COMPETITION,
-    payload: payload
+    payload: payload,
   };
 }
 export function deleteSuccessAction(payload: Competition): Action {
   return {
     type: ActionTypes.DELETE_COMPETITION_SUCCESS,
-    payload: payload
+    payload: payload,
   };
 }
 export function deleteFailedAction(payload: Competition): Action {
   return {
     type: ActionTypes.DELETE_COMPETITION_FAIL,
-    payload: payload
+    payload: payload,
   };
 }
 export function loadAction(payload: string): Action {
   return {
     type: ActionTypes.LOAD_COMPETITION,
-    payload: payload
+    payload: payload,
   };
 }
 export function loadFeaturedAction(): Action {
   return {
-    type: ActionTypes.LOAD_FEATURED_COMPETITION
+    type: ActionTypes.LOAD_FEATURED_COMPETITION,
   };
 }
 export function loadFeaturedSuccessAction(payload: Competition): Action {
   return {
     type: ActionTypes.LOAD_FEATURED_COMPETITION_SUCCESS,
-    payload: payload
+    payload: payload,
   };
 }
 export function loadFeaturedFailedAction(): Action {
   return {
-    type: ActionTypes.LOAD_FEATURED_COMPETITION_FAIL
+    type: ActionTypes.LOAD_FEATURED_COMPETITION_FAIL,
   };
 }

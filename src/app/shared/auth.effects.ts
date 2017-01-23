@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Effect, toPayload, Actions } from '@ngrx/effects';
-import { go, back } from '@ngrx/router-store';
+import { Injectable } from '@angular/core';
+import { Effect, Actions } from '@ngrx/effects';
+import { go } from '@ngrx/router-store';
 import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/mapTo';
@@ -13,21 +13,22 @@ import 'rxjs/add/operator/do';
 import { User } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
-import { backUrl, isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
+import { isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
 import {
     ActionTypes, loadCredentialsAction, loginAction,
-    removeCredentialsAction, loginSuccessAction, logoutSuccessAction
+    removeCredentialsAction, loginSuccessAction, logoutSuccessAction,
 } from './auth.actions';
+
+const TOKEN_KEY = 'GCToken';
 
 @Injectable()
 export class AuthEffects {
-    private TOKEN_KEY = 'GCToken';
 
     @Effect()
     loadCredentials = this.actions$
         .ofType(ActionTypes.LOAD_CREDENTIALS)
         .startWith(loadCredentialsAction())
-        .map(() => this.localStorage.getObject(this.TOKEN_KEY, {}))
+        .map(() => this.localStorage.getObject(TOKEN_KEY, {}))
         .filter((credentials: User) => credentials.username !== undefined)
         .map((credentials: User) => loginAction(true, credentials));
 
@@ -41,9 +42,9 @@ export class AuthEffects {
         .ofType(ActionTypes.LOGIN)
         .mergeMap((action) => this.authService.login(action.payload.user)
             .map((credentialsAccepted) => {
-                console.log('login success: ' + credentialsAccepted);
+                console.log('login success');
                 if (action.payload.rememberMe) {
-                    this.localStorage.storeObject(this.TOKEN_KEY, {
+                    this.localStorage.storeObject(TOKEN_KEY, {
                         username: credentialsAccepted.username,
                         token: credentialsAccepted.token,
                         isMemberOfClub: credentialsAccepted.isMemberOfClub,
@@ -59,7 +60,7 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     removeCredentials = this.actions$
         .ofType(ActionTypes.REMOVE_CREDENTIALS)
-        .map(() => this.localStorage.storeObject(this.TOKEN_KEY, {}));
+        .map(() => this.localStorage.storeObject(TOKEN_KEY, {}));
 
     @Effect()
     loginSuccess = this.actions$
@@ -79,7 +80,8 @@ export class AuthEffects {
         .ofType(ActionTypes.LOGOUT_SUCCESS/*, ActionTypes.LOGIN_SUCCESS*/)
         .flatMap(() => [removeCredentialsAction(), go(['/home/'])]);
 
-    constructor(private actions$: Actions,
+    constructor(
+        private actions$: Actions,
         private authService: AuthService,
         private localStorage: LocalStorageService) {
     }

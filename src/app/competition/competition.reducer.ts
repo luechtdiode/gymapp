@@ -1,4 +1,3 @@
-import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {Competition} from '../model/backend-typings';
 import * as competition from './competition.actions';
@@ -17,7 +16,7 @@ const initialState: CompetitionsState = {
   competitions: [],
 
   loadingFeatured: false,
-  featured: undefined
+  featured: undefined,
 };
 
 export function reducer(state = initialState, action: Action): CompetitionsState {
@@ -29,7 +28,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         loaded: state.loaded,
         competitions: state.competitions,
         loadingFeatured: state.loadingFeatured,
-        featured: state.featured
+        featured: state.featured,
       });
     }
 
@@ -44,7 +43,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
           return comp2.dates[0].getDate() - comp1.dates[0].getDate();
         }),
         loadingFeatured: state.loadingFeatured,
-        featured: state.featured
+        featured: state.featured,
       };
     }
 
@@ -56,7 +55,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         loading: state.loading,
         competitions: state.competitions,
         loadingFeatured: true,
-        featured: undefined
+        featured: undefined,
       };
     }
 
@@ -68,7 +67,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         loading: state.loading,
         competitions: state.competitions,
         loadingFeatured: false,
-        featured: action.payload
+        featured: action.payload,
       };
     }
 
@@ -85,7 +84,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         ].sort((comp1, comp2): number => {
           return comp2.dates[0].getDate() - comp1.dates[0].getDate();
         }),
-        featured: state.featured
+        featured: state.featured,
       });
     }
 
@@ -94,7 +93,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
     case competition.ActionTypes.SAVE_COMPETITION_FAIL:
     {
       return Object.assign({}, state, {
-        ids: state.competitions.filter(comp => comp._id !== comp._id)
+        ids: state.competitions.filter(comp => comp._id !== comp._id),
       });
     }
 
