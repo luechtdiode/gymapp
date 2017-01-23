@@ -5,26 +5,30 @@ import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
-import {tokenNotExpired} from 'angular2-jwt';
+
 import {UrlProvider} from './urlProvider';
-import { Router, ActivatedRoute, Params  } from '@angular/router';
-import { AuthService } from './auth.service';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, activeRoute } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
-import { go, show } from '@ngrx/router-store';
-import { loginAction, elevateAction } from './auth.actions';
+import { elevateAction } from './auth.actions';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    headerName: 'Authorization',
-    headerPrefix: 'Bearer',
-    noTokenScheme: true,
-    tokenName: 'x-access-token',
-    tokenGetter: (() => sessionStorage.getItem('x-access-token')),
-    globalHeaders: [{'Content-Type': 'application/json'}],
-    noJwtError: false,
-  }), http, options);
+  return new AuthHttp(
+    new AuthConfig(
+      {
+        headerName: 'Authorization',
+        headerPrefix: 'Bearer',
+        noTokenScheme: true,
+        tokenName: 'x-access-token',
+        tokenGetter: (() => sessionStorage.getItem('x-access-token')),
+        globalHeaders: [{'Content-Type': 'application/json'}],
+        noJwtError: false,
+      }
+    ),
+    http,
+    options
+  );
 }
 
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
@@ -60,14 +64,6 @@ export class CrudService implements OnDestroy {
 
   public unsave(): CrudService {
     return Object.assign(Object.create(this), this, {useAuth: false});
-  }
-
-  private getRemote(): Http | AuthHttp {
-    if (this.useAuth) {
-      return this.authHttp;
-    } else {
-      return this.http;
-    }
   }
 
   public get<T>(url: string): Observable<T> {
@@ -125,4 +121,13 @@ export class CrudService implements OnDestroy {
     }
     return false;
   }
+
+  private getRemote(): Http | AuthHttp {
+    if (this.useAuth) {
+      return this.authHttp;
+    } else {
+      return this.http;
+    }
+  }
+
 }
