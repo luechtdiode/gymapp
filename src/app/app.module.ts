@@ -34,6 +34,8 @@ import { ContactPageComponent } from './contact/contact-page/contact-page.compon
 import { AuthService } from './shared/auth.service';
 import { AuthEffects } from './shared/auth.effects';
 import { LoginComponent } from './login/login.component';
+import { ClubEffects } from './club/club.effects';
+import { ClubService } from './club/club.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { LoginComponent } from './login/login.component';
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(AuthEffects),
     EffectsModule.run(CompetitionEffects),
+    EffectsModule.run(ClubEffects),
   ],
   providers: [
     CachedCrudService,
@@ -74,7 +77,9 @@ import { LoginComponent } from './login/login.component';
       deps: [Http, RequestOptions]
     },
     CompetitionService,
-    CompetitionEffects
+    CompetitionEffects,
+    ClubService,
+    ClubEffects
   ],
   bootstrap: [AppComponent]
 })

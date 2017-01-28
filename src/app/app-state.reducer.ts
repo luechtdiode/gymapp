@@ -1,8 +1,12 @@
 import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
+import { gwtoken, backUrl } from './shared/auth.reducer';
 import { environment } from '../environments/environment';
-import {Competition} from './model/backend-typings';
+import * as fromRouter from '@ngrx/router-store';
+import * as fromCompetitions from './competition/competition.reducer';
+import * as fromClubs from './club/club.reducer';
+import * as fromAuth from './shared/auth.reducer';
+
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -30,18 +34,17 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
 import { combineReducers } from '@ngrx/store';
-import * as fromCompetitions from './competition/competition.reducer';
-import * as fromAuth from './shared/auth.reducer';
-import { gwtoken, backUrl } from './shared/auth.reducer';
 
 export interface AppState {
   competitions: fromCompetitions.CompetitionsState;
+  clubs: fromClubs.ClubsState;
   auth: fromAuth.AuthState;
   router: fromRouter.RouterState;
 }
 
 const reducers = {
   competitions: fromCompetitions.reducer,
+  clubs: fromClubs.reducer,
   auth: fromAuth.reducer,
   router: fromRouter.routerReducer
 };
@@ -65,7 +68,13 @@ export const isMemberOfSponsor = createSelector(getAuthState, fromAuth.isMemberO
 export const getUsername = createSelector(getAuthState, fromAuth.username);
 export const getGWToken = createSelector(getAuthState, fromAuth.gwtoken);
 export const getBackUrl = createSelector(getAuthState, fromAuth.backUrl);
+
 export const getCompetitionsState = (state: AppState) => state.competitions;
 export const getCompetitions = createSelector(getCompetitionsState, fromCompetitions.getCompetitions);
 export const getFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.getFeatured);
-export const isLoadingFeatured = createSelector(getCompetitionsState, fromCompetitions.isLoadingFeatured);
+export const isLoadingFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.isLoadingFeatured);
+
+export const getClubsState = (state: AppState) => state.clubs;
+export const getClubs = createSelector(getClubsState, fromClubs.getClubs);
+export const getFeaturedClub = createSelector(getClubsState, fromClubs.getFeatured);
+export const isLoadingFeaturedClub = createSelector(getClubsState, fromClubs.isLoadingFeatured);

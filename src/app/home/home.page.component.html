@@ -21,7 +21,7 @@
       <div *ngIf="!showClub">
         <h3>featured club loading ...</h3>
       </div>
-      <gymapp-club-media class="media" ng-if="showClub">
+      <gymapp-club-media [club] = "club | async" class="media" *ngIf="!(isFeaturedClubloading | async)">
       </gymapp-club-media>
     </div>
   </div>
