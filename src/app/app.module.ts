@@ -36,6 +36,8 @@ import { AuthEffects } from './shared/auth.effects';
 import { LoginComponent } from './login/login.component';
 import { ClubEffects } from './club/club.effects';
 import { ClubService } from './club/club.service';
+import { SponsorEffects } from './sponsor/sponsor.effects';
+import { SponsorService } from './sponsor/sponsor.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { ClubService } from './club/club.service';
     EffectsModule.run(AuthEffects),
     EffectsModule.run(CompetitionEffects),
     EffectsModule.run(ClubEffects),
+    EffectsModule.run(SponsorEffects),
   ],
   providers: [
     CachedCrudService,
@@ -79,7 +82,9 @@ import { ClubService } from './club/club.service';
     CompetitionService,
     CompetitionEffects,
     ClubService,
-    ClubEffects
+    ClubEffects,
+    SponsorService,
+    SponsorEffects
   ],
   bootstrap: [AppComponent]
 })

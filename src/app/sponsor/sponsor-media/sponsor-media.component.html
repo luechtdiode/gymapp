@@ -7,14 +7,13 @@
   </div>
   <div ng-if="!sponsor.editable"-->
   <!--a ui-sref="app.sponsordetails({id: sponsor._id})" -->
-    <img class="media-object img-thumbnail" [src]="sponsor.image" [alt]="'Sponsor ' + sponsor.name">
+    <img class="media-object img-thumbnail" [src]="'assets/' + sponsor.image" [alt]="'Sponsor ' + sponsor.name">
   <!--/a-->
   <!--/div-->
 </div>
 <div class="media-body">
   <div class="media-body">
-    <h2 class="media-heading">{{sponsor.name}}
-      <span class="label label-warning">{{sponsor.label}}</span></h2>
+    <h2 class="media-heading">{{sponsor.name}}</h2>
     <div class="well">
       <p>{{sponsor.slogan}}</p>
       <footer *ngIf="sponsor.homepage !== undefined">See more on, <i class="fa fa-link"></i>

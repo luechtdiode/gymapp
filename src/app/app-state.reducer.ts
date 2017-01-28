@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import * as fromRouter from '@ngrx/router-store';
 import * as fromCompetitions from './competition/competition.reducer';
 import * as fromClubs from './club/club.reducer';
+import * as fromSponsors from './sponsor/sponsor.reducer';
 import * as fromAuth from './shared/auth.reducer';
 
 
@@ -34,10 +35,12 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
 import { combineReducers } from '@ngrx/store';
+import { SponsorsState } from './sponsor/sponsor.reducer';
 
 export interface AppState {
   competitions: fromCompetitions.CompetitionsState;
   clubs: fromClubs.ClubsState;
+  sponsors: fromSponsors.SponsorsState;
   auth: fromAuth.AuthState;
   router: fromRouter.RouterState;
 }
@@ -45,6 +48,7 @@ export interface AppState {
 const reducers = {
   competitions: fromCompetitions.reducer,
   clubs: fromClubs.reducer,
+  sponsors: fromSponsors.reducer,
   auth: fromAuth.reducer,
   router: fromRouter.routerReducer
 };
@@ -78,3 +82,8 @@ export const getClubsState = (state: AppState) => state.clubs;
 export const getClubs = createSelector(getClubsState, fromClubs.getClubs);
 export const getFeaturedClub = createSelector(getClubsState, fromClubs.getFeatured);
 export const isLoadingFeaturedClub = createSelector(getClubsState, fromClubs.isLoadingFeatured);
+
+export const getSponsorsState = (state: AppState) => state.sponsors;
+export const getSponsors = createSelector(getSponsorsState, fromSponsors.getSponsors);
+export const getFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.getFeatured);
+export const isLoadingFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.isLoadingFeatured);

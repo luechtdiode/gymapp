@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'gymapp-sponsor-media',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SponsorMediaComponent implements OnInit {
 
+  @Input()
   sponsor = {
     name: 'Sponsorname',
     image: '/assets/images/sponsor.png',
