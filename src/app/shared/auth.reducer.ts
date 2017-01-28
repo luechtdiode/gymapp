@@ -28,13 +28,11 @@ export function reducer(state = initialState, action: Action): AuthState {
         }
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.ActionTypes.ELEVATE: {
-            /*const backurl = action.payload;
+            const backurl = action.payload;
             console.log('start login from: ', backurl );
-            return Object.assign({}, state, {
+            return Object.assign({}, state, initialState, {
                 backUrl: backurl,
-            });*/
-            console.log('session timed out');
-            return Object.assign({}, initialState);
+            });
         }
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.ActionTypes.LOGIN_SUCCESS: {
