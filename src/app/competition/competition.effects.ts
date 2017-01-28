@@ -39,23 +39,15 @@ export class CompetitionEffects {
     .ofType(ActionTypes.LOAD_COMPETITIONS)
     .mergeMap(() => this.compService.getCompetitions())
     .map(comps => loadAllSuccessAction(comps));
-/*
-  @Effect()
-  loadCompetitionsOnInit = this.actions$
-    .ofType(ActionTypes.LOAD_COMPETITIONS)
-    // .startWith(loadAllAction())
-    .switchMapTo(this.compService.getCompetitions())
-    .map(comps => loadAllSuccessAction(comps));
-*/
 
   @Effect()
   saveCompetition = this.actions$
     .ofType(ActionTypes.SAVE_COMPETITION)
     .map(action => action.payload)
-    .mergeMap(camp => this.compService.saveCompetition(camp)
-      .map(savedCamp => saveSuccessAction(savedCamp))
+    .mergeMap(competition => this.compService.saveCompetition(competition)
+      .map(savedCompetition => saveSuccessAction(savedCompetition))
       .catch(() => Observable.of(
-        saveFailedAction(camp)
+        saveFailedAction(competition)
       ))
     );
 

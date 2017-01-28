@@ -33,12 +33,12 @@ export class CompetitionService {
   getFeaturedCompetition(): Observable<Competition> {
     console.log('getFeaturedCompetition');
     // return Observable.of(this.data[0]);
-    return this.crud.get<Competition>(BASE_URL + 'next/');
+    return this.crud.unsave().get<Competition>(BASE_URL + 'next/');
   }
 
   getCompetitions(): Observable<Competition[]> {
     console.log('getCompetitions');
-    return this.crud.get<Competition[]>(BASE_URL);
+    return this.crud.unsave().get<Competition[]>(BASE_URL);
       // .map(competitions => Observable.from(competitions)
       //   .map(competition => this.mapService.enrichLocationWithCoordinate(competition))
       //   .concatAll()
@@ -49,7 +49,7 @@ export class CompetitionService {
   getCompetition(id: string): Observable<Competition> {
     console.log('getCompetition');
     // return Observable.of(this.data[+id]);
-    return this.crud.get<Competition>(`${BASE_URL}${id}`);
+    return this.crud.unsave().get<Competition>(`${BASE_URL}${id}`);
       // .flatMap(competition => this.mapService.enrichLocationWithCoordinate(competition));
   }
 

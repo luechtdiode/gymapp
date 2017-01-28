@@ -58,7 +58,17 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         featured: undefined,
       };
     }
-
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case competition.ActionTypes.LOAD_FEATURED_COMPETITION_FAIL:
+    {
+      return {
+        loaded: state.loaded,
+        loading: state.loading,
+        competitions: state.competitions,
+        loadingFeatured: false,
+        featured: undefined,
+      };
+    }
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.LOAD_FEATURED_COMPETITION_SUCCESS:
     {
