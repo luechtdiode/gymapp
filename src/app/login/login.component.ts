@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 import { Observable } from 'rxjs/Observable';
 import { loginAction } from '../shared/auth.actions';
 import { User } from '../model/backend-typings';
@@ -28,5 +29,9 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
     this.store.dispatch(loginAction(this.rememberMe, this.user, this.backUrl));
+  }
+
+  doCancel() {
+    this.store.dispatch(go(this.backUrl));
   }
 }
