@@ -12,6 +12,7 @@
   border-bottom-color: #222222;
   border-bottom: 1px dotted;
   min-height: 150px;
+  //display: block;
 }
 .row-footer {
   margin: 0px auto;
@@ -96,6 +97,7 @@ h2 {
 .nav-tabs {
   border-bottom: 1px dotted #337ab7;
 }
+
 .nav-tabs>li.active>a {
   border-top: 1px dotted #337ab7;
   border-left: 1px dotted #337ab7;

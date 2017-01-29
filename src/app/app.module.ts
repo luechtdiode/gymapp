@@ -38,6 +38,7 @@ import { ClubEffects } from './club/club.effects';
 import { ClubService } from './club/club.service';
 import { SponsorEffects } from './sponsor/sponsor.effects';
 import { SponsorService } from './sponsor/sponsor.service';
+import { ClubListComponent } from './club/club-list/club-list.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { SponsorService } from './sponsor/sponsor.service';
     CompetitionListComponent,
     CompetitionsPageComponent,
     ClubsPageComponent,
+    ClubMediaComponent,
+    ClubListComponent,
     SponsorsPageComponent,
     AboutusPageComponent,
     ContactPageComponent,

@@ -1,3 +1,27 @@
-<p>
-  club-list works!
-</p>
+<div class="container">
+  <div class="row row-content" >
+    <div class="col-12" *ngIf="(isClubloading | async)">
+      <h3>{{message}}</h3>
+    </div>
+    <div class="col-12" *ngIf="!(isClubloading | async)">
+      <ul class="nav nav-tabs" role="tablist">
+        <li *ngFor="let kind of clubKinds" role="presentation"
+        [ngClass]="{active:isSelected(kind)}">
+        <a (click)="select(kind)"
+        aria-controls="kind"
+        role="tab">{{kind}}</a></li>
+      </ul>
+      <div class="tab-content" *ngIf="!(isClubloading | async)">
+        <ul class="list-unstyled">
+          <gymapp-club-media class="media" *ngFor="let club of clubs" [club] = "club">
+          </gymapp-club-media>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-success pull-right" routerLink="registerclub">
+            Register as new Club
+      </button>
+
+    </div>
+  </div>
+</div>
+

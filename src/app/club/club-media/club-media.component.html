@@ -1,19 +1,7 @@
-<div class="media-left media-top">
-  <!--div ng-if="club.editable">
-    <a ui-sref="app.editclub">
-      <img class="media-object img-thumbnail"
-        ng-src={{club.image}} alt="Club {{club.name}}">
-    </a>
-  </div>
-  <div ng-if="!sponsor.editable"-->
-    <!--a ui-sref="app.clubdetails({id: club._id})"-->
-      <img class="media-object img-thumbnail" [src]="'assets/' + club.image" [alt]="club.name">
-    <!--/a-->
-  <!--/div-->
-</div>
+<img class="d-flex align-self-start mr-3" [src]="'assets/' + club.image" [alt]="club.name">
 <div class="media-body">
   <div class="media-body">
-    <h2 class="media-heading">{{club.name}}
+    <h2 class="mt-0 mb-1">{{club.name}}
     <span class="label label-warning">{{club.label}}</span></h2>
     <p>{{club.description}}</p>
     <div *ngIf="club.editable">
