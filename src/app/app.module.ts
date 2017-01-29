@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { CachedCrudService } from './shared/cached-crud.service';
@@ -40,6 +41,8 @@ import { SponsorEffects } from './sponsor/sponsor.effects';
 import { SponsorService } from './sponsor/sponsor.service';
 import { ClubListComponent } from './club/club-list/club-list.component';
 import { SponsorListComponent } from './sponsor/sponsor-list/sponsor-list.component';
+import { EditClubComponent } from './club/edit-club/edit-club.component';
+import { ClubFormComponent } from './club/club-form/club-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { SponsorListComponent } from './sponsor/sponsor-list/sponsor-list.compon
     ClubMediaComponent,
     ClubsPageComponent,
     ClubListComponent,
+    ClubFormComponent,
+    EditClubComponent,
 
     SponsorMediaComponent,
     SponsorsPageComponent,
@@ -67,6 +72,7 @@ import { SponsorListComponent } from './sponsor/sponsor-list/sponsor-list.compon
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(appRoutes),
