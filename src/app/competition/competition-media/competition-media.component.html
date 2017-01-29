@@ -1,8 +1,7 @@
-<div class="media-left media-top" *ngIf="competition">
-  <!--a ui-sref="wkapp({id: competition._id})"-->
-  <img class="media-object img-thumbnail" [src]="'assets/' + competition.image" [alt]="competition.name">
-  <!--/a-->
-</div>
+<!--a ui-sref="wkapp({id: competition._id})"-->
+<img class="d-flex align-self-start mr-3" [src]="'assets/' + competition.image" [alt]="competition.name">
+<!--/a-->
+
 <div class="media-body" *ngIf="competition">
   <h2 class="media-heading">{{competition.name}}
     <span class="label label-warning" font-size="10px">{{competition.kind}}</span></h2>

@@ -19,7 +19,7 @@ export class ClubListComponent implements OnInit, OnDestroy {
   clubKinds: string[] = [];
   kindmap = {};
   isClubloading: Observable<boolean>;
-  selectedTabSubject = new Subject<number>();
+  selectedTabSubject = new Subject<string>();
   selectedTab: string;
   subs: Subscription[] = [];
   message = 'Clubs loading ...';
@@ -27,7 +27,7 @@ export class ClubListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.subs.push(this.selectedTabSubject.subscribe(pred => this.selectedTab = this.clubKinds[pred]));
+    this.subs.push(this.selectedTabSubject.subscribe(pred => this.selectedTab = pred));
 
     this.store.dispatch(fromClubs.loadAllAction());
 
@@ -46,7 +46,7 @@ export class ClubListComponent implements OnInit, OnDestroy {
       const allkinds = Object.keys(this.kindmap)
         .map(key => Object.assign({kind: key, cnt: this.kindmap[key], }))
         .sort((a, b) => a.cnt - b.cnt);
-      this.clubKinds = ['All', ...allkinds.slice(0, 4).map(kind => kind.kind), 'Other'];
+      this.clubKinds = ['All', ...allkinds.slice(0, 1).map(kind => kind.kind), 'Other'];
     }));
 
     this.subs.push(Observable.combineLatest(
@@ -58,7 +58,7 @@ export class ClubListComponent implements OnInit, OnDestroy {
     ).subscribe(clubs => this.clubs = clubs));
 
     this.isClubloading = this.store.select(fromRoot.isLoadingClub);
-    this.selectedTabSubject.next(0);
+    this.selectedTabSubject.next('All');
   }
 
   ngOnDestroy() {
@@ -66,16 +66,26 @@ export class ClubListComponent implements OnInit, OnDestroy {
   }
 
   select(kind) {
-    const index = this.clubKinds.indexOf(kind);
-    if (index === -1) {
-      this.selectedTabSubject.next(0);
-    } else {
-      this.selectedTabSubject.next(index);
-    }
+    this.selectedTabSubject.next(kind);
   }
 
-  getKindCount(kind) {
-    return this.kindmap[kind];
+  getKindCount(kind: string) {
+    switch (kind) {
+      case 'All':
+        return Object.keys(this.kindmap)
+          .map(k => this.kindmap[k])
+          .reduce((a, b) => a + b);
+
+      case 'Other':
+        return Object.keys(this.kindmap)
+          .filter(k => this.clubKinds.indexOf(k) > -1)
+          .map(k => this.kindmap[k])
+          .reduce((a, b) => a + b);
+
+      default: {
+        return this.kindmap[kind];
+      }
+    }
   }
 
   isSelected(kind) {
@@ -85,19 +95,23 @@ export class ClubListComponent implements OnInit, OnDestroy {
     return this.selectedTab === kind;
   }
 
-  private filter(club: Club, predicate: number): boolean {
-    if (predicate === 0) {
-      return true;
-    }
+  private filter(club: Club, kind: string): boolean {
     if (!this.clubKinds) {
       return true;
     }
-    const pred = this.clubKinds[predicate];
-    const forAll = club.kind.reduce((acc, kind) => acc || pred === kind, false);
-    if (predicate < this.clubKinds.length) {
-      return forAll;
-    } else {
-      return !forAll;
+    switch (kind) {
+      case 'All':
+        return true;
+
+      case 'Other':
+        return club.kind
+          .filter(k => this.clubKinds.indexOf(k) === -1)
+          .length > 0;
+
+      default:
+        return club.kind
+          .filter(k => kind === k)
+          .length > 0;
     }
   }
 }

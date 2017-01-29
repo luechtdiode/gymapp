@@ -12,7 +12,6 @@
   border-bottom-color: #222222;
   border-bottom: 1px dotted;
   min-height: 150px;
-  //display: block;
 }
 .row-footer {
   margin: 0px auto;
@@ -25,7 +24,9 @@
   background: #333333;
   color: floralwhite;
 }
-
+.media {
+  margin-bottom: 15px;
+}
 .img-thumbnail {
   border: 0px;
   background-color: transparent;
@@ -96,13 +97,23 @@ h2 {
 }
 .nav-tabs {
   border-bottom: 1px dotted #337ab7;
+  border-top-right-radius: 0.25em;
+  border-top-left-radius: 0.25em;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#303f9f),to(#1a237e));
+  .nav-item {
+    .badge-pill {
+      top: -15px;
+      left: 5px;
+      position: relative;
+    }
+  }
 }
 
 .nav-tabs>li.active>a {
   border-top: 1px dotted #337ab7;
   border-left: 1px dotted #337ab7;
   border-right: 1px dotted #337ab7;
-  background-color: #337ab7;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#1166b7),to(#337ab7));
   color: #013401
 }
 .nav-tabs>li>a:hover {

@@ -1,16 +1,14 @@
-<div class="media-left media-top">
-  <!--div ng-if="sponsor.editable">
+<!--div ng-if="sponsor.editable">
     <a ui-sref="app.editsponsor">
       <img class="media-object img-thumbnail"
         ng-src={{sponsor.image}} alt="Sponsor {{sponsor.name}}">
     </a>
   </div>
   <div ng-if="!sponsor.editable"-->
-  <!--a ui-sref="app.sponsordetails({id: sponsor._id})" -->
-    <img class="media-object img-thumbnail" [src]="'assets/' + sponsor.image" [alt]="'Sponsor ' + sponsor.name">
-  <!--/a-->
-  <!--/div-->
-</div>
+<!--a ui-sref="app.sponsordetails({id: sponsor._id})" -->
+<img class="d-flex align-self-start mr-3" [src]="'assets/' + sponsor.image" [alt]="sponsor.name">
+<!--/a-->
+<!--/div-->
 <div class="media-body">
   <div class="media-body">
     <h2 class="media-heading">{{sponsor.name}}</h2>

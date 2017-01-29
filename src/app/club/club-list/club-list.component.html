@@ -5,11 +5,12 @@
     </div>
     <div class="col-12" *ngIf="!(isClubloading | async)">
       <ul class="nav nav-tabs" role="tablist">
-        <li *ngFor="let kind of clubKinds" role="presentation"
+        <li class="nav-item" *ngFor="let kind of clubKinds" role="presentation"
         [ngClass]="{active:isSelected(kind)}">
-        <a (click)="select(kind)"
+        
+        <a class="nav-link" (click)="select(kind)"
         aria-controls="kind"
-        role="tab">{{kind}}</a></li>
+        role="tab"><span class="badge badge-pill badge-default pull-right">{{getKindCount(kind)}}</span>{{kind}}</a></li>
       </ul>
       <div class="tab-content" *ngIf="!(isClubloading | async)">
         <ul class="list-unstyled">
