@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractListComponent } from '../../shared/abstract-list.component';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Competition } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
@@ -14,7 +14,7 @@ import { AppState } from '../../app-state.reducer';
 })
 export class CompetitionListComponent extends AbstractListComponent<Competition> implements OnInit {
   isClubloading: Observable<boolean>;
-  message = 'Clubs loading ...';
+  message = 'Competitions loading ...';
 
   constructor(protected store: Store<AppState>) {
     super(store);

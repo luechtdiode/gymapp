@@ -8,7 +8,7 @@
         <li class="nav-item" *ngFor="let kind of kindItems" role="presentation"
         [ngClass]="{active:isSelected(kind)}">
         
-        <a class="nav-link" (click)="select(kind)"
+        <a *ngIf="getKindCount(kind) > 0" class="nav-link" (click)="select(kind)"
         aria-controls="kind"
         role="tab"><span class="badge badge-pill badge-default pull-right">{{getKindCount(kind)}}</span>{{kind}}</a></li>
       </ul>

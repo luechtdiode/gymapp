@@ -41,6 +41,9 @@ export class AbstractListComponent<T> implements OnDestroy {
         }
         this.allKindsMap[kind] = kindcnt;
       }));
+      if (Object.keys(this.allKindsMap).length === 0) {
+        this.kindsMap[ALL_KINDS] = items.length;
+      }
       const allkinds = Object.keys(this.allKindsMap)
         .map(key => Object.assign({kind: key, cnt: this.allKindsMap[key], }))
         .sort((a, b) => a.cnt - b.cnt);
@@ -77,14 +80,14 @@ export class AbstractListComponent<T> implements OnDestroy {
       case ALL_KINDS:
         return Object.keys(this.allKindsMap)
           .map(k => this.allKindsMap[k])
-          .concat([0])
+          .concat([0]) // prevent emtpy array to reduce
           .reduce((a, b) => a + b);
 
       case OTHER_KIND:
         return Object.keys(this.allKindsMap)
           .filter(k => this.kindItems.indexOf(k) === -1)
           .map(k => this.allKindsMap[k])
-          .concat([0])
+          .concat([0]) // prevent emtpy array to reduce
           .reduce((a, b) => a + b);
 
       default: {

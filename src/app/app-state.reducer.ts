@@ -86,5 +86,6 @@ export const isLoadingFeaturedClub = createSelector(getClubsState, fromClubs.isL
 
 export const getSponsorsState = (state: AppState) => state.sponsors;
 export const getSponsors = createSelector(getSponsorsState, fromSponsors.getSponsors);
+export const isLoadingSponsors = createSelector(getSponsorsState, fromSponsors.isLoading);
 export const getFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.getFeatured);
 export const isLoadingFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.isLoadingFeatured);

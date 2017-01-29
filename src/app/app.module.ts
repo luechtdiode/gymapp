@@ -39,6 +39,7 @@ import { ClubService } from './club/club.service';
 import { SponsorEffects } from './sponsor/sponsor.effects';
 import { SponsorService } from './sponsor/sponsor.service';
 import { ClubListComponent } from './club/club-list/club-list.component';
+import { SponsorListComponent } from './sponsor/sponsor-list/sponsor-list.component';
 
 @NgModule({
   declarations: [
@@ -46,15 +47,19 @@ import { ClubListComponent } from './club/club-list/club-list.component';
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
+
     CompetitionMediaComponent,
-    ClubMediaComponent,
-    SponsorMediaComponent,
     CompetitionListComponent,
     CompetitionsPageComponent,
-    ClubsPageComponent,
+
     ClubMediaComponent,
+    ClubsPageComponent,
     ClubListComponent,
+
+    SponsorMediaComponent,
     SponsorsPageComponent,
+    SponsorListComponent,
+
     AboutusPageComponent,
     ContactPageComponent,
     LoginComponent,

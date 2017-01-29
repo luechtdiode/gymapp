@@ -97,9 +97,10 @@ h2 {
 }
 .nav-tabs {
   border-bottom: 1px dotted #337ab7;
-  border-top-right-radius: 0.25em;
-  border-top-left-radius: 0.25em;
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#303f9f),to(#1a237e));
+    border-top-right-radius: 0.25em;
+    border-top-left-radius: 0.25em;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#1a237e),to(#303f9f));
+    // background-image: -webkit-gradient(linear,left top,left bottom,from(#303f9f),to(#333333));
   .nav-item {
     .badge-pill {
       top: -15px;

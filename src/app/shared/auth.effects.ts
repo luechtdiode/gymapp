@@ -35,7 +35,7 @@ export class AuthEffects {
     @Effect()
     elevate = this.actions$
         .ofType(ActionTypes.ELEVATE)
-        .map((action) => Observable.of(go(['/login/'])));
+        .map((action) => go(['/login/']));
 
     @Effect()
     login = this.actions$
@@ -66,7 +66,7 @@ export class AuthEffects {
     loginSuccess = this.actions$
         .ofType(ActionTypes.LOGIN_SUCCESS)
         .filter((action) => action.payload.backUrl)
-        .map((action) => Observable.of(go([action.payload.backUrl])));
+        .map((action) => go([action.payload.backUrl]));
 
     @Effect()
     logout = this.actions$
