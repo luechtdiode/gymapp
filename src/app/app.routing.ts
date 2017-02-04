@@ -14,7 +14,7 @@ export const appRoutes: Routes = [
   { path: 'aboutus', component: AboutusPageComponent },
   { path: 'competitions', component: CompetitionsPageComponent },
   { path: 'clubs', component: ClubsPageComponent },
-  { path: 'login/registerclub', component: RegisterClubPageComponent},
+  { path: 'registerclub', component: RegisterClubPageComponent},
   { path: 'sponsors', component: SponsorsPageComponent },
   { path: 'contact', component: ContactPageComponent },
   { path: 'login', component: LoginComponent },

@@ -4,7 +4,7 @@
       <h3>{{message}}</h3>
     </div>
     <div class="col-12" *ngIf="!(isClubloading | async)">
-      <button type="button" class="btn btn-success pull-right" routerLink="registerclub">
+      <button type="button" class="btn btn-success pull-right" [routerLink]="'/registerclub'">
             Register as new Club
       </button>
       <ul class="nav nav-tabs" role="tablist">
