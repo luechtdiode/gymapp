@@ -4,10 +4,10 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { ClubMediaComponent } from './club-media/club-media.component';
-import { SponsorMediaComponent } from './sponsor-media/sponsor-media.component';
-import { CompetitionMediaComponent } from './competition-media/competition-media.component';
+import { HomePageComponent } from './home/home-page.component';
+import { ClubMediaComponent } from './club/club-media/club-media.component';
+import { SponsorMediaComponent } from './sponsor/sponsor-media/sponsor-media.component';
+import { CompetitionMediaComponent } from './competition/competition-media/competition-media.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('AppComponent', () => {
         AppComponent,
         FooterComponent,
         HeaderComponent,
-        HomeComponent,
+        HomePageComponent,
         ClubMediaComponent,
         SponsorMediaComponent,
         CompetitionMediaComponent

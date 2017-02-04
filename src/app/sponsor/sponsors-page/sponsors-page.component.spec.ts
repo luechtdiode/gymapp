@@ -4,14 +4,29 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { SponsorsPageComponent } from './sponsors-page.component';
+import { SponsorListComponent } from '../sponsor-list/sponsor-list.component';
+import { SponsorMediaComponent } from '../sponsor-media/sponsor-media.component';
+import { Store, StoreModule } from '@ngrx/store';
 
-describe('SponsorsPageComponent', () => {
+import { Sponsor } from '../../model/backend-typings';
+import * as fromRoot from '../../app-state.reducer';
+import * as fromSponsor from '../sponsor.actions';
+
+fdescribe('SponsorsPageComponent', () => {
   let component: SponsorsPageComponent;
   let fixture: ComponentFixture<SponsorsPageComponent>;
+  let storeStub: Sponsor[];
 
   beforeEach(async(() => {
+    storeStub = [];
     TestBed.configureTestingModule({
-      declarations: [ SponsorsPageComponent ]
+      declarations: [ SponsorsPageComponent, SponsorListComponent, SponsorMediaComponent ],
+      providers: [
+          {provide: Store, useValue: storeStub}
+      ],
+      imports: [
+          StoreModule.provideStore(fromRoot.getSponsors),
+      ]
     })
     .compileComponents();
   }));

@@ -20,7 +20,7 @@ import { LocalStorageService } from './shared/local-storage.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HomePageComponent } from './home/home.page.component';
+import { HomePageComponent } from './home/home-page.component';
 import { ClubMediaComponent } from './club/club-media/club-media.component';
 import { SponsorMediaComponent } from './sponsor/sponsor-media/sponsor-media.component';
 import { CompetitionMediaComponent } from './competition/competition-media/competition-media.component';

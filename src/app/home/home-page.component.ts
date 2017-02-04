@@ -9,9 +9,9 @@ import * as fromClub from '../club/club.actions';
 import * as fromSponsor from '../sponsor/sponsor.actions';
 
 @Component({
-  selector: 'gymapp-home',
-  templateUrl: './home.page.component.html',
-  styleUrls: ['./home.page.component.scss']
+  selector: 'gymapp-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
   competition: Observable<Competition>;
