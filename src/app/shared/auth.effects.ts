@@ -38,6 +38,32 @@ export class AuthEffects {
         .map((action) => go(['/login/']));
 
     @Effect()
+    registerClub = this.actions$
+        .ofType(ActionTypes.REGISTER_CLUB)
+        .mergeMap((action) => this.authService.register(Object.assign(
+            {}, action.payload.user, action.payload.club))
+            .map((response) => {
+                console.log('register success: ' + response);
+                return loginAction(action.payload.rememberMe, action.payload.user);
+            })
+            .catch(() => [removeCredentialsAction(), go(['/home/'])])
+        // TODO integrate toastr component
+        );
+
+    @Effect()
+    registerSponsor = this.actions$
+        .ofType(ActionTypes.REGISTER_SPONSOR)
+        .mergeMap((action) => this.authService.register(Object.assign(
+            {}, action.payload.user, action.payload.sponsor))
+            .map((response) => {
+                console.log('register success: ' + response);
+                return loginAction(action.payload.rememberMe, action.payload.user);
+            })
+            .catch(() => [removeCredentialsAction(), go(['/home/'])])
+        // TODO integrate toastr component
+        );
+
+    @Effect()
     login = this.actions$
         .ofType(ActionTypes.LOGIN)
         .mergeMap((action) => this.authService.login(action.payload.user)

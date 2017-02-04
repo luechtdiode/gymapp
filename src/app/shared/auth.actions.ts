@@ -1,6 +1,6 @@
 import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
-import { User } from '../model/backend-typings';
+import { User, Club, Sponsor } from '../model/backend-typings';
 
 export const ActionTypes = {
   LOAD_CREDENTIALS:         type('[LOAD_CREDENTIALS] load user creds'),
@@ -10,8 +10,10 @@ export const ActionTypes = {
   LOGIN_SUCCESS:            type('[LOGIN_SUCCESS] user login Success'),
   LOGOUT:                   type('[LOGOUT] user logout'),
   LOGOUT_SUCCESS:           type('[LOGOUT_SUCCESS] user logout Success'),
-  REGISTER:                 type('[REGISTER] user register'),
-  REGISTER_SUCCESS:         type('[REGISTER_SUCCESS] user register Success'),
+  REGISTER_CLUB:            type('[REGISTER_CLUB] club register'),
+  // REGISTER_CLUB_SUCCESS:    type('[REGISTER_CLUB_SUCCESS] club register Success'),
+  REGISTER_SPONSOR:         type('[REGISTER_SPONSOR] sponsor register'),
+  // REGISTER_SPONSOR_SUCCESS: type('[REGISTER_SPONSOR_SUCCESS] sponsor register Success'),
 };
 
 export function loadCredentialsAction(): Action {
@@ -30,6 +32,30 @@ export function elevateAction(backUrl: string): Action {
     payload: backUrl,
   };
 }
+export function registerClubAction(user: User, club: Club): Action {
+  return {
+    type: ActionTypes.REGISTER_CLUB,
+    payload: {user: user, club: club },
+  };
+}
+/* export function registerClubSuccessAction(user: User, club: Club): Action {
+  return {
+    type: ActionTypes.REGISTER_CLUB_SUCCESS,
+    payload: {user: user, club: club },
+  };
+}*/
+export function registerSponsorAction(user: User, sponsor: Sponsor): Action {
+  return {
+    type: ActionTypes.REGISTER_SPONSOR,
+    payload: {user: user, sponsor: sponsor },
+  };
+}
+/*export function registerSponsorSuccessAction(user: User, sponsor: Sponsor): Action {
+  return {
+    type: ActionTypes.REGISTER_SPONSOR_SUCCESS,
+    payload: {user: user, sponsor: sponsor },
+  };
+}*/
 export function loginAction(remember: boolean, user: User, backUrl: string = undefined): Action {
   return {
     type: ActionTypes.LOGIN,

@@ -31,6 +31,10 @@ export class AuthService {
     return Observable.of(true);
   }
 
-  register(registerData) {}
+  register(registerData) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.remote.post('api/users/register', registerData);
+  }
 
 }

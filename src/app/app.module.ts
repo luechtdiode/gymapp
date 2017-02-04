@@ -41,8 +41,10 @@ import { SponsorEffects } from './sponsor/sponsor.effects';
 import { SponsorService } from './sponsor/sponsor.service';
 import { ClubListComponent } from './club/club-list/club-list.component';
 import { SponsorListComponent } from './sponsor/sponsor-list/sponsor-list.component';
-import { EditClubComponent } from './club/edit-club/edit-club.component';
+import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.component';
 import { ClubFormComponent } from './club/club-form/club-form.component';
+import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
+import { RegisterUserFormComponent } from './login/register-user-form/register-user-form.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ClubFormComponent } from './club/club-form/club-form.component';
     ClubsPageComponent,
     ClubListComponent,
     ClubFormComponent,
-    EditClubComponent,
+    RegisterClubPageComponent,
+    EditClubPageComponent,
 
     SponsorMediaComponent,
     SponsorsPageComponent,
@@ -68,6 +71,7 @@ import { ClubFormComponent } from './club/club-form/club-form.component';
     AboutusPageComponent,
     ContactPageComponent,
     LoginComponent,
+    RegisterUserFormComponent,
   ],
   imports: [
     BrowserModule,
