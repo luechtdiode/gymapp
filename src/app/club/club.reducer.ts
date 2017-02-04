@@ -6,6 +6,7 @@ export interface ClubsState {
   loaded: boolean;
   loading: boolean;
   clubs: Club[];
+  memberOfClub?: Club;
   loadingFeatured: boolean;
   featured: Club;
 };
@@ -14,7 +15,7 @@ const initialState: ClubsState = {
   loaded: false,
   loading: false,
   clubs: [],
-
+  memberOfClub: undefined,
   loadingFeatured: false,
   featured: undefined,
 };
@@ -27,6 +28,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         loading: true,
         loaded: state.loaded,
         clubs: state.clubs,
+        memberOfClub: state.memberOfClub,
         loadingFeatured: state.loadingFeatured,
         featured: state.featured,
       });
@@ -42,6 +44,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         clubs: [...cs].sort((club1, club2): number => {
           return club2.name.localeCompare(club1.name);
         }),
+        memberOfClub: state.memberOfClub,
         loadingFeatured: state.loadingFeatured,
         featured: state.featured,
       };
@@ -54,6 +57,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         loaded: state.loaded,
         loading: state.loading,
         clubs: state.clubs,
+        memberOfClub: state.memberOfClub,
         loadingFeatured: true,
         featured: undefined,
       };
@@ -65,6 +69,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         loaded: state.loaded,
         loading: state.loading,
         clubs: state.clubs,
+        memberOfClub: state.memberOfClub,
         loadingFeatured: false,
         featured: undefined,
       };
@@ -76,7 +81,20 @@ export function reducer(state = initialState, action: Action): ClubsState {
         loaded: state.loaded,
         loading: state.loading,
         clubs: state.clubs,
+        memberOfClub: state.memberOfClub,
         loadingFeatured: false,
+        featured: action.payload,
+      };
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case club.ActionTypes.LOAD_CLUB_SUCCESS:
+    {
+      return {
+        loaded: state.loaded,
+        loading: state.loading,
+        clubs: state.clubs,
+        memberOfClub: action.payload,
+        loadingFeatured: state.loadingFeatured,
         featured: action.payload,
       };
     }
@@ -94,6 +112,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         ].sort((club1, club2): number => {
           return club2.name.localeCompare(club1.name);
         }),
+        memberOfClub: state.memberOfClub,
         featured: state.featured,
       });
     }
@@ -116,7 +135,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
 }
 
 export const getClubs = (state: ClubsState) => state.clubs;
-
+export const getMemberOfClub = (state: ClubsState) => state.memberOfClub;
 export const getIds = (state: ClubsState) => getClubs(state).map(c => c._id);
 
 export const isLoaded = (state: ClubsState) => state.loaded;

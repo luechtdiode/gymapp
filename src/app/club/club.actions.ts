@@ -12,6 +12,7 @@ export const ActionTypes = {
   DELETE_CLUB_SUCCESS:        type('[CLUB] Delete CLUB Success'),
   DELETE_CLUB_FAIL:           type('[CLUB] Delete CLUB Fail'),
   LOAD_CLUB:                  type('[CLUB] Load CLUB'),
+  LOAD_CLUB_SUCCESS:          type('[LOAD_CLUB_SUCCESS] Load CLUB Success'),
   LOAD_FEATURED_CLUB:         type('[CLUB] Load featured CLUB'),
   LOAD_FEATURED_CLUB_SUCCESS: type('[CLUB] Load featured CLUB success'),
   LOAD_FEATURED_CLUB_FAIL:    type('[CLUB] Load featured CLUB fail'),
@@ -67,6 +68,12 @@ export function deleteFailedAction(payload: Club): Action {
 export function loadAction(payload: string): Action {
   return {
     type: ActionTypes.LOAD_CLUB,
+    payload: payload,
+  };
+}
+export function loadSuccessAction(payload: Club): Action {
+  return {
+    type: ActionTypes.LOAD_CLUB_SUCCESS,
     payload: payload,
   };
 }

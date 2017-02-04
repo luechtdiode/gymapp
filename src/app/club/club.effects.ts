@@ -16,6 +16,7 @@ import { ActionTypes,
   loadFeaturedFailedAction,
   loadAllSuccessAction,
   loadAllAction,
+  loadSuccessAction,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
@@ -39,6 +40,13 @@ export class ClubEffects {
     .ofType(ActionTypes.LOAD_CLUBS)
     .mergeMap(() => this.compService.getClubs())
     .map(clubs => loadAllSuccessAction(clubs));
+
+  @Effect()
+  loadClub = this.actions$
+    .ofType(ActionTypes.LOAD_CLUB)
+    .map(action => action.payload)
+    .mergeMap(id => this.compService.getClub(id))
+    .map(club => loadSuccessAction(club));
 
   @Effect()
   saveClub = this.actions$

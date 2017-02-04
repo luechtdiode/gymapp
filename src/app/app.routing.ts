@@ -7,6 +7,7 @@ import { SponsorsPageComponent } from './sponsor/sponsors-page/sponsors-page.com
 import { ContactPageComponent } from './contact/contact-page/contact-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
+import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const appRoutes: Routes = [
   { path: 'aboutus', component: AboutusPageComponent },
   { path: 'competitions', component: CompetitionsPageComponent },
   { path: 'clubs', component: ClubsPageComponent },
+  { path: 'editclub', component: EditClubPageComponent},
   { path: 'registerclub', component: RegisterClubPageComponent},
   { path: 'sponsors', component: SponsorsPageComponent },
   { path: 'contact', component: ContactPageComponent },
