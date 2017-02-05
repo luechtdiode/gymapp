@@ -6,6 +6,7 @@ import { loginAction } from '../shared/auth.actions';
 import { User } from '../model/backend-typings';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
+import { RouterPath } from '../app.routing';
 
 @Component({
   selector: 'gymapp-login',
@@ -21,6 +22,9 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
 
   backUrl: string = undefined;
+  registerCLubLink = '/' + RouterPath.REGISTER_CLUB;
+  registerSponsorLink = '/' + RouterPath.REGISTER_SPONSOR;
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {

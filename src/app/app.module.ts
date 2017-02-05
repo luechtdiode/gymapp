@@ -45,6 +45,7 @@ import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.comp
 import { ClubFormComponent } from './club/club-form/club-form.component';
 import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
 import { RegisterUserFormComponent } from './login/register-user-form/register-user-form.component';
+import { UrlProvider } from './shared/urlProvider';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { RegisterUserFormComponent } from './login/register-user-form/register-u
     EffectsModule.run(SponsorEffects),
   ],
   providers: [
+    UrlProvider,
     CachedCrudService,
     CrudService,
     LocalStorageService,

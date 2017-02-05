@@ -37,20 +37,6 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
               .filter(club => club !== undefined)
               .subscribe(club => {
                 const toEdit = Object.assign({}, club);
-                /*{
-                _id: '5895bda1054a8313ec424077',
-                createdAt: '2017-02-04T11:40:17.168Z',
-                description: 'newclub description',
-                facebookhandle: '',
-                googleplushandle: '',
-                image: 'images/verein-flag.png',
-                kind: ['test'],
-                label: 'GeTu',
-                name: 'newclub',
-                twitterhandle: '',
-                updatedAt: '2017-02-04T11:40:17.168Z',
-                youtubehandle: '',
-                }*/
                 this.form.patchValue(toEdit);
               })
           );

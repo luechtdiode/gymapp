@@ -6,6 +6,7 @@ import { Club } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromClubs from '../club.actions';
 import { AbstractListComponent } from '../../shared/abstract-list.component';
+import { RouterPath } from '../../app.routing';
 
 @Component({
   selector: 'gymapp-club-list',
@@ -15,7 +16,8 @@ import { AbstractListComponent } from '../../shared/abstract-list.component';
 export class ClubListComponent extends AbstractListComponent<Club> implements OnInit {
   isClubloading: Observable<boolean>;
   message = 'Clubs loading ...';
-
+  registerCLubLink = '/' + RouterPath.REGISTER_CLUB;
+  
   constructor(protected store: Store<AppState>) {
     super(store);
   }

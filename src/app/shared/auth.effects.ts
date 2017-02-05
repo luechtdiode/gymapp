@@ -14,6 +14,7 @@ import { User } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 import { isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
+import { RouterPath } from '../app.routing';
 import {
     ActionTypes, loadCredentialsAction, loginAction,
     removeCredentialsAction, loginSuccessAction, logoutSuccessAction,
@@ -35,7 +36,7 @@ export class AuthEffects {
     @Effect()
     elevate = this.actions$
         .ofType(ActionTypes.ELEVATE)
-        .map((action) => go(['/login/']));
+        .map((action) => go([RouterPath.LOGIN]));
 
     @Effect()
     registerClub = this.actions$
@@ -46,7 +47,7 @@ export class AuthEffects {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
             })
-            .catch(() => [removeCredentialsAction(), go(['/home/'])])
+            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
         // TODO integrate toastr component
         );
 
@@ -59,7 +60,7 @@ export class AuthEffects {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
             })
-            .catch(() => [removeCredentialsAction(), go(['/home/'])])
+            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
         // TODO integrate toastr component
         );
 
@@ -79,7 +80,7 @@ export class AuthEffects {
                 }
                 return loginSuccessAction( credentialsAccepted, action.payload.backUrl);
             })
-            .catch(() => [removeCredentialsAction(), go(['/home/'])])
+            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
         // TODO integrate toastr component
         );
 
@@ -104,7 +105,7 @@ export class AuthEffects {
     @Effect()
     logoutSuccess = this.actions$
         .ofType(ActionTypes.LOGOUT_SUCCESS/*, ActionTypes.LOGIN_SUCCESS*/)
-        .flatMap(() => [removeCredentialsAction(), go(['/home/'])]);
+        .flatMap(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
 
     constructor(
         private actions$: Actions,

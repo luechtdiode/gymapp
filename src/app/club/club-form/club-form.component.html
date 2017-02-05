@@ -1,6 +1,11 @@
 <div class="col-12" [formGroup]="form">
   <div class="row" >
     <div class="col-12 col-sm-6">
+      <h2>Club</h2>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-12 col-sm-6">
       <div class="form-group">
         <label for="clubname">Club name</label>
         <input type="text" class="form-control input-sm" id="clubname" name="clubname" placeholder="Name of the Club" formControlName="name" required/>
@@ -66,7 +71,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-default btn-sm pull-right" ui-sref="app.clubs">Cancel</button>
+      <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="clubsLink">Cancel</button>
       <button type="submit" class="btn btn-info btn-sm pull-right" ngDisabled="EditForm.$invalid">Save</button>
       <!--ng-disabled="EditForm.$invalid"-->
     </div>

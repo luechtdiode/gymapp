@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-toggleable-sm sticky-top navbar-inverse">
+<nav class="navbar navbar-toggleable-sm fixed-top sticky-top navbar-inverse">
   <div class="container">
     <button class="navbar-toggler navbar-toggler-right" type="button" 
         data-toggle="collapse" data-target="#navbar" 
@@ -10,30 +10,30 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLink="home" routerLinkActive="active">
-          <a routerLink="home" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="homeLink" routerLinkActive="active" class="nav-link">
             <i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </li>
         <li class="nav-item" routerLink="aboutus" routerLinkActive="active">
-          <a routerLink="aboutus" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="aboutLink" routerLinkActive="active" class="nav-link">
             <i class="fa fa-info" aria-hidden="true"></i> About</a>
         </li>
         <li class="nav-item" routerLink="competitions" routerLinkActive="active">
-          <a routerLink="competitions" routerLinkActive="active"  class="nav-link">
+          <a [routerLink]="competitionsLink" routerLinkActive="active"  class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Competitions
           </a>
         </li>
         <li class="nav-item" routerLink="clubs" routerLinkActive="active">
-          <a routerLink="clubs" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="clubsLink" routerLinkActive="active" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Clubs
           </a>
         </li>
         <li class="nav-item" routerLink="sponsors" routerLinkActive="active">
-          <a routerLink="sponsors" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="sponsorsLink" routerLinkActive="active" class="nav-link">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Sponsors
           </a>
         </li>
         <li class="nav-item" routerLink="contact" routerLinkActive="active">
-          <a routerLink="contact" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="contactLink" routerLinkActive="active" class="nav-link">
             <i class="fa fa-envelope-o"></i> Contact</a>
         </li>
       </ul>
@@ -42,11 +42,11 @@
           <a (click)="logIn()" class="nav-link" routerLinkActive="active">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (clubid | async)> '-1'">
-          <a routerLink="editclub" class="nav-link" routerLinkActive="active">{{username | async}} (as Club)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (clubid | async) !== undefined">
+          <a [routerLink]="editClubProfileLink" class="nav-link" routerLinkActive="active">{{username | async}} (as Club)</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (sponsorid | async) > '-1'">
-          <a routerLink="editsponsor" class="nav-link" routerLinkActive="active">{{username | async}} (as Sponsor)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined">
+          <a [routerLink]="editSponsorProfileLink" class="nav-link" routerLinkActive="active">{{username | async}} (as Sponsor)</a>
         </li>
         <li class="nav-item" *ngIf="(loggedIn | async)">
           <a (click)="logOut()" class="nav-link" >
@@ -62,10 +62,29 @@
     <div class="row row-header">
       <div class="col-xs-12 col-sm-8">
         <h1>Gym Competition</h1>
-        <p>We bring Clubs and Sponsors together.</p>
+        <em>We bring Clubs and Sponsors together.</em>
+        <div *ngIf="activeLocation() === competitionsLink">
+          <h2>Watch, what Competitions happens next</h2>
+        </div>
+        <div *ngIf="activeLocation() === clubsLink">
+          <h2>Explore our rich list of engaged clubs</h2>
+        </div>
+        <div *ngIf="activeLocation() === sponsorsLink">
+          <h2>Explore our rich list of supporting sponsors</h2>
+        </div>
       </div>
-      <div class="col-xs-12 col-sm-4">
-        <img src="/assets/images/logo.png" class="img-responsive">
+      <div class="col-xs-12 col-sm-4 ">
+        <img src="/assets/images/logo.png" class="horizontal-center">
+        <br/><br/>
+        <button *ngIf="activeLocation() === competitionsLink && (clubid | async) !== undefined" type="button" class="horizontal-center btn btn-success" [routerLink]="createCompetitionLink">
+          Plan new Competition
+        </button>
+        <button *ngIf="activeLocation() === clubsLink && (clubid | async) === undefined" type="button" class="horizontal-center btn btn-success" [routerLink]="registerClubLink">
+          Register as new Club
+        </button>
+        <button *ngIf="activeLocation() === sponsorsLink && (sponsorid | async) === undefined" type="button" class="horizontal-center btn btn-success" [routerLink]="registerSponsorLink">
+          Register as new Sponsor
+        </button>
       </div>
     </div>
   </div>
