@@ -55,7 +55,8 @@ export interface Sponsor {
     name?: string;
     image?: string;
     slogan?: string;
-    sponsoractions: SponsorAction[];
+    homepage?: string;
+    sponsoractions?: SponsorAction[];
     googleplushandle?: string;
     facebookhandle?: string;
     twitterhandle?: string;
