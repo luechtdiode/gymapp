@@ -1,3 +1,4 @@
+
 <!--a ui-sref="wkapp({id: competition._id})"-->
 <img class="d-flex align-self-start mr-3" [src]="'assets/' + competition.image" [alt]="competition.name">
 <!--/a-->
@@ -5,19 +6,18 @@
 <div class="media-body" *ngIf="competition">
   <h2 class="media-heading">{{competition.name}}
     <span class="label label-warning" font-size="10px">{{competition.kind}}</span></h2>
-  <p>{{competition.description}}</p>
+  <p class="description">{{competition.description}}</p>
   <div *ngFor="let date of competition.dates">
     <span><i class="fa fa-calendar" aria-hidden="true"></i> {{date | date: 'MM-dd-yyyy'}}
   </span>
   </div>
   <cite>{{competition.location}}, {{competition.club}}</cite>
-  <div *ngIf="competition.editable">
-    <button type="button" class="btn btn-danger pull-right" (click)="delete(competition._id)">
-      Delete
-    </button>
-    <button type="button" class="btn btn-success pull-right">
-      <!-- ui-sref="app.editcompetition({id: competition._id}) -->
-      Edit Competition
-    </button>
+  <div *ngIf="editable">
+      <button type="button" class="btn btn-danger pull-right" (click)="onDelete.emit(competition._id)">
+        Delete me
+      </button>
+      <button type="button" class="btn btn-success pull-right" (click)="onEdit.emit(competition._id)">
+        Edit Competition
+      </button>
   </div>
 </div>

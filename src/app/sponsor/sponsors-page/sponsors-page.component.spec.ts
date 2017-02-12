@@ -9,7 +9,7 @@ import { reducer } from '../../app-state.reducer';
 import { Sponsor } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 
-fdescribe('SponsorsPageComponent', () => {
+describe('SponsorsPageComponent', () => {
   let component: SponsorsPageComponent;
   let fixture: ComponentFixture<SponsorsPageComponent>;
   const sponsorListStub: Sponsor[] = [

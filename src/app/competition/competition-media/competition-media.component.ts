@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Competition } from '../../model/backend-typings';
 
 @Component({
@@ -9,7 +9,7 @@ import { Competition } from '../../model/backend-typings';
 export class CompetitionMediaComponent {
 
   @Input()
-  competition: Competition = {
+  competition: Competition = <Competition>{
     name: 'Testwettkampf',
     image: '/images/wettkampf.png',
     kind: 'KuTu',
@@ -17,6 +17,15 @@ export class CompetitionMediaComponent {
     dates: [new Date('2017-02-15T00:00:00.0Z')],
     location: 'Basel',
     club: 'BTV Basel',
-  } as Competition;
+  };
 
+  @Input()
+  editable = false;
+
+  @Output()
+  onDelete = new EventEmitter<string>();
+
+
+  @Output()
+  onEdit = new EventEmitter<string>();
 }
