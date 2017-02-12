@@ -13,16 +13,15 @@
   <div class="media-body">
     <h2 class="media-heading">{{sponsor.name}}</h2>
     <div class="well">
-      <p>{{sponsor.slogan}}</p>
+      <p class="slogan">{{sponsor.slogan}}</p>
       <footer *ngIf="sponsor.homepage !== undefined">See more on, <i class="fa fa-link"></i>
         <a [href]="sponsor.homepage" target="_blank"><cite title="Homepage">{{sponsor.homepage}}</cite></a></footer>
     </div>
-    <div *ngIf="sponsor.editable">
-      <button type="button" class="btn btn-danger pull-right" (click)="delete(sponsor._id)">
+    <div *ngIf="editable">
+      <button type="button" class="btn btn-danger pull-right" (click)="onDelete.emit(sponsor._id)">
         Delete me
       </button>
-      <button type="button" class="btn btn-success pull-right">
-        <!-- ui-sref="app.editsponsor({id: sponsor._id})"-->
+      <button type="button" class="btn btn-success pull-right" (click)="onEdit.emit(sponsor._id)">
         Edit Sponsor
       </button>
     </div>

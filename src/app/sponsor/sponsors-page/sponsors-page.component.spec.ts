@@ -1,43 +1,58 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SponsorsPageComponent } from './sponsors-page.component';
 import { SponsorListComponent } from '../sponsor-list/sponsor-list.component';
 import { SponsorMediaComponent } from '../sponsor-media/sponsor-media.component';
-import { Store, StoreModule } from '@ngrx/store';
-
+import { Store, Action, StoreModule } from '@ngrx/store';
+import { AppState } from '../../app-state.reducer';
+import { reducer } from '../../app-state.reducer';
 import { Sponsor } from '../../model/backend-typings';
-import * as fromRoot from '../../app-state.reducer';
-import * as fromSponsor from '../sponsor.actions';
+import { Observable } from 'rxjs/Observable';
 
 fdescribe('SponsorsPageComponent', () => {
   let component: SponsorsPageComponent;
   let fixture: ComponentFixture<SponsorsPageComponent>;
-  let storeStub: Sponsor[];
+  const sponsorListStub: Sponsor[] = [
+    <Sponsor>{
+      name: 'Changed-Sponsorname',
+      image: 'images/changed-sponsor.png',
+      slogan: 'Changed Slogan of sponsor',
+      homepage: undefined,
+      sponsoractions: []
+    }
+  ];
+  const storeStub: Store<AppState> = <Store<AppState>>{
+    select: (selector: any, ...paths: string[]) => {
+      console.log('selecting ', selector);
+      return Observable.of(sponsorListStub);
+    },
+    dispatch: (action: Action) => {
+      console.log('dispatching ', action);
+    }
+  };
 
   beforeEach(async(() => {
-    storeStub = [];
     TestBed.configureTestingModule({
-      declarations: [ SponsorsPageComponent, SponsorListComponent, SponsorMediaComponent ],
+      declarations: [SponsorsPageComponent, SponsorListComponent, SponsorMediaComponent],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
-          {provide: Store, useValue: storeStub}
+        { provide: Store, useValue: storeStub }
       ],
       imports: [
-          StoreModule.provideStore(fromRoot.getSponsors),
+        StoreModule.provideStore({ reducer })
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SponsorsPageComponent);
+    fixture = TestBed.createComponent(SponsorListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('can load instance', () => {
     expect(component).toBeTruthy();
   });
+
 });

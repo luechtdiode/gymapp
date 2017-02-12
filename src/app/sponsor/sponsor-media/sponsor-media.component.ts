@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Sponsor } from '../../model/backend-typings';
 
 @Component({
   selector: 'gymapp-sponsor-media',
@@ -8,14 +9,23 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SponsorMediaComponent implements OnInit {
 
   @Input()
-  sponsor = {
+  sponsor: Sponsor = {
     name: 'Sponsorname',
     image: '/assets/images/sponsor.png',
-    label: 'label',
     slogan: 'Slogan of sponsor',
     homepage: 'https://www.sponsor.com'
   };
 
+  @Input()
+  editable = false;
+
+  @Output()
+  onDelete = new EventEmitter<string>();
+
+
+  @Output()
+  onEdit = new EventEmitter<string>();
+  
   constructor() { }
 
   ngOnInit() {

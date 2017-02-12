@@ -6,7 +6,7 @@ import { AbstractListComponent } from '../../shared/abstract-list.component';
 import { Sponsor } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromSponsor from '../sponsor.actions';
-import { flatMap } from '../../shared/flatMap';
+import { flatMap } from '../../shared/collection-util';
 
 @Component({
   selector: 'gymapp-sponsor-list',
