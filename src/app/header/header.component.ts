@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
@@ -14,7 +14,7 @@ import { UrlProvider } from '../shared/urlProvider';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   loggedIn: Observable<boolean>;
   clubid: Observable<string>;
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   editSponsorProfileLink = '/' + RouterPath.SPONSORPROFILE;
   registerClubLink = '/' + RouterPath.REGISTER_CLUB;
   registerSponsorLink = '/' + RouterPath.REGISTER_SPONSOR;
-  
+
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
               private location: UrlProvider) { }
@@ -51,6 +51,10 @@ export class HeaderComponent implements OnInit {
     this.sponsorid = this.store.select(fromRoot.isMemberOfSponsor);
     this.loggedIn = this.store.select(fromRoot.isLoggedIn);
     this.username = this.store.select(fromRoot.getUsername);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   logIn() {
