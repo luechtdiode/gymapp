@@ -8,7 +8,7 @@ import { ContactPageComponent } from './contact/contact-page/contact-page.compon
 import { LoginComponent } from './login/login.component';
 import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
 import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.component';
-import { flatten } from './shared/flatMap';
+import { flatten } from './shared/collection-util';
 import { Action } from '@ngrx/store';
 import { go } from '@ngrx/router-store';
 
