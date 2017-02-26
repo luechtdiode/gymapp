@@ -35,4 +35,5 @@ To get more help on the `angular-cli` use `ng help` or go check out the [Angular
 ## Update to latest dependencies
 
 watch out what `npm outdated` is reporting to the console. 
-Then carefully compare with the vesions in package.json, update, reload new deps with `npm cache clean`, `npm install` and run all tests.
+Then carefully compare with the vesions in package.json, update, reload new deps with `npm cache clean`, `npm install`, `npm prune` and run all tests.
+If all tests are passing, freeze the configuration by , `npm shrinkwrap`
