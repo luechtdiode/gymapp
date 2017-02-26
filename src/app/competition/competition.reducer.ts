@@ -36,49 +36,38 @@ export function reducer(state = initialState, action: Action): CompetitionsState
     case competition.ActionTypes.LOAD_COMPETITIONS_SUCCESS:
     {
       const cs: Competition[] = action.payload;
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
         competitions: [...cs].sort((comp1, comp2): number => {
           return comp2.dates[0].getDate() - comp1.dates[0].getDate();
         }),
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.LOAD_FEATURED_COMPETITION:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        competitions: state.competitions,
+      return Object.assign({}, state, {
         loadingFeatured: true,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.LOAD_FEATURED_COMPETITION_FAIL:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        competitions: state.competitions,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.LOAD_FEATURED_COMPETITION_SUCCESS:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        competitions: state.competitions,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: action.payload,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
@@ -87,14 +76,12 @@ export function reducer(state = initialState, action: Action): CompetitionsState
     {
       return Object.assign({}, state, {
         loading: true,
-        loaded: state.loaded,
         competitions: [
           ...state.competitions.filter(comp => comp._id !== action.payload._id),
-          action.payload
+          action.payload,
         ].sort((comp1, comp2): number => {
           return comp2.dates[0].getDate() - comp1.dates[0].getDate();
         }),
-        featured: state.featured,
       });
     }
 

@@ -11,7 +11,7 @@ import * as fromSponsor from '../sponsor/sponsor.actions';
 @Component({
   selector: 'gymapp-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
   competition: Observable<Competition>;

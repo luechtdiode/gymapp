@@ -38,7 +38,7 @@ export function reducer(state = initialState, action: Action): AuthState {
         case auth.ActionTypes.LOGIN_SUCCESS: {
             return Object.assign({}, state, {
                 user: action.payload.user,
-                isAuthenticated: action.payload.user.success
+                isAuthenticated: action.payload.user.success,
             });
         }
         // tslint:disable-next-line:no-switch-case-fall-through

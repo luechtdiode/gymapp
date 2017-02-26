@@ -36,49 +36,38 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     case sponsor.ActionTypes.LOAD_SPONSORS_SUCCESS:
     {
       const cs: Sponsor[] = action.payload;
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
         sponsors: [...cs].sort((sponsor1, sponsor2): number => {
           return sponsor2.name.localeCompare(sponsor1.name);
         }),
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
     case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        sponsors: state.sponsors,
+      return Object.assign({}, state, {
         loadingFeatured: true,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR_FAIL:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        sponsors: state.sponsors,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR_SUCCESS:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        sponsors: state.sponsors,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: action.payload,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
@@ -87,14 +76,12 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     {
       return Object.assign({}, state, {
         loading: true,
-        loaded: state.loaded,
         sponsors: [
           ...state.sponsors.filter(sponsor => sponsor._id !== action.payload._id),
-          action.payload
+          action.payload,
         ].sort((sponsor1, sponsor2): number => {
           return sponsor2.name.localeCompare(sponsor1.name);
         }),
-        featured: state.featured,
       });
     }
 

@@ -26,11 +26,6 @@ export function reducer(state = initialState, action: Action): ClubsState {
     {
       return Object.assign({}, state, {
         loading: true,
-        loaded: state.loaded,
-        clubs: state.clubs,
-        memberOfClub: state.memberOfClub,
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
       });
     }
 
@@ -38,65 +33,46 @@ export function reducer(state = initialState, action: Action): ClubsState {
     case club.ActionTypes.LOAD_CLUBS_SUCCESS:
     {
       const cs: Club[] = action.payload;
-      return {
+      return Object.assign({}, state, {
         loaded: true,
         loading: false,
         clubs: [...cs].sort((club1, club2): number => {
           return club2.name.localeCompare(club1.name);
         }),
-        memberOfClub: state.memberOfClub,
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
     case club.ActionTypes.LOAD_FEATURED_CLUB:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        clubs: state.clubs,
-        memberOfClub: state.memberOfClub,
+      return Object.assign({}, state, {
         loadingFeatured: true,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case club.ActionTypes.LOAD_FEATURED_CLUB_FAIL:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        clubs: state.clubs,
-        memberOfClub: state.memberOfClub,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: undefined,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case club.ActionTypes.LOAD_FEATURED_CLUB_SUCCESS:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        clubs: state.clubs,
-        memberOfClub: state.memberOfClub,
+      return Object.assign({}, state, {
         loadingFeatured: false,
         featured: action.payload,
-      };
+      });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
     case club.ActionTypes.LOAD_CLUB_SUCCESS:
     {
-      return {
-        loaded: state.loaded,
-        loading: state.loading,
-        clubs: state.clubs,
+      return Object.assign({}, state, {
         memberOfClub: action.payload,
-        loadingFeatured: state.loadingFeatured,
         featured: action.payload,
-      };
+      });
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
@@ -105,15 +81,12 @@ export function reducer(state = initialState, action: Action): ClubsState {
     {
       return Object.assign({}, state, {
         loading: true,
-        loaded: state.loaded,
         clubs: [
           ...state.clubs.filter(club => club._id !== action.payload._id),
-          action.payload
+          action.payload,
         ].sort((club1, club2): number => {
           return club2.name.localeCompare(club1.name);
         }),
-        memberOfClub: state.memberOfClub,
-        featured: state.featured,
       });
     }
 

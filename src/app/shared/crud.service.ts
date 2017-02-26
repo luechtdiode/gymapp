@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Response, Headers, RequestOptions, Http } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-import {AuthHttp, AuthConfig} from 'angular2-jwt';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-import {UrlProvider} from './urlProvider';
+import { UrlProvider } from './urlProvider';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, activeRoute } from '../app-state.reducer';
@@ -22,12 +22,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         noTokenScheme: true,
         tokenName: 'x-access-token',
         tokenGetter: (() => sessionStorage.getItem('x-access-token')),
-        globalHeaders: [{'Content-Type': 'application/json'}],
+        globalHeaders: [ {'Content-Type': 'application/json'} ],
         noJwtError: false,
-      }
+      },
     ),
     http,
-    options
+    options,
   );
 }
 
@@ -97,7 +97,7 @@ export class CrudService implements OnDestroy {
           subject.error(error);
         }
       },
-      () => subject.complete()
+      () => subject.complete(),
     );
     return subject.asObservable();
   }

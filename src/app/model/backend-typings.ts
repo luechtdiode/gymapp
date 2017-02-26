@@ -31,7 +31,7 @@ export interface Action {
 }
 
 export interface Currency {
-
+    value?: number;
 }
 
 export interface CompSponsorAction {
@@ -85,7 +85,9 @@ export interface Sponsor {
 "description":"asdf",
 "__v":0,
 "youtubehandle":"","twitterhandle":"","facebookhandle":"","googleplushandle":"",
-"sponsoractions":[{"_id":"57b0c87958caa3d036ae05f0","action":"57b0c87958caa3d036ae05f0","maxcnt":100,"costperaction":10},{"_id":"57b0c87958caa3d036ae05f2","action":"57b0c87958caa3d036ae05f2","maxcnt":100,"costperaction":10},{"_id":"57b0c87958caa3d036ae05f1","action":"57b0c87958caa3d036ae05f1","maxcnt":100,"costperaction":10}],
+"sponsoractions":[{"_id":"57b0c87958caa3d036ae05f0","action":"57b0c87958caa3d036ae05f0","maxcnt":100,"costperaction":10},
+                  {"_id":"57b0c87958caa3d036ae05f2","action":"57b0c87958caa3d036ae05f2","maxcnt":100,"costperaction":10},
+                  {"_id":"57b0c87958caa3d036ae05f1","action":"57b0c87958caa3d036ae05f1","maxcnt":100,"costperaction":10}],
 "dates":["2016-08-13T22:00:00.000Z"],
 "image":"images/wettkampf.png"}]
 */

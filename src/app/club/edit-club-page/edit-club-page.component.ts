@@ -1,14 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Club } from '../../model/backend-typings';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ClubFormModel } from '../club-form/club-form.model';
 import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
-import { loadAction } from '../../sponsor/sponsor.actions';
 
 @Component({
   selector: 'gymapp-edit-club-page',
@@ -21,8 +18,8 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(protected store: Store<AppState>,
-    private fb: FormBuilder) {
+  constructor(public store: Store<AppState>,
+              public fb: FormBuilder) {
     this.form = this.fb.group(ClubFormModel);
   }
 

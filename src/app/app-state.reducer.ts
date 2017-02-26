@@ -50,7 +50,7 @@ const reducers = {
   clubs: fromClubs.reducer,
   sponsors: fromSponsors.reducer,
   auth: fromAuth.reducer,
-  router: fromRouter.routerReducer
+  router: fromRouter.routerReducer,
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
