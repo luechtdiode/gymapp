@@ -50,12 +50,19 @@
   ],
   "dependencies": {
     "mute": [
-      "shrinkwrap",
+      "shrinkwrap"
     ],
     "unused-ignores": [
       "grunt-*",
       "bower",
-      "eslint"
+      "eslint",
+      "bootstrap",
+      "tether",
+      "ts-helpers",
+      "@angular/common",
+      "@angular/compiler",
+      "ng2-bootstrap",
+      "font-awesome"
     ]
   }
 }
