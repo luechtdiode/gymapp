@@ -1,17 +1,48 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement  } from '@angular/core';
+import { Store, Action, StoreModule } from '@ngrx/store';
+import { AppState } from '../../app-state.reducer';
+import { reducer } from '../../app-state.reducer';
+import { Observable } from 'rxjs/Observable';
 
 import { ClubListComponent } from './club-list.component';
+import { ClubMediaComponent } from '../club-media/club-media.component';
+import { Club } from '../../model/backend-typings';
 
 describe('ClubListComponent', () => {
   let component: ClubListComponent;
   let fixture: ComponentFixture<ClubListComponent>;
 
+  const clubListStub: Club[] = [
+    <Club>{
+      _id: 'testId',
+      name: 'Changed-Clubname',
+      image: 'images/club.png',
+      homepage: '',
+      kind: ['uio']
+    }
+  ];
+  const storeStub: Store<AppState> = <Store<AppState>> {
+        select: (selector: any, ...paths: string[]) => {
+          console.log('selecting ', selector);
+          return Observable.of(clubListStub);
+        },
+        dispatch: (action: Action) => {
+          console.log('dispatching ', action);
+        }
+    };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClubListComponent ]
+      declarations: [ ClubListComponent, ClubMediaComponent ],
+      providers: [
+        {provide: Store, useValue: storeStub}
+      ],
+      imports: [
+        StoreModule.provideStore({reducer})
+      ]
     })
     .compileComponents();
   }));
