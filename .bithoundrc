@@ -51,7 +51,7 @@
   "dependencies": {
     "mute": [
       "shrinkwrap",
-    ]
+    ],
     "unused-ignores": [
       "grunt-*",
       "bower",
