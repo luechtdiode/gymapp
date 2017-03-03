@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     password: '',
   } as User;
 
-  rememberMe: boolean = false;
+  rememberMe = false;
 
   backUrl: string = undefined;
   registerCLubLink = '/' + RouterPath.REGISTER_CLUB;

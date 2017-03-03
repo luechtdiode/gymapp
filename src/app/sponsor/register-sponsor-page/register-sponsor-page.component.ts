@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
 import { AppState } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
+import { registerSponsorAction } from '../../shared/auth.actions';
 
 @Component({
   selector: 'gymapp-register-sponsor-page',

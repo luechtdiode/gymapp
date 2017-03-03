@@ -1,28 +1,22 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ClubFormComponent } from './club-form.component';
 
 describe('ClubFormComponent', () => {
-  let component: ClubFormComponent;
+  let comp: ClubFormComponent;
   let fixture: ComponentFixture<ClubFormComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ClubFormComponent ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ClubFormComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
+    });
     fixture = TestBed.createComponent(ClubFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    comp = fixture.componentInstance;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('can load instance', () => {
+    expect(comp).toBeTruthy();
   });
+
 });

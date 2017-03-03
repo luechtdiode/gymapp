@@ -1,28 +1,36 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { RegisterClubPageComponent } from './register-club-page.component';
 
 describe('RegisterClubPageComponent', () => {
-  let component: RegisterClubPageComponent;
+  let comp: RegisterClubPageComponent;
   let fixture: ComponentFixture<RegisterClubPageComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RegisterClubPageComponent ]
-    })
-    .compileComponents();
-  }));
+  let formBuilderStub: any;
+  let storeStub: any;
 
   beforeEach(() => {
+    formBuilderStub = {
+      group: () => ({})
+    };
+    storeStub = {
+      dispatch: () => ({})
+    };
+    TestBed.configureTestingModule({
+      declarations: [ RegisterClubPageComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [
+        { provide: FormBuilder, useValue: formBuilderStub },
+        { provide: Store, useValue: storeStub }
+      ]
+    });
     fixture = TestBed.createComponent(RegisterClubPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    comp = fixture.componentInstance;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('can load instance', () => {
+    expect(comp).toBeTruthy();
   });
+
 });
