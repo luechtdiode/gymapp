@@ -47,6 +47,10 @@ import { RegisterClubPageComponent } from './club/register-club-page/register-cl
 import { RegisterUserFormComponent } from './login/register-user-form/register-user-form.component';
 import { UrlProvider } from './shared/urlProvider';
 import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
+import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-sponsor-page.component';
+import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
+import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
+import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +73,9 @@ import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
     SponsorMediaComponent,
     SponsorsPageComponent,
     SponsorListComponent,
+    SponsorFormComponent,
+    RegisterSponsorPageComponent,
+    EditSponsorPageComponent,
 
     AboutusPageComponent,
     ContactPageComponent,
@@ -106,7 +113,8 @@ import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
     ClubEffects,
     SponsorService,
     SponsorEffects,
-    IsClubUserGuardGuard
+    IsClubUserGuardGuard,
+    IsSponsorUserGuardGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -25,6 +25,9 @@ import { LoginComponent } from './login/login.component';
 import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.component';
 import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-sponsor-page.component';
+import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
+import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
 
 describe('AppComponent', () => {
 
@@ -68,6 +71,9 @@ describe('AppComponent', () => {
         LoginComponent,
         EditClubPageComponent,
         RegisterClubPageComponent,
+        SponsorFormComponent,
+        EditSponsorPageComponent,
+        RegisterSponsorPageComponent,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
