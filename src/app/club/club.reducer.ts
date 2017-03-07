@@ -71,7 +71,6 @@ export function reducer(state = initialState, action: Action): ClubsState {
     {
       return Object.assign({}, state, {
         memberOfClub: action.payload,
-        featured: action.payload,
       });
     }
 

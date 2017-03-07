@@ -7,7 +7,7 @@ import { EditClubPageComponent } from './edit-club-page.component';
 import { FormBuilder } from '@angular/forms';
 import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Club } from "../../model/backend-typings";
+import { Club } from '../../model/backend-typings';
 import { AppState } from '../../app-state.reducer';
 
 describe('EditClubPageComponent', () => {

@@ -19,7 +19,8 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction } from './sponsor.actions';
+  deleteFailedAction, loadSuccessAction
+} from './sponsor.actions';
 import { go } from '@ngrx/router-store';
 
 @Injectable()
@@ -39,6 +40,13 @@ export class SponsorEffects {
     .ofType(ActionTypes.LOAD_SPONSORS)
     .mergeMap(() => this.compService.getSponsors())
     .map(sponsors => loadAllSuccessAction(sponsors));
+
+  @Effect()
+  loadSponsor = this.actions$
+    .ofType(ActionTypes.LOAD_SPONSOR)
+    .map(action => action.payload)
+    .mergeMap(id => this.compService.getSponsor(id))
+    .map(sponsor => loadSuccessAction(sponsor));
 
   @Effect()
   saveSponsor = this.actions$

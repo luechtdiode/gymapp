@@ -1,11 +1,13 @@
 import {Action} from '@ngrx/store';
 import {Sponsor} from '../model/backend-typings';
 import * as sponsor from './sponsor.actions';
+import { isMemberOfSponsor } from '../app-state.reducer';
 
 export interface SponsorsState {
   loaded: boolean;
   loading: boolean;
   sponsors: Sponsor[];
+  memberOfSponsor?: Sponsor;
   loadingFeatured: boolean;
   featured: Sponsor;
 };
@@ -14,7 +16,7 @@ const initialState: SponsorsState = {
   loaded: false,
   loading: false,
   sponsors: [],
-
+  memberOfSponsor: undefined,
   loadingFeatured: false,
   featured: undefined,
 };
@@ -71,6 +73,14 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
+    case sponsor.ActionTypes.LOAD_SPONSOR_SUCCESS:
+    {
+      return Object.assign({}, state, {
+        isMemberOfSponsor: action.payload,
+      });
+    }
+
+    // tslint:disable-next-line:no-switch-case-fall-through
     case sponsor.ActionTypes.SAVE_SPONSOR_SUCCESS:
     case sponsor.ActionTypes.DELETE_SPONSOR_FAIL:
     {
@@ -103,6 +113,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
 }
 
 export const getSponsors = (state: SponsorsState) => state.sponsors;
+export const getMemberOfSponsor = (state: SponsorsState) => state.isMemberOfSponsor;
 
 export const getIds = (state: SponsorsState) => getSponsors(state).map(c => c._id);
 

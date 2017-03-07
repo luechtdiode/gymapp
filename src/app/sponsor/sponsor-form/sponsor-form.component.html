@@ -1,3 +1,70 @@
-<p>
-  sponsor-form works!
-</p>
+<div class="col-12" [formGroup]="form">
+  <div class="row" >
+    <div class="col-12 col-sm-6">
+      <h2>Sponsor</h2>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label for="sponsorname">Sponsor name</label>
+        <input type="text" class="form-control input-sm" id="sponsorname" name="sponsorname" placeholder="Name of the sponsor" formControlName="name" required/>
+        <span *ngIf="form.controls.name.errors && form.controls.name.touched" class="help-block">The name of your sponsor is required.</span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label for="homepage">Homepage</label>
+        <input type="text" class="form-control input-sm" id="homepage" name="homepage" placeholder="Homepage" formControlName="homepage">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea rows="12" class="form-control input-sm" id="description" name="description" placeholder="Description" formControlName="description"
+          required></textarea>
+        <span *ngIf="form.controls.description.errors && form.controls.description.touched" class="help-block">Describe Your sponsor with some sentences.</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="input-group form-inline">
+        <label class="btn btn-social-icon btn-google-plus input-group-addon" for="googleplushandle"><i class="fa fa-google-plus"></i></label>
+        <input type="text" class="form-control input-sm" id="googleplushandle" name="googleplushandle" placeholder="Google+ ID" formControlName="googleplushandle"
+        />
+      </div>
+      <div class="input-group form-inline">
+        <label class="btn btn-social-icon btn-facebook input-group-addon" for="facebookhandle"><i class="fa fa-facebook"></i></label>
+        <input type="text" class="form-control input-sm" id="facebookhandle" name="facebookhandle" placeholder="Facebook-ID" formControlName="facebookhandle"
+        />
+      </div>
+      <div class="input-group form-inline">
+        <label class="btn btn-social-icon btn-linkedin input-group-addon" for="linkedinhandle"><i class="fa fa-linkedin"></i></label>
+        <input type="text" class="form-control input-sm" id="linkedinhandle" name="linkedinhandle" placeholder="LinkedIn-ID" formControlName="linkedinhandle"
+        />
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="input-group form-inline">
+        <label class="btn btn-social-icon btn-twitter input-group-addon" for="twitterhandle"><i class="fa fa-twitter"></i></label>
+        <input type="text" class="form-control input-sm" id="twitterhandle" name="twitterhandle" placeholder="Twitter-Handle" formControlName="twitterhandle"
+        />
+      </div>
+      <div class="input-group form-inline">
+        <label class="btn btn-social-icon btn-youtube input-group-addon" for="youtubehandle"><i class="fa fa-youtube"></i></label>
+        <input type="text" class="form-control input-sm" id="youtubehandle" name="youtubehandle" placeholder="Youtube-Channel" formControlName="youtubehandle"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="sponsorsLink">Cancel</button>
+      <button type="submit" class="btn btn-info btn-sm pull-right" ngDisabled="EditForm.$invalid">Save</button>
+      <!--ng-disabled="EditForm.$invalid"-->
+    </div>
+  </div>
+</div>

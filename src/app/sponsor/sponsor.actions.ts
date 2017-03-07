@@ -12,6 +12,7 @@ export const ActionTypes = {
   DELETE_SPONSOR_SUCCESS:        type('[SPONSOR] Delete SPONSOR Success'),
   DELETE_SPONSOR_FAIL:           type('[SPONSOR] Delete SPONSOR Fail'),
   LOAD_SPONSOR:                  type('[SPONSOR] Load SPONSOR'),
+  LOAD_SPONSOR_SUCCESS:          type('[SPONSOR] Load SPONSOR Success'),
   LOAD_FEATURED_SPONSOR:         type('[SPONSOR] Load featured SPONSOR'),
   LOAD_FEATURED_SPONSOR_SUCCESS: type('[SPONSOR] Load featured SPONSOR success'),
   LOAD_FEATURED_SPONSOR_FAIL:    type('[SPONSOR] Load featured SPONSOR fail'),
@@ -67,6 +68,12 @@ export function deleteFailedAction(payload: Sponsor): Action {
 export function loadAction(payload: string): Action {
   return {
     type: ActionTypes.LOAD_SPONSOR,
+    payload: payload,
+  };
+}
+export function loadSuccessAction(payload: Sponsor): Action {
+  return {
+    type: ActionTypes.LOAD_SPONSOR_SUCCESS,
     payload: payload,
   };
 }

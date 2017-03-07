@@ -1,3 +1,5 @@
-<p>
-  edit-sponsor-page works!
-</p>
+<div class="container">
+  <form class="row row-content" (ngSubmit)="doSave(form.value)" novalidate>
+    <gymapp-sponsor-form [form]="form" class="col-12"></gymapp-sponsor-form>
+  </form>
+</div>
