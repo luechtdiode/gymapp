@@ -30,8 +30,13 @@ export class AuthEffects {
         .ofType(ActionTypes.LOAD_CREDENTIALS)
         .startWith(loadCredentialsAction())
         .map(() => this.localStorage.getObject(TOKEN_KEY, {}))
-        .filter((credentials: User) => credentials.username !== undefined)
-        .map((credentials: User) => loginAction(true, credentials));
+        .map((credentials: User) => {
+            if (credentials && credentials.username) {
+                return loginAction(true, credentials);
+            } else {
+                return removeCredentialsAction();
+            };
+        });
 
     @Effect()
     elevate = this.actions$
@@ -46,10 +51,9 @@ export class AuthEffects {
             .map((response) => {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
-            })
-            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
+            }),
         // TODO integrate toastr component
-        );
+        ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
 
     @Effect()
     registerSponsor = this.actions$
@@ -60,9 +64,8 @@ export class AuthEffects {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
             })
-            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
         // TODO integrate toastr component
-        );
+        ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
 
     @Effect()
     login = this.actions$

@@ -10,19 +10,19 @@ describe('AuthService', () => {
     post: (url: string, loginData) => {}
   };
 
-  let service = new AuthService(crudStub);
+  const service = new AuthService(crudStub);
 
   it('should register new user...', () => {
     expect(service).toBeTruthy();
     let spy = spyOn(crudStub, 'post');
-    service.register({name: "Hans"});
+    service.register({name: 'Hans'});
     expect(spy.calls.any()).toBeTruthy();
   });
 
   it('should login a user...', () => {
     expect(service).toBeTruthy();
     let spy = spyOn(crudStub, 'post');
-    service.register({password: "Hans"});
+    service.register({password: 'Hans'});
     expect(spy.calls.any()).toBeTruthy();
   });
 });
