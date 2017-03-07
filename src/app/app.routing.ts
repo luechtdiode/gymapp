@@ -11,6 +11,7 @@ import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.comp
 import { flatten } from './shared/collection-util';
 import { Action } from '@ngrx/store';
 import { go } from '@ngrx/router-store';
+import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -87,7 +88,7 @@ export const appRoutes: Routes = [
    },
   { path: RouterPath.CONTACT, component: ContactPageComponent },
   { path: RouterPath.LOGIN, component: LoginComponent },
-  { path: RouterPath.CLUBPROFILE, component: EditClubPageComponent},
+  { path: RouterPath.CLUBPROFILE, component: EditClubPageComponent, canActivate: [IsClubUserGuardGuard]},
   { path: RouterPath.REGISTER_CLUB, component: RegisterClubPageComponent},
   { path: '**', redirectTo: RouterPath.HOME },
 ];

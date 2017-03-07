@@ -46,6 +46,7 @@ import { ClubFormComponent } from './club/club-form/club-form.component';
 import { RegisterClubPageComponent } from './club/register-club-page/register-club-page.component';
 import { RegisterUserFormComponent } from './login/register-user-form/register-user-form.component';
 import { UrlProvider } from './shared/urlProvider';
+import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { UrlProvider } from './shared/urlProvider';
     ClubService,
     ClubEffects,
     SponsorService,
-    SponsorEffects
+    SponsorEffects,
+    IsClubUserGuardGuard
   ],
   bootstrap: [AppComponent]
 })
