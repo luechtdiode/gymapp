@@ -1,11 +1,11 @@
 import { Validators } from '@angular/forms';
 
 export const ClubFormModel = {
-  name: [''],
-  label: [''],
-  kind: [''],
+  name: [, [Validators.required, Validators.minLength(2)]],
+  label: [, [Validators.required, Validators.minLength(2)]],
+  kind: [, [Validators.required, Validators.minLength(2)]],
   homepage: [''],
-  description: [''],
+  description: [, [Validators.required, Validators.minLength(2)]],
   googleplushandle: [''],
   facebookhandle: [''],
   linkedinhandle: [''],

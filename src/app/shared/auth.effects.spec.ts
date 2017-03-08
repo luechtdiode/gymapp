@@ -2,9 +2,9 @@ import {EffectsTestingModule, EffectsRunner} from '@ngrx/effects/testing';
 import {TestBed, inject} from '@angular/core/testing';
 import {go} from '@ngrx/router-store';
 import {EffectsModule} from '@ngrx/effects';
-
 import { AuthEffects } from './auth.effects';
-import { loadCredentialsAction, loginAction, removeCredentialsAction, elevateAction, registerClubAction, registerSponsorAction, loginSuccessAction, logoutAction, logoutSuccessAction } from './auth.actions';
+import { loadCredentialsAction, loginAction, removeCredentialsAction, elevateAction, registerClubAction, registerSponsorAction,
+         loginSuccessAction, logoutAction, logoutSuccessAction } from './auth.actions';
 import { User, Club, Sponsor } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
