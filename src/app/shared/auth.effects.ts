@@ -47,7 +47,20 @@ export class AuthEffects {
     registerClub = this.actions$
         .ofType(ActionTypes.REGISTER_CLUB)
         .mergeMap((action) => this.authService.register(Object.assign(
-            {}, action.payload.user, action.payload.club))
+            {     username : '',
+                  password : '',
+                  firstname : '',
+                  lastname : '',
+                  homepage: '',
+                  image: '',
+                  googleplushandle: '',
+                  facebookhandle: '',
+                  twitterhandle: '',
+                  youtubehandle: '',
+                  name : '',
+                  label : '',
+                  kind : '',
+                }, action.payload.user, action.payload.club))
             .map((response) => {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
@@ -59,7 +72,21 @@ export class AuthEffects {
     registerSponsor = this.actions$
         .ofType(ActionTypes.REGISTER_SPONSOR)
         .mergeMap((action) => this.authService.register(Object.assign(
-            {}, action.payload.user, action.payload.sponsor))
+            {     username : '',
+                  password : '',
+                  firstname : '',
+                  lastname : '',
+                  homepage: action.payload.sponsor.homepage,
+                  image: action.payload.sponsor.image,
+                  googleplushandle: action.payload.sponsor.googleplushandle,
+                  facebookhandle: action.payload.sponsor.facebookhandle,
+                  twitterhandle: action.payload.sponsortwitterhandle,
+                  youtubehandle: action.payload.sponsor.youtubehandle,
+                  company : action.payload.sponsor.name,
+                  slogan : action.payload.sponsor.slogan,
+                  budget : action.payload.sponsor.budget,
+                  regactions : []
+                }, action.payload.user))
             .map((response) => {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);

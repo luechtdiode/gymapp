@@ -14,17 +14,17 @@ import { registerSponsorAction } from '../../shared/auth.actions';
 export class RegisterSponsorPageComponent implements OnInit {
 
   user: FormGroup;
-  sponsordetails: FormGroup;
+  sponsor: FormGroup;
 
   form: FormGroup;
 
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
     this.user = this.fb.group(RegisterUserFormModel);
-    this.sponsordetails = this.fb.group(SponsorFormModel);
+    this.sponsor = this.fb.group(SponsorFormModel);
     this.form = this.fb.group({
       user: this.user,
-      sponsordetails: this.sponsordetails,
+      sponsor: this.sponsor,
     });
   }
 
@@ -34,7 +34,7 @@ export class RegisterSponsorPageComponent implements OnInit {
 
   doSave(value) {
     console.log(value);
-    this.store.dispatch(registerSponsorAction(value.user, value.sponsordetails));
+    this.store.dispatch(registerSponsorAction(value.user, value.sponsor));
   }
 
 }

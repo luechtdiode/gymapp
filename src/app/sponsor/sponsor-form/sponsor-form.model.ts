@@ -1,8 +1,9 @@
+import { Validators } from '@angular/forms';
 
 export const SponsorFormModel = {
-  name: [''],
+  name: [, [Validators.required, Validators.minLength(2)]],
   homepage: [''],
-  slogan: [''],
+  slogan: [, [Validators.required, Validators.minLength(2)]],
   budget: [0],
   googleplushandle: [''],
   facebookhandle: [''],

@@ -7,8 +7,8 @@
   <div class="row" >
     <div class="col-12 col-sm-6">
       <div class="form-group">
-        <label for="sponsorname">Sponsor name</label>
-        <input type="text" class="form-control input-sm" id="sponsorname" name="sponsorname" placeholder="Name of the sponsor" formControlName="name" required/>
+        <label for="name">Sponsor name</label>
+        <input type="text" class="form-control input-sm" id="name" name="name" placeholder="Name of the sponsor" formControlName="name" required/>
         <span *ngIf="form.controls.name.errors && form.controls.name.touched" class="help-block">The name of your sponsor is required.</span>
       </div>
     </div>
@@ -22,10 +22,10 @@
   <div class="row">
     <div class="col-12">
       <div class="form-group">
-        <label for="description">Description</label>
-        <textarea rows="12" class="form-control input-sm" id="description" name="description" placeholder="Description" formControlName="description"
+        <label for="slogan">Slogan</label>
+        <textarea rows="12" class="form-control input-sm" id="slogan" name="slogan" placeholder="Slogan" formControlName="slogan"
           required></textarea>
-        <span *ngIf="form.controls.description.errors && form.controls.description.touched" class="help-block">Describe Your sponsor with some sentences.</span>
+        <span *ngIf="form.controls.slogan.errors && form.controls.slogan.touched" class="help-block">Describe Your sponsor with some sentences.</span>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@
   <div class="row">
     <div class="col-12">
       <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="sponsorsLink">Cancel</button>
-      <button type="submit" class="btn btn-info btn-sm pull-right" ngDisabled="EditForm.$invalid">Save</button>
+      <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Save</button>
       <!--ng-disabled="EditForm.$invalid"-->
     </div>
   </div>
