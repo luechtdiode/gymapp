@@ -7,7 +7,7 @@ export interface SponsorsState {
   loaded: boolean;
   loading: boolean;
   sponsors: Sponsor[];
-  memberOfSponsor?: Sponsor;
+  isMemberOfSponsor?: Sponsor;
   loadingFeatured: boolean;
   featured: Sponsor;
 };
@@ -16,7 +16,7 @@ const initialState: SponsorsState = {
   loaded: false,
   loading: false,
   sponsors: [],
-  memberOfSponsor: undefined,
+  isMemberOfSponsor: undefined,
   loadingFeatured: false,
   featured: undefined,
 };
