@@ -18,3 +18,8 @@ export function type<T>(label: T | ''): T {
 
   return <T>label;
 }
+
+export interface SelectionChangedEvent<T> {
+  selected: boolean;
+  origin: T;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChange
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { SponsorAction } from '../../model/backend-typings';
 import { SponsorActionModel } from './sponsor-action-form.model';
+import { SelectionChangedEvent } from '../../shared/util';
 
 @Component({
   selector: 'gymapp-sponsor-action-form',
@@ -22,14 +23,14 @@ export class SponsorActionFormComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   @Output()
-  toggleSelected = new EventEmitter<any>();
+  toggleSelected = new EventEmitter<SelectionChangedEvent<SponsorAction>>();
 
   @Output()
   actionChanged = new EventEmitter<SponsorAction>();
 
   onToggleSelected() {
     this.isSelected = !this.isSelected;
-    this.toggleSelected.emit({action: this.form.value, selected: this.isSelected});
+    this.toggleSelected.emit({origin: this.action, selected: this.isSelected});
   }
 
   constructor(private fb: FormBuilder,

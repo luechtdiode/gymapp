@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-7">
       <div class="form-group">
         <label for="slogan">Slogan</label>
         <textarea rows="12" class="form-control input-sm" id="slogan" name="slogan" placeholder="Slogan" formControlName="slogan"
@@ -28,17 +28,20 @@
         <span *ngIf="form.controls.slogan.errors && form.controls.slogan.touched" class="help-block">Describe Your sponsor with some sentences.</span>
       </div>
     </div>
+    <div class="col-12 col-md-5">
+      <div class="col-xs-12"><h4>Sponsoring-Actions&nbsp;&nbsp;<span class="label label-danger">Budget&nbsp;{{budget | currency}}&nbsp;</span></h4>
+      </div>
+      <gymapp-sponsor-action-form 
+          *ngFor="let action of allActions"
+          [action]="action"
+          [isSelected]="isActionSelected(action)"
+          (actionChanged)="onSponsorActionChaned($event)"
+          (toggleSelected)="onSponsorActionSelected($event)"
+          >
+      </gymapp-sponsor-action-form>  
+    </div>  
   </div>
 
-  <gymapp-sponsor-action-form 
-      *ngFor="let action of sponsoractions"
-      [action]="action"
-      [isSelected]="'true'"
-      (actionChanged)="onSponsorActionChaned($event)"
-      (toggleSelected)="onSponsorActionSelected($event)"
-      >
-  </gymapp-sponsor-action-form>  
-  
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="input-group form-inline">

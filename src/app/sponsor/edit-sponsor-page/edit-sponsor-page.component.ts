@@ -6,7 +6,8 @@ import { AppState } from '../../app-state.reducer';
 import * as fromSponsors from '../sponsor.actions';
 import { isMemberOfSponsor, getMemberOfSponsor } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
-import { SponsorAction } from "../../model/backend-typings";
+import { SponsorAction, Sponsor } from '../../model/backend-typings';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'gymapp-edit-sponsor-page',
@@ -16,15 +17,15 @@ import { SponsorAction } from "../../model/backend-typings";
 export class EditSponsorPageComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-
   subscriptions: Subscription[] = [];
-  
-  sponsoractions: SponsorAction[];
+  regactions: Observable<SponsorAction[]>;
+  sponsor: Observable<Sponsor>; // = <Sponsor>{};
 
   constructor(public store: Store<AppState>,
               public fb: FormBuilder) {
     this.form = this.fb.group(SponsorFormModel);
-    this.sponsoractions = [<SponsorAction>{
+    this.regactions = Observable.of(
+    [<SponsorAction>{
       action: {
         _id: 'a1',
         name: 'TestSponsorAction',
@@ -32,26 +33,49 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
       bidperaction: 10,
       maxcnt: 100,
       kinds: [],
-    }];
+    },
+    <SponsorAction>{
+      action: {
+        _id: 'a2',
+        name: 'TestSponsorAction2',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    },
+    <SponsorAction>{
+      action: {
+        _id: 'a3',
+        name: 'TestSponsorAction3',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    }]
+    )
+    ;
+    this.sponsor = Observable.of();
   }
 
   ngOnInit() {
+    this.sponsor = this.store.select(getMemberOfSponsor)
+                .filter(sponsor => sponsor !== undefined)
+                .map(sponsor => Object.assign({sponsoractions: []}, sponsor))
+                // .subscribe(sponsor => {
+                //   this.sponsor = sponsor;
+                //   this.form.patchValue(sponsor);
+                // })
+                ;
+
     this.subscriptions.push(
       this.store.select(isMemberOfSponsor)
         .filter(id => id && id.length > 0)
         .subscribe(sponsorid => {
           this.store.dispatch(fromSponsors.loadAction(sponsorid));
-          this.subscriptions.push(
-            this.store.select(getMemberOfSponsor)
-              .filter(sponsor => sponsor !== undefined)
-              .subscribe(sponsor => {
-                const toEdit = Object.assign({}, sponsor);
-                this.form.patchValue(toEdit);
-              })
-          );
-        })
-    );
-
+          this.subscriptions.push(this.sponsor.subscribe(sponsor => {
+            this.form.patchValue(sponsor);
+          }));
+    }));
   }
 
   ngOnDestroy() {

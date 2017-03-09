@@ -5,7 +5,8 @@ import { RegisterUserFormModel } from '../../login/register-user-form/register-u
 import { AppState } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { registerSponsorAction } from '../../shared/auth.actions';
-import { SponsorAction } from "../../model/backend-typings";
+import { SponsorAction, Sponsor } from '../../model/backend-typings';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'gymapp-register-sponsor-page',
@@ -18,8 +19,10 @@ export class RegisterSponsorPageComponent implements OnInit {
   sponsorForm: FormGroup;
 
   form: FormGroup;
+  
+  regactions: Observable<SponsorAction[]>;
 
-  sponsoractions: SponsorAction[];
+  sponsor = <Sponsor>{};
 
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
@@ -29,7 +32,7 @@ export class RegisterSponsorPageComponent implements OnInit {
       user: this.userForm,
       sponsor: this.sponsorForm,
     });
-    this.sponsoractions = [<SponsorAction>{
+    this.regactions = Observable.of([<SponsorAction>{
       action: {
         _id: 'a1',
         name: 'TestSponsorAction',
@@ -37,7 +40,25 @@ export class RegisterSponsorPageComponent implements OnInit {
       bidperaction: 10,
       maxcnt: 100,
       kinds: [],
-    }];
+    },
+    <SponsorAction>{
+      action: {
+        _id: 'a2',
+        name: 'TestSponsorAction2',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    },
+    <SponsorAction>{
+      action: {
+        _id: 'a3',
+        name: 'TestSponsorAction3',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    }]);
   }
 
   ngOnInit() {
@@ -45,7 +66,6 @@ export class RegisterSponsorPageComponent implements OnInit {
   }
 
   doSave(value) {
-    console.log(value);
     this.store.dispatch(registerSponsorAction(value.user, value.sponsor));
   }
 

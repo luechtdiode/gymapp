@@ -1,6 +1,5 @@
 
 export const SponsorActionModel = {
-  selected: [true],
   action: {
     name: [''],
   },
