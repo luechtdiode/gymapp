@@ -29,6 +29,16 @@
       </div>
     </div>
   </div>
+
+  <gymapp-sponsor-action-form 
+      *ngFor="let action of sponsoractions"
+      [action]="action"
+      [isSelected]="'true'"
+      (actionChanged)="onSponsorActionChaned($event)"
+      (toggleSelected)="onSponsorActionSelected($event)"
+      >
+  </gymapp-sponsor-action-form>  
+  
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="input-group form-inline">

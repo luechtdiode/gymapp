@@ -1,7 +1,42 @@
 <div [formGroup]="form">
-  <label [attr.for]="action.action.name">{{action.label}}</label>
-    <input [formControlName]="action.action.name"
-            [id]="action.action.name" [type]="'text'">
-    <input [formControlName]="action.name"
-            [id]="action.name" [type]="'text'">
+        <div class="col-xs-12">
+            <label class="checkbox-inline">
+                <input type="checkbox"
+                [checked]="isSelected"
+                [id]="'selected_' + action.action._id"
+                [name]="'selected_' + action.action._id"
+                (change)="onToggleSelected()">
+                <strong>{{action.action.name}}</strong>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-sm-offset-2" *ngIf="isSelected">
+                <div class="form-group">
+                        <label for="'bid_' + action.action._id">Bid</label>
+                        <input type="text" class="form-control input-sm" [id]="'bid_' + action.action._id" 
+                                [name]="'bid_' + action.action._id" 
+                                [placeholder]="'Bid per ' + action.action.name + ' applies'"
+                                [title]="'Bid per ' + action.action.name + ' applies'" 
+                                [formControlName]="'bidperaction'" 
+                                required/>
+                        <!--span ng-if="action.selected" ng-show="EditFormaction.bid_{{action.id}}.$error.required && !EditFormaction.$pristine" class="help-block">A bid for that action is required, if you checked the action active.</span-->
+                </div>
+        </div>
+        <div class="col-xs-12 col-sm-3" *ngIf="isSelected">
+                <div class="form-group">
+                        <label for="max_{{action.action._id}}">Max</label>
+                        <input type="text" class="form-control input-sm" id="max_{{action.action._id}}" name="max_{{action.action._id}}" placeholder="Maximum of {{action.action.name}} applyments"
+                                title="Maximum of {{action.action.name}} applyments" 
+                                [formControlName]="'maxcnt'" required/>
+                        <!--span ng-if="action.selected" ng-show="EditForm.max_{{action.id}}.$error.required && !EditForm.$pristine" class="help-block">A max count for that action is required, if you checked the action active.</span-->
+                </div>
+        </div>
+        <div class="col-xs-12 col-sm-4" *ngIf="isSelected">
+                <div class="form-group">
+                        <label for="kinds_{{action.action._id}}">Kinds</label>
+                        <input type="text" class="form-control input-sm" id="kinds_{{action.action._id}}" name="kinds_{{action.action._id}}" placeholder="Kinds of Competitions for {{action.action.name}} applyments"
+                                title="Kinds of Competitions for {{action.action.name}} applyments" 
+                                [formControlName]="'kinds'"
+                        />
+                </div>
+        </div>
 </div>

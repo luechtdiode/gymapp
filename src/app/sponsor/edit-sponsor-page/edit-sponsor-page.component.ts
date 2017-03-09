@@ -6,6 +6,7 @@ import { AppState } from '../../app-state.reducer';
 import * as fromSponsors from '../sponsor.actions';
 import { isMemberOfSponsor, getMemberOfSponsor } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
+import { SponsorAction } from "../../model/backend-typings";
 
 @Component({
   selector: 'gymapp-edit-sponsor-page',
@@ -17,10 +18,21 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   subscriptions: Subscription[] = [];
+  
+  sponsoractions: SponsorAction[];
 
   constructor(public store: Store<AppState>,
               public fb: FormBuilder) {
     this.form = this.fb.group(SponsorFormModel);
+    this.sponsoractions = [<SponsorAction>{
+      action: {
+        _id: 'a1',
+        name: 'TestSponsorAction',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    }];
   }
 
   ngOnInit() {

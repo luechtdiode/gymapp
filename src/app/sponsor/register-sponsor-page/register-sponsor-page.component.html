@@ -1,6 +1,6 @@
 <div class="container">
   <form class="row row-content" (ngSubmit)="doSave(form.value)" novalidate>
-    <gymapp-register-user-form  [form]="user" class="col-12"></gymapp-register-user-form>
-    <gymapp-sponsor-form [form]="sponsor" class="col-12"></gymapp-sponsor-form>
+    <gymapp-register-user-form  [form]="userForm" class="col-12"></gymapp-register-user-form>
+    <gymapp-sponsor-form [form]="sponsorForm" [sponsor]="sponsor" [sponsoractions]="sponsoractions" class="col-12"></gymapp-sponsor-form>
   </form>
 </div>

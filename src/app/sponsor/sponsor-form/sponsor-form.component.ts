@@ -10,19 +10,27 @@ import { RouterPath } from '../../app.routing';
 })
 export class SponsorFormComponent implements OnInit {
   sponsorsLink = '/' + RouterPath.SPONSORS;
-  /*
+
   @Input()
   sponsor: Sponsor;
 
   @Input()
   sponsoractions: SponsorAction[];
-*/
+
   @Input()
   form: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSponsorActionChaned(action: SponsorAction): void {
+    console.log(action);
+  }
+
+  onSponsorActionSelected(event): void {
+    console.log(event);
   }
 
 }

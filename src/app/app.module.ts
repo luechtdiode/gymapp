@@ -51,6 +51,7 @@ import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-spons
 import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
+import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponsor-action-form.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.compon
     SponsorsPageComponent,
     SponsorListComponent,
     SponsorFormComponent,
+    SponsorActionFormComponent,
     RegisterSponsorPageComponent,
     EditSponsorPageComponent,
 

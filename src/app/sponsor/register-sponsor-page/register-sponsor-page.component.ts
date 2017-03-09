@@ -5,6 +5,7 @@ import { RegisterUserFormModel } from '../../login/register-user-form/register-u
 import { AppState } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { registerSponsorAction } from '../../shared/auth.actions';
+import { SponsorAction } from "../../model/backend-typings";
 
 @Component({
   selector: 'gymapp-register-sponsor-page',
@@ -13,19 +14,30 @@ import { registerSponsorAction } from '../../shared/auth.actions';
 })
 export class RegisterSponsorPageComponent implements OnInit {
 
-  user: FormGroup;
-  sponsor: FormGroup;
+  userForm: FormGroup;
+  sponsorForm: FormGroup;
 
   form: FormGroup;
 
+  sponsoractions: SponsorAction[];
+
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
-    this.user = this.fb.group(RegisterUserFormModel);
-    this.sponsor = this.fb.group(SponsorFormModel);
+    this.userForm = this.fb.group(RegisterUserFormModel);
+    this.sponsorForm = this.fb.group(SponsorFormModel);
     this.form = this.fb.group({
-      user: this.user,
-      sponsor: this.sponsor,
+      user: this.userForm,
+      sponsor: this.sponsorForm,
     });
+    this.sponsoractions = [<SponsorAction>{
+      action: {
+        _id: 'a1',
+        name: 'TestSponsorAction',
+      },
+      bidperaction: 10,
+      maxcnt: 100,
+      kinds: [],
+    }];
   }
 
   ngOnInit() {
