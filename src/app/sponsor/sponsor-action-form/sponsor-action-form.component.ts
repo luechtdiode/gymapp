@@ -17,6 +17,7 @@ export class SponsorActionFormComponent implements OnInit, OnChanges {
   @Input()
   action: SponsorAction;
 
+
   @Input()
   isSelected: boolean;
 

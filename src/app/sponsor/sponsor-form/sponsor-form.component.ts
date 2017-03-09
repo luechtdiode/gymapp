@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Sponsor, SponsorAction } from '../../model/backend-typings';
 import { RouterPath } from '../../app.routing';
 import { SelectionChangedEvent } from '../../shared/util';
+import { SponsorActionModel } from '../sponsor-action-form/sponsor-action-form.model';
 
 @Component({
   selector: 'gymapp-sponsor-form',
@@ -41,7 +42,7 @@ export class SponsorFormComponent implements OnInit {
   @Input()
   form: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
   }
@@ -49,7 +50,7 @@ export class SponsorFormComponent implements OnInit {
   syncSponsorActions(): void {
     this.allActions = [...this._regactions];
     if (this._sponsor) {
-      this._sponsor.sponsoractions.forEach(action => this.replaceAction(action));
+      this._sponsor.sponsoractions.forEach(action => this.replaceOrAddAction(action));
     }
     this.sortActions();
   }
@@ -60,18 +61,14 @@ export class SponsorFormComponent implements OnInit {
     });
   }
 
-  replaceAction(action: SponsorAction): void {
+  replaceOrAddAction(action: SponsorAction): void {
+    this._sponsor.sponsoractions = [
+      ...this._sponsor.sponsoractions.filter(a => !this.areActionIdsEqual(a, action)),
+      action];
     this.allActions = [
       ...this.allActions.filter(a => !this.areActionIdsEqual(a, action)),
       action];
     this.sortActions();
-  }
-
-  addAction(action: SponsorAction): void {
-    this._sponsor.sponsoractions = [
-      ...this._sponsor.sponsoractions.filter(a => !this.areActionIdsEqual(a, action)),
-      action];
-    this.replaceAction(action);
   }
 
   removeAction(action: SponsorAction) {
@@ -94,16 +91,24 @@ export class SponsorFormComponent implements OnInit {
 
   onSponsorActionChaned(action: SponsorAction): void {
     console.log('onSponsorActionChanged');
-    this.replaceAction(action);
-    this.form.patchValue({sponsoractions: this.sponsor.sponsoractions});
+    this.replaceOrAddAction(action);
+    this.updateFormGroupActions()
   }
 
   onSponsorActionSelected(event: SelectionChangedEvent<SponsorAction>): void {
     if (event.selected) {
-      this.addAction(event.origin);
+      this.replaceOrAddAction(event.origin);
     } else {
       this.removeAction(event.origin);
     }
+    this.updateFormGroupActions()
+  }
+
+  updateFormGroupActions() {
+    const actionFormGroupArray = new FormArray(
+      this.sponsor.sponsoractions.map(a => this.fb.group(SponsorActionModel))
+    );
+    this.form.controls['sponsoractions'] = actionFormGroupArray;
     this.form.patchValue({sponsoractions: this.sponsor.sponsoractions});
   }
 
