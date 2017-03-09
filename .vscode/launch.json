@@ -33,9 +33,11 @@
     },
     {
       "name": "Attach",
-      "type": "edge",
+      "type": "chrome",
       "request": "attach",
-      "port": 9222
+      "port": 9222,
+      "webRoot": "dist",
+      "sourceMaps": true
     }
   ]
 }
