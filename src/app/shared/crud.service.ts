@@ -17,8 +17,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
     new AuthConfig(
       {
-        headerName: 'Authorization',
-        headerPrefix: 'Bearer',
+        headerName: 'x-access-token',
+        headerPrefix: '',
         noTokenScheme: true,
         tokenName: 'x-access-token',
         tokenGetter: (() => sessionStorage.getItem('x-access-token')),
