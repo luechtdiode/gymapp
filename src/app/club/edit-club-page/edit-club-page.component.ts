@@ -6,6 +6,7 @@ import { ClubFormModel } from '../club-form/club-form.model';
 import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
+import { Club } from "../../model/backend-typings";
 
 @Component({
   selector: 'gymapp-edit-club-page',
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class EditClubPageComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-
+  clubOrigin: Club;
   subscriptions: Subscription[] = [];
 
   constructor(public store: Store<AppState>,
@@ -34,6 +35,7 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
               .filter(club => club !== undefined)
               .subscribe(club => {
                 const toEdit = Object.assign({}, club);
+                this.clubOrigin = toEdit;
                 this.form.patchValue(toEdit);
               })
           );
@@ -48,5 +50,6 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
 
   doSave(value) {
     console.log(value);
+    this.store.dispatch(fromClubs.saveAction(Object.assign({}, this.clubOrigin, value)));
   }
 }
