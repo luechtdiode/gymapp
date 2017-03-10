@@ -7,6 +7,7 @@ import * as fromCompetitions from './competition/competition.reducer';
 import * as fromClubs from './club/club.reducer';
 import * as fromSponsors from './sponsor/sponsor.reducer';
 import * as fromAuth from './shared/auth.reducer';
+import * as fromActions from './actions/actions.reducer';
 
 
 /**
@@ -43,6 +44,7 @@ export interface AppState {
   sponsors: fromSponsors.SponsorsState;
   auth: fromAuth.AuthState;
   router: fromRouter.RouterState;
+  actions: fromActions.ActionsState;
 }
 
 const reducers = {
@@ -51,6 +53,7 @@ const reducers = {
   sponsors: fromSponsors.reducer,
   auth: fromAuth.reducer,
   router: fromRouter.routerReducer,
+  actions: fromActions.reducer,
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -91,3 +94,6 @@ export const getMemberOfSponsor = createSelector(getSponsorsState, fromSponsors.
 export const isLoadingSponsors = createSelector(getSponsorsState, fromSponsors.isLoading);
 export const getFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.getFeatured);
 export const isLoadingFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.isLoadingFeatured);
+
+export const getActionsState = (state: AppState) => state.actions;
+export const getSponsorActions = createSelector(getActionsState, fromActions.getSponsorActions);

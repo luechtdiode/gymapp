@@ -46,13 +46,8 @@ export class SponsorActionFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.form) {
-      // console.log(this.differ.diff(this.action));
       if (changes['action']) {
         this.form.patchValue(changes['action'].currentValue);
-      }
-
-      if (changes['isSelected']) {
-        this.form.patchValue({selected: changes['isSelected'].currentValue});
       }
     }
   }

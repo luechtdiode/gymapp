@@ -30,19 +30,19 @@ export interface Action {
     name?: string;
 }
 
-export interface Currency {
+/*export interface Currency {
     value?: number;
-}
+}*/
 
 export interface CompSponsorAction {
     action: Action;
-    costperaction: Currency;
+    costperaction: number;
     maxcnt: number;
 }
 
 export interface SponsorAction {
     action: Action;
-    bidperaction: Currency;
+    bidperaction: number | string;
     maxcnt: number;
     kinds: string[];
 }

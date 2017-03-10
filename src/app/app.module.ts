@@ -52,6 +52,9 @@ import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
 import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponsor-action-form.component';
+import { ActionsService } from './actions/actions.service';
+import { ActionsEffects } from './actions/actions.effects';
+// import { CurrencyFormatDirective } from './shared/currency-format.directive';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,7 @@ import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponso
     ContactPageComponent,
     LoginComponent,
     RegisterUserFormComponent,
+    // CurrencyFormatDirective,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +97,7 @@ import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponso
     RouterModule.forRoot(appRoutes),
     RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(ActionsEffects),
     EffectsModule.run(AuthEffects),
     EffectsModule.run(CompetitionEffects),
     EffectsModule.run(ClubEffects),
@@ -117,6 +122,8 @@ import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponso
     SponsorEffects,
     IsClubUserGuardGuard,
     IsSponsorUserGuardGuard,
+    ActionsService,
+    ActionsEffects,
   ],
   bootstrap: [AppComponent]
 })

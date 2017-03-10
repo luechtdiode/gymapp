@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import * as fromSponsors from '../sponsor.actions';
-import { isMemberOfSponsor, getMemberOfSponsor } from '../../app-state.reducer';
+import { isMemberOfSponsor, getMemberOfSponsor, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
@@ -27,40 +27,18 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
   constructor(public store: Store<AppState>,
               public fb: FormBuilder) {
     this.form = this.fb.group(SponsorFormModel);
-    this.regactions = Observable.of(
-    [<SponsorAction>{
-      action: {
-        _id: 'a1',
-        name: 'TestSponsorAction',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    },
-    <SponsorAction>{
-      action: {
-        _id: 'a2',
-        name: 'TestSponsorAction2',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    },
-    <SponsorAction>{
-      action: {
-        _id: 'a3',
-        name: 'TestSponsorAction3',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    }]
-    )
-    ;
-    this.sponsor = Observable.of();
   }
 
   ngOnInit() {
+    this.regactions = this.store.select(getSponsorActions)
+    .map(a =>
+      a.map(aa => <SponsorAction>{
+        action: aa,
+        bidperaction: '10.00',
+        maxcnt: 100,
+        kinds: [],
+    }));
+
     this.sponsor = this.store.select(getMemberOfSponsor)
                 .filter(sponsor => sponsor !== undefined)
                 .map(sponsor => Object.assign({sponsoractions: []}, sponsor))

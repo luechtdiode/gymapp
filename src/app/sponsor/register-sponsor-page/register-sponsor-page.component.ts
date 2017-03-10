@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
-import { AppState } from '../../app-state.reducer';
+import { AppState, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { registerSponsorAction } from '../../shared/auth.actions';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
@@ -17,11 +17,8 @@ export class RegisterSponsorPageComponent implements OnInit {
 
   userForm: FormGroup;
   sponsorForm: FormGroup;
-
   form: FormGroup;
-  
   regactions: Observable<SponsorAction[]>;
-
   sponsor = <Sponsor>{};
 
   constructor(protected store: Store<AppState>,
@@ -32,37 +29,18 @@ export class RegisterSponsorPageComponent implements OnInit {
       user: this.userForm,
       sponsor: this.sponsorForm,
     });
-    this.regactions = Observable.of([<SponsorAction>{
-      action: {
-        _id: 'a1',
-        name: 'TestSponsorAction',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    },
-    <SponsorAction>{
-      action: {
-        _id: 'a2',
-        name: 'TestSponsorAction2',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    },
-    <SponsorAction>{
-      action: {
-        _id: 'a3',
-        name: 'TestSponsorAction3',
-      },
-      bidperaction: 10,
-      maxcnt: 100,
-      kinds: [],
-    }]);
+
   }
 
   ngOnInit() {
-
+    this.regactions = this.store.select(getSponsorActions)
+    .map(a =>
+      a.map(aa => <SponsorAction>{
+        action: aa,
+        bidperaction: '10.00',
+        maxcnt: 100,
+        kinds: [],
+    }));
   }
 
   doSave(value) {

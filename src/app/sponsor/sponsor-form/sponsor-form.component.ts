@@ -11,17 +11,20 @@ import { SponsorActionModel } from '../sponsor-action-form/sponsor-action-form.m
   styleUrls: ['./sponsor-form.component.scss']
 })
 export class SponsorFormComponent implements OnInit {
-  sponsorsLink = '/' + RouterPath.SPONSORS;
+  private _sponsor: Sponsor;
+  private _regactions: SponsorAction[];
 
-  budget: number;
-
-  _sponsor: Sponsor;
-  _regactions: SponsorAction[];
-  allActions: SponsorAction[];
+  public sponsorsLink = '/' + RouterPath.SPONSORS;
+  public allActions: SponsorAction[];
+  public budget: number;
 
   @Input()
   set regactions(regactions: SponsorAction[]) {
     this._regactions = regactions.map(a => Object.assign({}, a));
+    if (this._sponsor) {
+      this._sponsor.sponsoractions = this._sponsor.sponsoractions
+        .map(a => this.materializeAction(a, this._regactions));
+    }
     this.syncSponsorActions();
   }
 
@@ -32,6 +35,10 @@ export class SponsorFormComponent implements OnInit {
   @Input()
   set sponsor(sponsor: Sponsor) {
     this._sponsor = Object.assign({sponsoractions: []}, sponsor);
+    if (this._regactions) {
+      this._sponsor.sponsoractions = this._sponsor.sponsoractions
+        .map(a => this.materializeAction(a, this._regactions));
+    }
     this.syncSponsorActions();
   }
 
@@ -47,18 +54,45 @@ export class SponsorFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  recalculateBudget() {
+    const calc = (action: SponsorAction) => {
+      if (typeof action.bidperaction === 'number') {
+        return action.bidperaction / 100 * action.maxcnt;
+      } else {
+        return parseFloat(action.bidperaction) * action.maxcnt;
+      }
+    };
+    const reducer = (a: number, b: number) => a + b;
+    this.budget = 0.0 + this._sponsor.sponsoractions.map(calc).reduce(reducer);
+  }
+
   syncSponsorActions(): void {
-    this.allActions = [...this._regactions];
-    if (this._sponsor) {
-      this._sponsor.sponsoractions.forEach(action => this.replaceOrAddAction(action));
+    if (this._regactions) {
+      this.allActions = [...this._regactions];
     }
-    this.sortActions();
+    if (this._sponsor && this.allActions && this._regactions) {
+      this._sponsor.sponsoractions.forEach(action => this.replaceOrAddAction(action));
+      this.sortActions();
+    }
   }
 
   sortActions(): void {
     this.allActions.sort((a, b) => {
       return a.action.name.localeCompare(b.action.name);
     });
+  }
+
+  materializeAction(action: SponsorAction, regactions: SponsorAction[]): SponsorAction {
+    if (!action.action.name && regactions) {
+      action = Object.assign({}, action, {
+        action: regactions.find(a => this.areActionIdsEqual(a, action)).action,
+      });
+      // normalize mongoose curreny Type if needed
+      if (typeof action.bidperaction === 'number') {
+        action.bidperaction = (action.bidperaction / 100).toFixed(2);
+      }
+    }
+    return action;
   }
 
   replaceOrAddAction(action: SponsorAction): void {
@@ -69,15 +103,28 @@ export class SponsorFormComponent implements OnInit {
       ...this.allActions.filter(a => !this.areActionIdsEqual(a, action)),
       action];
     this.sortActions();
+    this.recalculateBudget();
+  }
+
+  updateAction(action: SponsorAction): void {
+    this._sponsor.sponsoractions.filter(a => this.areActionIdsEqual(a, action)).forEach(toHold => {
+      toHold.bidperaction = action.bidperaction;
+      toHold.kinds = action.kinds.toString().split(',');
+      toHold.maxcnt = action.maxcnt;
+    });
+    this.recalculateBudget();
   }
 
   removeAction(action: SponsorAction) {
     this._sponsor.sponsoractions = [
       ...this._sponsor.sponsoractions.filter(a => !this.areActionIdsEqual(a, action))];
+    this.recalculateBudget();
   }
 
   areActionIdsEqual(a: SponsorAction, b: SponsorAction) {
-    return a.action._id === b.action._id;
+    return a.action._id === b.action._id
+        || a.action === b.action._id
+        || a.action._id === b.action;
   }
 
   isActionSelected(action: SponsorAction): boolean {
@@ -90,9 +137,8 @@ export class SponsorFormComponent implements OnInit {
   }
 
   onSponsorActionChaned(action: SponsorAction): void {
-    console.log('onSponsorActionChanged');
-    this.replaceOrAddAction(action);
-    this.updateFormGroupActions()
+    this.updateAction(action);
+    this.updateFormGroupActions();
   }
 
   onSponsorActionSelected(event: SelectionChangedEvent<SponsorAction>): void {
@@ -101,15 +147,18 @@ export class SponsorFormComponent implements OnInit {
     } else {
       this.removeAction(event.origin);
     }
-    this.updateFormGroupActions()
+    this.updateFormGroupActions();
   }
 
   updateFormGroupActions() {
-    const actionFormGroupArray = new FormArray(
-      this.sponsor.sponsoractions.map(a => this.fb.group(SponsorActionModel))
-    );
-    this.form.controls['sponsoractions'] = actionFormGroupArray;
-    this.form.patchValue({sponsoractions: this.sponsor.sponsoractions});
+    if (!this.form.controls['sponsoractions']
+    || (this.form.controls['sponsoractions'] as FormArray).length !== this._sponsor.sponsoractions.length) {
+      const actionFormGroupArray = new FormArray(
+        this._sponsor.sponsoractions
+        .map(a => this.fb.group(SponsorActionModel)),
+      );
+      this.form.controls['sponsoractions'] = actionFormGroupArray;
+    }
+    this.form.patchValue({sponsoractions: this._sponsor.sponsoractions});
   }
-
 }
