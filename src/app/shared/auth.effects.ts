@@ -85,7 +85,7 @@ export class AuthEffects {
                   company : action.payload.sponsor.name,
                   slogan : action.payload.sponsor.slogan,
                   budget : action.payload.sponsor.budget,
-                  regactions : []
+                  regactions : action.payload.sponsor.sponsoractions,
                 }, action.payload.user))
             .map((response) => {
                 console.log('register success: ' + response);
