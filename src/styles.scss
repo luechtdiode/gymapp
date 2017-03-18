@@ -146,7 +146,11 @@ h2 {
 }
 .well {
   background-image: -webkit-gradient(linear,left top,left bottom,from(rgb(76, 76, 76)),to(rgb(53, 48, 48)));
-  border-color: #337ab7;
+  border: 1px solid #337ab7;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  min-height: 20px;
+  padding: 19px;
 }
 .breadcrumb {
   background-image: -webkit-gradient(linear,left top,left bottom,from(rgb(76, 76, 76)),to(rgb(53, 48, 48)));
