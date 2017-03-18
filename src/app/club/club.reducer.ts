@@ -37,7 +37,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
         loaded: true,
         loading: false,
         clubs: [...cs].sort((club1, club2): number => {
-          return club2.name.localeCompare(club1.name);
+          return club1.name.localeCompare(club2.name);
         }),
       });
     }
@@ -84,7 +84,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
           ...state.clubs.filter(club => club._id !== action.payload._id),
           action.payload,
         ].sort((club1, club2): number => {
-          return club2.name.localeCompare(club1.name);
+          return club1.name.localeCompare(club2.name);
         }),
       });
     }

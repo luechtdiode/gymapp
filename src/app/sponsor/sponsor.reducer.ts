@@ -42,7 +42,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
         loaded: true,
         loading: false,
         sponsors: [...cs].sort((sponsor1, sponsor2): number => {
-          return sponsor2.name.localeCompare(sponsor1.name);
+          return sponsor1.name.localeCompare(sponsor2.name);
         }),
       });
     }
@@ -90,7 +90,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
           ...state.sponsors.filter(sponsor => sponsor._id !== action.payload._id),
           action.payload,
         ].sort((sponsor1, sponsor2): number => {
-          return sponsor2.name.localeCompare(sponsor1.name);
+          return sponsor1.name.localeCompare(sponsor2.name);
         }),
       });
     }

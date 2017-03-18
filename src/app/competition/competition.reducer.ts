@@ -19,6 +19,12 @@ const initialState: CompetitionsState = {
   featured: undefined,
 };
 
+const dateCompare = (comp1, comp2): number => {
+  const d1 = typeof comp1.dates[0] === 'string' ? Date.parse(typeof comp1.dates[0]) : comp1.dates[0].getDate();
+  const d2 = typeof comp2.dates[0] === 'string' ? Date.parse(typeof comp2.dates[0]) : comp2.dates[0].getDate();
+  return d2 - d1;
+};
+
 export function reducer(state = initialState, action: Action): CompetitionsState {
   switch (action.type) {
     case competition.ActionTypes.LOAD_COMPETITIONS:
@@ -39,9 +45,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        competitions: [...cs].sort((comp1, comp2): number => {
-          return comp2.dates[0].getDate() - comp1.dates[0].getDate();
-        }),
+        competitions: [...cs].sort(dateCompare),
       });
     }
 
@@ -79,9 +83,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
         competitions: [
           ...state.competitions.filter(comp => comp._id !== action.payload._id),
           action.payload,
-        ].sort((comp1, comp2): number => {
-          return comp2.dates[0].getDate() - comp1.dates[0].getDate();
-        }),
+        ].sort(dateCompare),
       });
     }
 
