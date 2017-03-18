@@ -1,6 +1,11 @@
 {
-   "/api": {
-      "target": "http://localhost:3000/",
-      "secure": false
+   "/api/**": {
+      "target_": "http://localhost:3000/",
+      "target": "https://gymcompetition.mybluemix.net:443/",
+      "autoRewrite": true,
+      "xfwd": true,
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
    }
 }
