@@ -2,5 +2,6 @@
     "editor.tabSize": 2,
     "terminal.integrated.rightClickCopyPaste": false,
     "typescript.referencesCodeLens.enabled": false,
-    "gitlens.blame.annotation.activeLine": "off"
-}
+    "gitlens.blame.annotation.activeLine": "off",
+    "vsicons.presets.angular": true
+  }
