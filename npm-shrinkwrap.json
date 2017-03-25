@@ -3401,6 +3401,11 @@
       "from": "ngrx-store-freeze@0.1.9",
       "resolved": "https://registry.npmjs.org/ngrx-store-freeze/-/ngrx-store-freeze-0.1.9.tgz"
     },
+    "ngx-toastr": {
+      "version": "5.0.5",
+      "from": "ngx-toastr@latest",
+      "resolved": "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-5.0.5.tgz"
+    },
     "no-case": {
       "version": "2.3.1",
       "from": "no-case@>=2.2.0 <3.0.0",
