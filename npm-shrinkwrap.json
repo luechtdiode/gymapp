@@ -580,6 +580,12 @@
       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.8.0.tgz",
       "dev": true
     },
+    "bithound": {
+      "version": "1.7.0",
+      "from": "https://registry.npmjs.org/bithound/-/bithound-1.7.0.tgz",
+      "resolved": "https://registry.npmjs.org/bithound/-/bithound-1.7.0.tgz",
+      "dev": true
+    },
     "blob": {
       "version": "0.0.4",
       "from": "blob@0.0.4",
@@ -652,9 +658,9 @@
       "dev": true
     },
     "bootstrap": {
-      "version": "4.0.0-alpha.5",
-      "from": "bootstrap@4.0.0-alpha.5",
-      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0-alpha.5.tgz"
+      "version": "4.0.0-alpha.6",
+      "from": "bootstrap@4.0.0-alpha.6",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz"
     },
     "boxen": {
       "version": "1.0.0",
@@ -2009,6 +2015,26 @@
           "version": "1.0.0",
           "from": "assert-plus@>=1.0.0 <2.0.0",
           "resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz",
+          "dev": true
+        }
+      }
+    },
+    "git-origin-url": {
+      "version": "0.3.0",
+      "from": "git-origin-url@>=0.3.0 <0.4.0",
+      "resolved": "https://registry.npmjs.org/git-origin-url/-/git-origin-url-0.3.0.tgz",
+      "dev": true
+    },
+    "git-rev-sync": {
+      "version": "1.8.0",
+      "from": "git-rev-sync@>=1.6.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/git-rev-sync/-/git-rev-sync-1.8.0.tgz",
+      "dev": true,
+      "dependencies": {
+        "graceful-fs": {
+          "version": "4.1.6",
+          "from": "graceful-fs@4.1.6",
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.6.tgz",
           "dev": true
         }
       }
@@ -3566,6 +3592,12 @@
       "resolved": "https://registry.npmjs.org/onetime/-/onetime-2.0.1.tgz",
       "dev": true
     },
+    "open": {
+      "version": "0.0.5",
+      "from": "open@0.0.5",
+      "resolved": "https://registry.npmjs.org/open/-/open-0.0.5.tgz",
+      "dev": true
+    },
     "opn": {
       "version": "4.0.2",
       "from": "opn@4.0.2",
@@ -4245,6 +4277,12 @@
       "resolved": "https://registry.npmjs.org/readdirp/-/readdirp-2.1.0.tgz",
       "dev": true
     },
+    "rechoir": {
+      "version": "0.6.2",
+      "from": "rechoir@>=0.6.2 <0.7.0",
+      "resolved": "https://registry.npmjs.org/rechoir/-/rechoir-0.6.2.tgz",
+      "dev": true
+    },
     "redent": {
       "version": "1.0.0",
       "from": "redent@>=1.0.0 <2.0.0",
@@ -4636,6 +4674,12 @@
       "version": "2.4.8",
       "from": "sha.js@>=2.3.6 <3.0.0",
       "resolved": "https://registry.npmjs.org/sha.js/-/sha.js-2.4.8.tgz",
+      "dev": true
+    },
+    "shelljs": {
+      "version": "0.7.4",
+      "from": "shelljs@0.7.4",
+      "resolved": "https://registry.npmjs.org/shelljs/-/shelljs-0.7.4.tgz",
       "dev": true
     },
     "shrinkwrap": {
