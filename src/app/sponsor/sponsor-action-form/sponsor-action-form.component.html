@@ -18,7 +18,10 @@
                                 [title]="'Bid per ' + action.action.name + ' applies'" 
                                 [formControlName]="'bidperaction'" 
                                 required/>
-                        <!--span ng-if="action.selected" ng-show="EditFormaction.bid_{{action.id}}.$error.required && !EditFormaction.$pristine" class="help-block">A bid for that action is required, if you checked the action active.</span-->
+                        <span   *ngIf="isSelected && form.get('bidperaction').invalid" 
+                                class="help-block">
+                                A bid for that action is required, if you checked the action active.
+                        </span>
                 </div>
         </div>
         <div class="col-xs-11 col-sm-3 offset-xs-1" *ngIf="isSelected">
@@ -27,7 +30,10 @@
                         <input type="text" class="form-control input-sm" id="max_{{action.action._id}}" name="max_{{action.action._id}}" placeholder="Maximum of {{action.action.name}} applyments"
                                 title="Maximum of {{action.action.name}} applyments" 
                                 [formControlName]="'maxcnt'" required/>
-                        <!--span ng-if="action.selected" ng-show="EditForm.max_{{action.id}}.$error.required && !EditForm.$pristine" class="help-block">A max count for that action is required, if you checked the action active.</span-->
+                        <span   *ngIf="isSelected && form.get('maxcnt').invalid" 
+                                class="help-block">
+                                A max count for that action is required, if you checked the action active.
+                        </span>        
                 </div>
         </div>
         <div class="col-xs-11 col-sm-4 offset-xs-1" *ngIf="isSelected">

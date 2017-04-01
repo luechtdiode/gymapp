@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6">
-      <div class="col-xs-12"><h4>Sponsoring-Actions&nbsp;&nbsp;<span class="badge badge-pill badge-danger">Budget&nbsp;{{budget | currency}}&nbsp;</span></h4>
+      <div class="col-xs-12"><h4>Sponsoring-Actions&nbsp;&nbsp;<span class="badge badge-pill badge-danger">Budget&nbsp;{{ budget | currency:'CHF'}}&nbsp;</span></h4>
       </div>
       <gymapp-sponsor-action-form 
           *ngFor="let action of allActions"

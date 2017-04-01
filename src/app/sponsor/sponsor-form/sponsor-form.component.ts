@@ -56,14 +56,16 @@ export class SponsorFormComponent implements OnInit {
 
   recalculateBudget() {
     const calc = (action: SponsorAction) => {
-      if (typeof action.bidperaction === 'number') {
+      if (!action.bidperaction) {
+        return 0.00;
+      } else if (typeof action.bidperaction === 'number') {
         return action.bidperaction / 100 * action.maxcnt;
       } else {
         return parseFloat(action.bidperaction) * action.maxcnt;
       }
     };
     const reducer = (a: number, b: number) => a + b;
-    this.budget = 0.0 + this._sponsor.sponsoractions.map(calc).reduce(reducer);
+    this.budget = this._sponsor.sponsoractions.map(calc).reduce(reducer, 0.0);
   }
 
   syncSponsorActions(): void {
