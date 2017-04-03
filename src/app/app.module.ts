@@ -55,7 +55,7 @@ import { SponsorActionFormComponent } from './sponsor/sponsor-action-form/sponso
 import { ActionsService } from './actions/actions.service';
 import { ActionsEffects } from './actions/actions.effects';
 // import { CurrencyFormatDirective } from './shared/currency-format.directive';
-import { ShiftPosition } from './shared/shift-position.pipe';
+import { SplitCurrency } from './shared/split-currency.pipe';
 
 @NgModule({
   declarations: [
@@ -88,7 +88,7 @@ import { ShiftPosition } from './shared/shift-position.pipe';
     LoginComponent,
     RegisterUserFormComponent,
     // CurrencyFormatDirective,
-    ShiftPosition,
+    SplitCurrency,
   ],
   imports: [
     BrowserModule,
