@@ -28,6 +28,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-sponsor-page.component';
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
+import { SplitCurrency } from './shared/split-currency.pipe';
 
 describe('AppComponent', () => {
 
@@ -74,6 +75,7 @@ describe('AppComponent', () => {
         SponsorFormComponent,
         EditSponsorPageComponent,
         RegisterSponsorPageComponent,
+        SplitCurrency
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
@@ -87,6 +89,7 @@ describe('AppComponent', () => {
         { provide: UrlProvider, useValue: urlProviderStub },
         { provide: Store, useValue: storeStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
+        SplitCurrency
       ],
     });
     TestBed.compileComponents();
