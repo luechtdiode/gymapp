@@ -19,9 +19,10 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction, loadSuccessAction
+  deleteFailedAction, loadSuccessAction,
 } from './sponsor.actions';
 import { go } from '@ngrx/router-store';
+import { Sponsor } from '../model/backend-typings';
 
 @Injectable()
 export class SponsorEffects {
@@ -29,7 +30,7 @@ export class SponsorEffects {
   @Effect()
   loadFeaturedSponsor = this.actions$
     .ofType(ActionTypes.LOAD_FEATURED_SPONSOR)
-    .mergeMap(() => this.compService.getFeaturedSponsor())
+    .mergeMap(() => this.sponsorService.getFeaturedSponsor())
     .map(sponsors => loadFeaturedSuccessAction(sponsors))
     .catch((err) => {
       console.log(err);
@@ -38,48 +39,42 @@ export class SponsorEffects {
   @Effect()
   loadSponsors = this.actions$
     .ofType(ActionTypes.LOAD_SPONSORS)
-    .mergeMap(() => this.compService.getSponsors())
+    .mergeMap(() => this.sponsorService.getSponsors())
     .map(sponsors => loadAllSuccessAction(sponsors));
 
   @Effect()
   loadSponsor = this.actions$
     .ofType(ActionTypes.LOAD_SPONSOR)
     .map(action => action.payload)
-    .mergeMap(id => this.compService.getSponsor(id))
+    .mergeMap(id => this.sponsorService.getSponsor(id))
     .map(sponsor => loadSuccessAction(sponsor));
 
   @Effect()
   saveSponsor = this.actions$
     .ofType(ActionTypes.SAVE_SPONSOR)
     .map(action => action.payload)
-    .mergeMap(sponsor => this.compService.saveSponsor(sponsor)
+    .mergeMap(sponsor => this.sponsorService.saveSponsor(sponsor)
       .map(savedSponsor => saveSuccessAction(savedSponsor))
       .catch(() => Observable.of(
-        saveFailedAction(sponsor)
-      ))
-    );
+        saveFailedAction(sponsor))));
 
   @Effect()
   saveSponsorSuccess = this.actions$
     .ofType(ActionTypes.SAVE_SPONSOR_SUCCESS)
     .map(action => action.payload)
-    .do(sponsor => {
-      go(['/sponsors/', {routeParam: sponsor._id}]);
-    }).filter(() => false);
+    .map(sponsor => go(['/sponsors/', {routeParam: sponsor._id}]));
 
   @Effect()
   deleteSponsor = this.actions$
     .ofType(ActionTypes.DELETE_SPONSOR)
     .map(action => action.payload)
-    .mergeMap(comp => this.compService.deleteSponsor(comp._id)
+    .mergeMap(comp => this.sponsorService.deleteSponsor(comp._id)
       .mapTo(deleteSuccessAction(comp))
       .catch(() => Observable.of(
-        deleteFailedAction(comp)
-      ))
-    );
+        deleteFailedAction(comp))));
 
   constructor(private actions$: Actions,
-              private compService: SponsorService) {
+              private sponsorService: SponsorService) {
   }
 
 }

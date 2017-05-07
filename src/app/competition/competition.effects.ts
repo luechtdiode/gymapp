@@ -47,17 +47,13 @@ export class CompetitionEffects {
     .mergeMap(competition => this.compService.saveCompetition(competition)
       .map(savedCompetition => saveSuccessAction(savedCompetition))
       .catch(() => Observable.of(
-        saveFailedAction(competition)
-      ))
-    );
+        saveFailedAction(competition))));
 
   @Effect()
   saveCompetitionSuccess = this.actions$
     .ofType(ActionTypes.SAVE_COMPETITION_SUCCESS)
     .map(action => action.payload)
-    .do(competition => {
-      go(['/competitions/', {routeParam: competition._id}]);
-    }).filter(() => false);
+    .map(competition => go(['/competitions/', {routeParam: competition._id}]));
 
   @Effect()
   deleteCompetition = this.actions$
@@ -66,9 +62,7 @@ export class CompetitionEffects {
     .mergeMap(comp => this.compService.deleteCompetition(comp._id)
       .mapTo(deleteSuccessAction(comp))
       .catch(() => Observable.of(
-        deleteFailedAction(comp)
-      ))
-    );
+        deleteFailedAction(comp))));
 
   constructor(private actions$: Actions,
               private compService: CompetitionService) {

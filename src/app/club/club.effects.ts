@@ -29,7 +29,7 @@ export class ClubEffects {
   @Effect()
   loadFeaturedClub = this.actions$
     .ofType(ActionTypes.LOAD_FEATURED_CLUB)
-    .mergeMap(() => this.compService.getFeaturedClub())
+    .mergeMap(() => this.clubService.getFeaturedClub())
     .map(clubs => loadFeaturedSuccessAction(clubs))
     .catch((err) => {
       console.log(err);
@@ -38,26 +38,24 @@ export class ClubEffects {
   @Effect()
   loadClubs = this.actions$
     .ofType(ActionTypes.LOAD_CLUBS)
-    .mergeMap(() => this.compService.getClubs())
+    .mergeMap(() => this.clubService.getClubs())
     .map(clubs => loadAllSuccessAction(clubs));
 
   @Effect()
   loadClub = this.actions$
     .ofType(ActionTypes.LOAD_CLUB)
     .map(action => action.payload)
-    .mergeMap(id => this.compService.getClub(id))
+    .mergeMap(id => this.clubService.getClub(id))
     .map(club => loadSuccessAction(club));
 
   @Effect()
   saveClub = this.actions$
     .ofType(ActionTypes.SAVE_CLUB)
     .map(action => action.payload)
-    .mergeMap(club => this.compService.saveClub(club)
+    .mergeMap(club => this.clubService.saveClub(club)
       .map(savedClub => saveSuccessAction(savedClub))
       .catch(() => Observable.of(
-        saveFailedAction(club)
-      ))
-    );
+        saveFailedAction(club))));
 
   @Effect()
   saveClubSuccess = this.actions$
@@ -68,15 +66,13 @@ export class ClubEffects {
   deleteClub = this.actions$
     .ofType(ActionTypes.DELETE_CLUB)
     .map(action => action.payload)
-    .mergeMap(comp => this.compService.deleteClub(comp._id)
+    .mergeMap(comp => this.clubService.deleteClub(comp._id)
       .mapTo(deleteSuccessAction(comp))
       .catch(() => Observable.of(
-        deleteFailedAction(comp)
-      ))
-    );
+        deleteFailedAction(comp))));
 
   constructor(private actions$: Actions,
-              private compService: ClubService) {
+              private clubService: ClubService) {
   }
 
 }
