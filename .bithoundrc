@@ -51,6 +51,7 @@
   "dependencies": {
     "mute": [
       "shrinkwrap",
+      "@types/**",
       "typescript"
     ],
     "unused-ignores": [
@@ -63,7 +64,8 @@
       "@angular/common",
       "@angular/compiler",
       "ng2-bootstrap",
-      "font-awesome"
+      "font-awesome",
+      "ngx-toastr"
     ]
   }
 }
