@@ -3,30 +3,38 @@
   "version": "0.0.0",
   "dependencies": {
     "@angular/animations": {
-      "version": "4.1.0",
-      "from": "@angular/animations@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/animations@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.1.1.tgz"
     },
     "@angular/cli": {
       "version": "1.0.1",
       "from": "@angular/cli@1.0.1",
       "resolved": "https://registry.npmjs.org/@angular/cli/-/cli-1.0.1.tgz",
-      "dev": true
+      "dev": true,
+      "dependencies": {
+        "typescript": {
+          "version": "2.2.2",
+          "from": "typescript@>=2.0.0 <2.3.0",
+          "resolved": "https://registry.npmjs.org/typescript/-/typescript-2.2.2.tgz",
+          "dev": true
+        }
+      }
     },
     "@angular/common": {
-      "version": "4.1.0",
-      "from": "@angular/common@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/common/-/common-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/common@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/common/-/common-4.1.1.tgz"
     },
     "@angular/compiler": {
-      "version": "4.1.0",
-      "from": "@angular/compiler@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/compiler@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-4.1.1.tgz"
     },
     "@angular/compiler-cli": {
-      "version": "4.1.0",
-      "from": "@angular/compiler-cli@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-4.1.0.tgz",
+      "version": "4.1.1",
+      "from": "@angular/compiler-cli@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-4.1.1.tgz",
       "dev": true,
       "dependencies": {
         "minimist": {
@@ -38,39 +46,39 @@
       }
     },
     "@angular/core": {
-      "version": "4.1.0",
-      "from": "@angular/core@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/core@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.1.1.tgz"
     },
     "@angular/forms": {
-      "version": "4.1.0",
-      "from": "@angular/forms@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/forms@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.1.1.tgz"
     },
     "@angular/http": {
-      "version": "4.1.0",
-      "from": "@angular/http@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/http@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.1.1.tgz"
     },
     "@angular/platform-browser": {
-      "version": "4.1.0",
-      "from": "@angular/platform-browser@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/platform-browser@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.1.1.tgz"
     },
     "@angular/platform-browser-dynamic": {
-      "version": "4.1.0",
-      "from": "@angular/platform-browser-dynamic@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/platform-browser-dynamic@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.1.1.tgz"
     },
     "@angular/router": {
-      "version": "4.1.0",
-      "from": "@angular/router@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/router/-/router-4.1.0.tgz"
+      "version": "4.1.1",
+      "from": "@angular/router@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/router/-/router-4.1.1.tgz"
     },
     "@angular/tsc-wrapped": {
-      "version": "4.1.0",
-      "from": "@angular/tsc-wrapped@4.1.0",
-      "resolved": "https://registry.npmjs.org/@angular/tsc-wrapped/-/tsc-wrapped-4.1.0.tgz",
+      "version": "4.1.1",
+      "from": "@angular/tsc-wrapped@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/tsc-wrapped/-/tsc-wrapped-4.1.1.tgz",
       "dev": true
     },
     "@ngrx/core": {
@@ -118,9 +126,9 @@
       "dev": true
     },
     "@types/node": {
-      "version": "7.0.15",
-      "from": "@types/node@7.0.15",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.15.tgz",
+      "version": "7.0.18",
+      "from": "@types/node@7.0.18",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.18.tgz",
       "dev": true
     },
     "@types/q": {
@@ -1017,21 +1025,15 @@
       "dev": true
     },
     "connect": {
-      "version": "3.6.0",
+      "version": "3.6.1",
       "from": "connect@>=3.6.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/connect/-/connect-3.6.0.tgz",
+      "resolved": "https://registry.npmjs.org/connect/-/connect-3.6.1.tgz",
       "dev": true,
       "dependencies": {
-        "debug": {
-          "version": "2.6.1",
-          "from": "debug@2.6.1",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz",
-          "dev": true
-        },
         "finalhandler": {
-          "version": "1.0.0",
-          "from": "finalhandler@1.0.0",
-          "resolved": "https://registry.npmjs.org/finalhandler/-/finalhandler-1.0.0.tgz",
+          "version": "1.0.1",
+          "from": "finalhandler@1.0.1",
+          "resolved": "https://registry.npmjs.org/finalhandler/-/finalhandler-1.0.1.tgz",
           "dev": true
         }
       }
@@ -2803,9 +2805,9 @@
       }
     },
     "karma": {
-      "version": "1.6.0",
-      "from": "karma@1.6.0",
-      "resolved": "https://registry.npmjs.org/karma/-/karma-1.6.0.tgz",
+      "version": "1.7.0",
+      "from": "karma@1.7.0",
+      "resolved": "https://registry.npmjs.org/karma/-/karma-1.7.0.tgz",
       "dev": true,
       "dependencies": {
         "lodash": {
@@ -2823,9 +2825,9 @@
       }
     },
     "karma-chrome-launcher": {
-      "version": "2.0.0",
-      "from": "karma-chrome-launcher@2.0.0",
-      "resolved": "https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-2.0.0.tgz",
+      "version": "2.1.1",
+      "from": "karma-chrome-launcher@2.1.1",
+      "resolved": "https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-2.1.1.tgz",
       "dev": true
     },
     "karma-cli": {
@@ -3309,9 +3311,9 @@
       "resolved": "https://registry.npmjs.org/ngrx-store-freeze/-/ngrx-store-freeze-0.1.9.tgz"
     },
     "ngx-toastr": {
-      "version": "5.1.0",
-      "from": "ngx-toastr@5.1.0",
-      "resolved": "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-5.1.0.tgz"
+      "version": "5.2.1",
+      "from": "ngx-toastr@5.2.1",
+      "resolved": "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-5.2.1.tgz"
     },
     "no-case": {
       "version": "2.3.1",
@@ -4347,9 +4349,9 @@
       "dev": true
     },
     "rxjs": {
-      "version": "5.3.0",
-      "from": "rxjs@5.3.0",
-      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.3.0.tgz"
+      "version": "5.3.1",
+      "from": "rxjs@5.3.1",
+      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.3.1.tgz"
     },
     "safe-buffer": {
       "version": "5.0.1",
@@ -5146,9 +5148,9 @@
       "dev": true
     },
     "typescript": {
-      "version": "2.2.2",
-      "from": "typescript@2.2.2",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-2.2.2.tgz",
+      "version": "2.3.2",
+      "from": "typescript@2.3.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-2.3.2.tgz",
       "dev": true
     },
     "uglify-js": {
@@ -5676,9 +5678,9 @@
       "dev": true
     },
     "zone.js": {
-      "version": "0.8.9",
-      "from": "zone.js@0.8.9",
-      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.8.9.tgz"
+      "version": "0.8.10",
+      "from": "zone.js@0.8.10",
+      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.8.10.tgz"
     }
   }
 }
