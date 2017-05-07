@@ -46,6 +46,7 @@
     "**/test/**",
     "**/tests/**",
     "**/spec/**",
+    "**/*.spec.*",
     "**/specs/**"
   ],
   "dependencies": {
