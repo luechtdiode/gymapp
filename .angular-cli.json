@@ -1,7 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "version": "1.0.0-beta.25.5",
     "name": "gymapp-bootstrap"
   },
   "apps": [
@@ -19,7 +18,6 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "gymapp",
-      "mobile": false,
       "styles": [
         "../node_modules/font-awesome/scss/font-awesome.scss",
         "../node_modules/bootstrap/scss/bootstrap.scss",
@@ -38,10 +36,6 @@
       }
     }
   ],
-  "addons": [
-    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
-  ],
-  "packages": [],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
