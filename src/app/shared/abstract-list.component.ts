@@ -80,15 +80,13 @@ export class AbstractListComponent<T> implements OnDestroy {
       case ALL_KINDS:
         return Object.keys(this.allKindsMap)
           .map(k => this.allKindsMap[k])
-          .concat([0]) // prevent emtpy array to reduce
-          .reduce((a, b) => a + b);
+          .reduce((a, b) => a + b, 0);
 
       case OTHER_KIND:
         return Object.keys(this.allKindsMap)
           .filter(k => this.kindItems.indexOf(k) === -1)
           .map(k => this.allKindsMap[k])
-          .concat([0]) // prevent emtpy array to reduce
-          .reduce((a, b) => a + b);
+          .reduce((a, b) => a + b, 0);
 
       default: {
         return this.allKindsMap[kind];
