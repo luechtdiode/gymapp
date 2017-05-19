@@ -11,14 +11,14 @@ describe('FooterComponent', () => {
 
   beforeEach(() => {
     urlProviderStub = {
-      originHRef: {}
+      originHRef: {},
   };
   TestBed.configureTestingModule({
     declarations: [FooterComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: UrlProvider, useValue: urlProviderStub }
-      ]
+        { provide: UrlProvider, useValue: urlProviderStub },
+      ],
     });
     fixture = TestBed.createComponent(FooterComponent);
     comp = fixture.componentInstance;

@@ -41,7 +41,7 @@ describe('The Auth Effect', () => {
       EffectsRunner,
       AuthEffects,
       AuthService,
-      LocalStorageService
+      LocalStorageService,
   ], (_runner, _authEffects, _authService, _localStorage) => {
       runner = _runner;
       authEffects = _authEffects;
@@ -211,7 +211,7 @@ describe('The Auth Effect', () => {
           token: registereduser.token,
           isMemberOfClub: registereduser.isMemberOfClub,
           isMemberOfSponsor: registereduser.isMemberOfSponsor,
-        }
+        },
       ];
       const localStorCallsSpy = localStorageSpy.calls;
       spyOn(authService, 'login').and.returnValue(Observable.of(registereduser));
@@ -230,7 +230,7 @@ describe('The Auth Effect', () => {
       const localStorageSpy = spyOn(localStorage, 'storeObject');
       const localStorageSpyArgs = [
         'GCToken',
-        {}
+        {},
       ];
       runner.queue(removeCredentialsAction());
       const localStorCallsSpy = localStorageSpy.calls;

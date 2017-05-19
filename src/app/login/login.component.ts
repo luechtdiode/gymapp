@@ -11,7 +11,7 @@ import { RouterPath } from '../app.routing';
 @Component({
   selector: 'gymapp-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   user: User = {

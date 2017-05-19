@@ -11,7 +11,7 @@ describe('AboutusPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AboutusPageComponent ]
+      declarations: [ AboutusPageComponent ],
     })
     .compileComponents();
   }));

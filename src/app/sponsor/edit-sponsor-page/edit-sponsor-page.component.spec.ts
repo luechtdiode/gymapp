@@ -44,8 +44,8 @@ describe('EditSponsorPageComponent', () => {
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         { provide: FormBuilder, useValue: formBuilderStub },
-        { provide: Store, useValue: storeStub }
-      ]
+        { provide: Store, useValue: storeStub },
+      ],
     });
     fixture = TestBed.createComponent(EditSponsorPageComponent);
     component = fixture.componentInstance;

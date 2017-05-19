@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  
+
   const urlProviderStub = {
     activeLocation: () => {},
     originHRef: {},
@@ -25,7 +25,7 @@ describe('HeaderComponent', () => {
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
-    }
+    },
   };
 
   const activatedRouteStub = <ActivatedRoute>{
@@ -40,7 +40,7 @@ describe('HeaderComponent', () => {
           { provide: UrlProvider, useValue: urlProviderStub },
           { provide: Store, useValue: storeStub },
           { provide: ActivatedRoute, useValue: activatedRouteStub },
-        ]
+        ],
     })
     .compileComponents();
   }));

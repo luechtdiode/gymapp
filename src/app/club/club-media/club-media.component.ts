@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'gymapp-club-media',
   templateUrl: './club-media.component.html',
-  styleUrls: ['./club-media.component.scss']
+  styleUrls: ['./club-media.component.scss'],
 })
 export class ClubMediaComponent implements OnInit {
 
@@ -12,7 +12,7 @@ export class ClubMediaComponent implements OnInit {
     name: 'BTV Basel',
     image: '/assets/images/verein.png',
     label: 'KuTu',
-    description: 'description'
+    description: 'description',
   };
 
   constructor() { }

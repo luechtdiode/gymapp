@@ -8,7 +8,7 @@ describe('AuthService', () => {
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
     authenticated: () => false,
-    post: (url: string, loginData) => {}
+    post: (url: string, loginData) => {},
   };
 
   const service = new AuthService(crudStub);

@@ -21,8 +21,8 @@ describe('ClubListComponent', () => {
       name: 'Changed-Clubname',
       image: 'images/club.png',
       homepage: '',
-      kind: ['uio']
-    }
+      kind: ['uio'],
+    },
   ];
   const storeStub: Store<AppState> = <Store<AppState>> {
         select: (selector: any, ...paths: string[]) => {
@@ -31,18 +31,18 @@ describe('ClubListComponent', () => {
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);
-        }
+        },
     };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ClubListComponent, ClubMediaComponent ],
       providers: [
-        {provide: Store, useValue: storeStub}
+        {provide: Store, useValue: storeStub},
       ],
       imports: [
-        StoreModule.provideStore({reducer})
-      ]
+        StoreModule.provideStore({reducer}),
+      ],
     })
     .compileComponents();
   }));

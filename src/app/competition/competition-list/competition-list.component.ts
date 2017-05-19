@@ -10,7 +10,7 @@ import { AppState } from '../../app-state.reducer';
 @Component({
   selector: 'gymapp-competition-list',
   templateUrl: './competition-list.component.html',
-  styleUrls: ['./competition-list.component.scss']
+  styleUrls: ['./competition-list.component.scss'],
 })
 export class CompetitionListComponent extends AbstractListComponent<Competition> implements OnInit {
   isClubloading: Observable<boolean>;

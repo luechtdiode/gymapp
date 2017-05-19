@@ -12,18 +12,18 @@ describe('RegisterClubPageComponent', () => {
 
   beforeEach(() => {
     formBuilderStub = {
-      group: () => ({})
+      group: () => ({}),
     };
     storeStub = {
-      dispatch: () => ({})
+      dispatch: () => ({}),
     };
     TestBed.configureTestingModule({
       declarations: [ RegisterClubPageComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         { provide: FormBuilder, useValue: formBuilderStub },
-        { provide: Store, useValue: storeStub }
-      ]
+        { provide: Store, useValue: storeStub },
+      ],
     });
     fixture = TestBed.createComponent(RegisterClubPageComponent);
     comp = fixture.componentInstance;

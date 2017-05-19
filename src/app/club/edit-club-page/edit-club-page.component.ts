@@ -6,12 +6,12 @@ import { ClubFormModel } from '../club-form/club-form.model';
 import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
-import { Club } from "../../model/backend-typings";
+import { Club } from '../../model/backend-typings';
 
 @Component({
   selector: 'gymapp-edit-club-page',
   templateUrl: './edit-club-page.component.html',
-  styleUrls: ['./edit-club-page.component.scss']
+  styleUrls: ['./edit-club-page.component.scss'],
 })
 export class EditClubPageComponent implements OnInit, OnDestroy {
 
@@ -37,9 +37,9 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
                 const toEdit = Object.assign({}, club);
                 this.clubOrigin = toEdit;
                 this.form.patchValue(toEdit);
-              })
+              }),
           );
-        })
+        }),
     );
 
   }

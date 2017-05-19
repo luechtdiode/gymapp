@@ -20,8 +20,8 @@ describe('EditClubPageComponent', () => {
       name: 'Changed-Clubname',
       image: 'images/club.png',
       homepage: '',
-      kind: ['uio']
-    }
+      kind: ['uio'],
+    },
   ];
   const storeStub: Store<AppState> = <Store<AppState>> {
     select: (selector: any, ...paths: string[]) => {
@@ -30,7 +30,7 @@ describe('EditClubPageComponent', () => {
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
-    }
+    },
   };
   const formStub = {
     patchValue: () => ({}),
@@ -46,8 +46,8 @@ describe('EditClubPageComponent', () => {
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         { provide: FormBuilder, useValue: formBuilderStub },
-        { provide: Store, useValue: storeStub }
-      ]
+        { provide: Store, useValue: storeStub },
+      ],
     });
     fixture = TestBed.createComponent(EditClubPageComponent);
     component = fixture.componentInstance;

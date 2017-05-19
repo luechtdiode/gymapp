@@ -18,20 +18,20 @@ describe('CompetitionService', () => {
       dates: [new Date(2017, 0, 15)],
       description: 'Testdescription',
       website: 'www.testcompetition.gym',
-    }
+    },
   ];
 
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
     authenticated: () => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(competitionListStub)
+    get: (url: string) => Observable.of(competitionListStub),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: CompetitionService, useValue: new CompetitionService(crudStub)}
+        {provide: CompetitionService, useValue: new CompetitionService(crudStub)},
       ],
     })
     .compileComponents();

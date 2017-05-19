@@ -9,7 +9,7 @@ describe('RegisterUserFormComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterUserFormComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
     });
     fixture = TestBed.createComponent(RegisterUserFormComponent);
     comp = fixture.componentInstance;

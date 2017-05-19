@@ -45,7 +45,7 @@ export class AbstractListComponent<T> implements OnDestroy {
         this.kindsMap[ALL_KINDS] = items.length;
       }
       const allkinds = Object.keys(this.allKindsMap)
-        .map(key => Object.assign({kind: key, cnt: this.allKindsMap[key], }))
+        .map(key => Object.assign({kind: key, cnt: this.allKindsMap[key] }))
         .sort((a, b) => a.cnt - b.cnt);
       this.kindItems = [ALL_KINDS, ...allkinds.slice(0, maxTabs).map(kind => kind.kind), OTHER_KIND];
       this.kindItems.forEach(item => {
@@ -58,7 +58,7 @@ export class AbstractListComponent<T> implements OnDestroy {
       (items, predicate) => {
         const ret = items.filter(item => this.filter(item, predicate));
         return ret;
-      }
+      },
     ).subscribe(items => this.items = items));
 
     this.selectedTabSubject.next(ALL_KINDS);

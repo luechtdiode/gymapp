@@ -75,7 +75,7 @@ describe('AppComponent', () => {
         SponsorFormComponent,
         EditSponsorPageComponent,
         RegisterSponsorPageComponent,
-        SplitCurrency
+        SplitCurrency,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
@@ -89,7 +89,7 @@ describe('AppComponent', () => {
         { provide: UrlProvider, useValue: urlProviderStub },
         { provide: Store, useValue: storeStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        SplitCurrency
+        SplitCurrency,
       ],
     });
     TestBed.compileComponents();

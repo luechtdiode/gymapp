@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
-    }
+    },
   };
 
   beforeEach(async(() => {
@@ -28,9 +28,9 @@ describe('LoginComponent', () => {
       declarations: [ LoginComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
-        { provide: Store, useValue: storeStub }
+        { provide: Store, useValue: storeStub },
       ],
-      imports: [ FormsModule ]
+      imports: [ FormsModule ],
     })
     .compileComponents();
   }));

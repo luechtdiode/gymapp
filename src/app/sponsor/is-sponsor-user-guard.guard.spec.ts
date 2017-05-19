@@ -16,7 +16,7 @@ describe('IsSponsorUserGuardGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         IsSponsorUserGuardGuard,
-        {provide: Store, useValue: storeStub}, ]
+        {provide: Store, useValue: storeStub} ],
     });
   });
 

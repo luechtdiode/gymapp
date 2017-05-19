@@ -12,7 +12,7 @@ import { UrlProvider } from '../shared/urlProvider';
 @Component({
   selector: 'gymapp-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

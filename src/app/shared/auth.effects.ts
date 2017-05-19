@@ -90,7 +90,7 @@ export class AuthEffects {
             .map((response) => {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user);
-            })
+            }),
         // TODO integrate toastr component
         ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
 
@@ -110,7 +110,7 @@ export class AuthEffects {
                 }
                 return loginSuccessAction( credentialsAccepted, action.payload.backUrl);
             })
-            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])])
+            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]),
         // TODO integrate toastr component
         );
 

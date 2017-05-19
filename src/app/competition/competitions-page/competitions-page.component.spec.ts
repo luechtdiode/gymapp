@@ -26,7 +26,7 @@ describe('CompetitionsPageComponent', () => {
       dates: [new Date(2017, 0, 15)],
       description: 'Testdescription',
       website: 'www.testcompetition.gym',
-    }
+    },
   ];
 
   const storeStub: Store<AppState> = <Store<AppState>> {
@@ -36,18 +36,18 @@ describe('CompetitionsPageComponent', () => {
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);
-        }
+        },
     };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CompetitionsPageComponent, CompetitionListComponent, CompetitionMediaComponent ],
       providers: [
-        {provide: Store, useValue: storeStub}
+        {provide: Store, useValue: storeStub},
       ],
       imports: [
-        StoreModule.provideStore({reducer})
-      ]
+        StoreModule.provideStore({reducer}),
+      ],
     })
     .compileComponents();
   }));

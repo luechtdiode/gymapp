@@ -9,7 +9,7 @@ import { registerClubAction } from '../../shared/auth.actions';
 @Component({
   selector: 'gymapp-register-club-page',
   templateUrl: './register-club-page.component.html',
-  styleUrls: ['./register-club-page.component.scss']
+  styleUrls: ['./register-club-page.component.scss'],
 })
 export class RegisterClubPageComponent implements OnInit {
 

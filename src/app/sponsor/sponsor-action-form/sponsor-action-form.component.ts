@@ -7,7 +7,7 @@ import { SelectionChangedEvent } from '../../shared/util';
 @Component({
   selector: 'gymapp-sponsor-action-form',
   templateUrl: './sponsor-action-form.component.html',
-  styleUrls: ['./sponsor-action-form.component.scss']
+  styleUrls: ['./sponsor-action-form.component.scss'],
 })
 export class SponsorActionFormComponent implements OnInit, OnChanges {
 

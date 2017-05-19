@@ -114,7 +114,7 @@ import { SplitCurrency } from './shared/split-currency.pipe';
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
+      deps: [Http, RequestOptions],
     },
     CompetitionService,
     CompetitionEffects,
@@ -127,7 +127,7 @@ import { SplitCurrency } from './shared/split-currency.pipe';
     ActionsService,
     ActionsEffects,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
 export class AppModule { }

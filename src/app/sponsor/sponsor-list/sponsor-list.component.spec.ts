@@ -20,8 +20,8 @@ describe('SponsorListComponent', () => {
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
       homepage: undefined,
-      sponsoractions: []
-    }
+      sponsoractions: [],
+    },
   ];
   const storeStub: Store<AppState> = <Store<AppState>> {
         select: (selector: any, ...paths: string[]) => {
@@ -30,18 +30,18 @@ describe('SponsorListComponent', () => {
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);
-        }
+        },
     };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SponsorListComponent, SponsorMediaComponent ],
       providers: [
-        {provide: Store, useValue: storeStub}
+        {provide: Store, useValue: storeStub},
       ],
       imports: [
-        StoreModule.provideStore({reducer})
-      ]
+        StoreModule.provideStore({reducer}),
+      ],
     })
     .compileComponents();
   }));

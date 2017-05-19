@@ -3,5 +3,5 @@
     "terminal.integrated.rightClickCopyPaste": false,
     "typescript.referencesCodeLens.enabled": false,
     "gitlens.blame.annotation.activeLine": "off",
-    "vsicons.presets.angular": true
+    "vsicons.presets.angular": false
   }

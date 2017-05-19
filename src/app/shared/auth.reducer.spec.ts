@@ -5,7 +5,7 @@
 import * as auth from './auth.reducer'
 import { AuthState, username } from './auth.reducer';
 import { loginSuccessAction, removeCredentialsAction, elevateAction, loginAction, logoutSuccessAction } from './auth.actions';
-import { User } from "../model/backend-typings";
+import { User } from '../model/backend-typings';
 
 describe('Auth reducer', () => {
     let user: User;
@@ -35,7 +35,7 @@ describe('Auth reducer', () => {
       expect(state.user.username).toEqual('tester');
       expect(state.isAuthenticated).toBeTruthy();
     });
-    
+
     it('should logout', () => {
       const state = auth.reducer(undefined, loginSuccessAction(user, '/clubs'));
       const loggedOutState = auth.reducer(state, logoutSuccessAction());

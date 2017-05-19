@@ -5,7 +5,7 @@ import { RouterPath } from '../../app.routing';
 @Component({
   selector: 'gymapp-club-form',
   templateUrl: './club-form.component.html',
-  styleUrls: ['./club-form.component.scss']
+  styleUrls: ['./club-form.component.scss'],
 })
 export class ClubFormComponent implements OnInit {
   clubsLink = '/' + RouterPath.CLUBS;

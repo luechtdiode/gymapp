@@ -22,7 +22,7 @@ describe('SponsorService', () => {
     unsave: () => crudStub,
     authenticated: () => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(sponsorListStub)
+    get: (url: string) => Observable.of(sponsorListStub),
   };
 
   beforeEach(async(() => {

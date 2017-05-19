@@ -13,7 +13,7 @@ import { saveAction } from '../sponsor.actions';
 @Component({
   selector: 'gymapp-edit-sponsor-page',
   templateUrl: './edit-sponsor-page.component.html',
-  styleUrls: ['./edit-sponsor-page.component.scss']
+  styleUrls: ['./edit-sponsor-page.component.scss'],
 })
 export class EditSponsorPageComponent implements OnInit, OnDestroy {
 

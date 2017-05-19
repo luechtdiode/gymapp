@@ -8,7 +8,7 @@ import { SponsorActionModel } from '../sponsor-action-form/sponsor-action-form.m
 @Component({
   selector: 'gymapp-sponsor-form',
   templateUrl: './sponsor-form.component.html',
-  styleUrls: ['./sponsor-form.component.scss']
+  styleUrls: ['./sponsor-form.component.scss'],
 })
 export class SponsorFormComponent implements OnInit {
   private _sponsor: Sponsor;

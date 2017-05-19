@@ -18,8 +18,8 @@ describe('SponsorsPageComponent', () => {
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
       homepage: undefined,
-      sponsoractions: []
-    }
+      sponsoractions: [],
+    },
   ];
   const storeStub: Store<AppState> = <Store<AppState>>{
     select: (selector: any, ...paths: string[]) => {
@@ -28,7 +28,7 @@ describe('SponsorsPageComponent', () => {
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
-    }
+    },
   };
 
   beforeEach(async(() => {
@@ -36,11 +36,11 @@ describe('SponsorsPageComponent', () => {
       declarations: [SponsorsPageComponent, SponsorListComponent, SponsorMediaComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: Store, useValue: storeStub }
+        { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.provideStore({ reducer })
-      ]
+        StoreModule.provideStore({ reducer }),
+      ],
     })
       .compileComponents();
   }));

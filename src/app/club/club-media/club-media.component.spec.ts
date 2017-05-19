@@ -11,7 +11,7 @@ describe('ClubMediaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClubMediaComponent ]
+      declarations: [ ClubMediaComponent ],
     })
     .compileComponents();
   }));

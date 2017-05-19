@@ -1,7 +1,7 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 
 import { ActionsService } from './actions.service';
-import { Action } from "../model/backend-typings";
+import { Action } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,20 +10,20 @@ describe('ActionsService', () => {
     <Action>{
       _id: 'testId',
       name: 'action-name',
-    }
+    },
   ];
 
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
     authenticated: () => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(actionsStub)
+    get: (url: string) => Observable.of(actionsStub),
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: ActionsService, useValue: new ActionsService(crudStub)}
+        {provide: ActionsService, useValue: new ActionsService(crudStub)},
       ],
     })
     .compileComponents();

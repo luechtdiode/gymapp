@@ -9,7 +9,7 @@ describe('ClubFormComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ ClubFormComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
     });
     fixture = TestBed.createComponent(ClubFormComponent);
     comp = fixture.componentInstance;

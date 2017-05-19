@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'gymapp-register-sponsor-page',
   templateUrl: './register-sponsor-page.component.html',
-  styleUrls: ['./register-sponsor-page.component.scss']
+  styleUrls: ['./register-sponsor-page.component.scss'],
 })
 export class RegisterSponsorPageComponent implements OnInit {
 

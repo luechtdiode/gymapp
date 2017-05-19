@@ -16,7 +16,7 @@ describe('IsClubUserGuardGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         IsClubUserGuardGuard,
-        {provide: Store, useValue: storeStub}, ]
+        {provide: Store, useValue: storeStub} ],
     });
   });
 

@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 @Component({
     selector :  `gymapp-test-host-component`,
     template :  `<div>
-                    <gymapp-sponsor-action-form 
+                    <gymapp-sponsor-action-form
                       [action]="actionFromHost"
                       [isSelected]="selectedFromHost">
                     </gymapp-sponsor-action-form>
@@ -39,7 +39,7 @@ describe('SponsorActionFormComponent', () => {
       declarations: [ SponsorActionFormComponent, TestHostComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
-        FormBuilder
+        FormBuilder,
       ],
     });
     fixture = TestBed.createComponent(TestHostComponent);

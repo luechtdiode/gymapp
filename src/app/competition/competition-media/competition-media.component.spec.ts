@@ -13,12 +13,12 @@ describe('CompetitionMediaComponent', () => {
 
  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CompetitionMediaComponent]
+      declarations: [CompetitionMediaComponent],
     });
     // this is a temporary workaround, as fixture.detectChanges() isn't working
     // for components with ChangeDetectionStrategy.OnPush
     TestBed.overrideComponent(CompetitionMediaComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     });
     TestBed.compileComponents();
   }));
@@ -84,7 +84,7 @@ describe('CompetitionMediaComponent', () => {
 
     // example to bind the event listener
     // e.g. @Output() onClick = new EventEmitter()
-    var buttonWasClicked = undefined;
+    let buttonWasClicked = undefined;
     const sub = component.onDelete.subscribe((id) => buttonWasClicked = id);
 
     const button = buttons[0];
@@ -118,7 +118,7 @@ describe('CompetitionMediaComponent', () => {
 
     // example to bind the event listener
     // e.g. @Output() onClick = new EventEmitter()
-    var buttonWasClicked = undefined;
+    let buttonWasClicked = undefined;
     const sub = component.onEdit.subscribe((id) => buttonWasClicked = id);
 
     const button = buttons[1];

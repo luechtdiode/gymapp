@@ -11,7 +11,7 @@ import { flatMap } from '../../shared/collection-util';
 @Component({
   selector: 'gymapp-sponsor-list',
   templateUrl: './sponsor-list.component.html',
-  styleUrls: ['./sponsor-list.component.scss']
+  styleUrls: ['./sponsor-list.component.scss'],
 })
 export class SponsorListComponent extends AbstractListComponent<Sponsor> implements OnInit {
   isSponsorsloading: Observable<boolean>;

@@ -12,12 +12,12 @@ describe('SponsorMediaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SponsorMediaComponent]
+      declarations: [SponsorMediaComponent],
     });
     // this is a temporary workaround, as fixture.detectChanges() isn't working
     // for components with ChangeDetectionStrategy.OnPush
     TestBed.overrideComponent(SponsorMediaComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     });
     TestBed.compileComponents();
   }));
@@ -38,7 +38,7 @@ describe('SponsorMediaComponent', () => {
       name: 'Changed-Sponsorname',
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
-      homepage: undefined
+      homepage: undefined,
     };
     fixture.detectChanges();
     const sloganParagraph = fixture.debugElement.query(By.css('.slogan')).nativeElement.textContent;
@@ -64,7 +64,7 @@ describe('SponsorMediaComponent', () => {
       name: 'Changed-Sponsorname',
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
-      homepage: 'https://www.changed-sponsor.com'
+      homepage: 'https://www.changed-sponsor.com',
     };
 
     fixture.detectChanges();
@@ -91,7 +91,7 @@ describe('SponsorMediaComponent', () => {
       name: 'Changed-Sponsorname',
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
-      homepage: 'https://www.changed-sponsor.com'
+      homepage: 'https://www.changed-sponsor.com',
     };
     component.editable = true;
 
@@ -102,7 +102,7 @@ describe('SponsorMediaComponent', () => {
 
     // example to bind the event listener
     // e.g. @Output() onClick = new EventEmitter()
-    var buttonWasClicked = undefined;
+    let buttonWasClicked = undefined;
     const sub = component.onDelete.subscribe((id) => buttonWasClicked = id);
 
     const button = buttons[0];
@@ -122,7 +122,7 @@ describe('SponsorMediaComponent', () => {
       name: 'Changed-Sponsorname',
       image: 'images/changed-sponsor.png',
       slogan: 'Changed Slogan of sponsor',
-      homepage: 'https://www.changed-sponsor.com'
+      homepage: 'https://www.changed-sponsor.com',
     };
     component.editable = true;
 
@@ -133,7 +133,7 @@ describe('SponsorMediaComponent', () => {
 
     // example to bind the event listener
     // e.g. @Output() onClick = new EventEmitter()
-    var buttonWasClicked = undefined;
+    let buttonWasClicked = undefined;
     const sub = component.onEdit.subscribe((id) => buttonWasClicked = id);
 
     const button = buttons[1];

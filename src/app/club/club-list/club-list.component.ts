@@ -11,13 +11,13 @@ import { RouterPath } from '../../app.routing';
 @Component({
   selector: 'gymapp-club-list',
   templateUrl: './club-list.component.html',
-  styleUrls: ['./club-list.component.scss']
+  styleUrls: ['./club-list.component.scss'],
 })
 export class ClubListComponent extends AbstractListComponent<Club> implements OnInit {
   isClubloading: Observable<boolean>;
   message = 'Clubs loading ...';
   registerCLubLink = '/' + RouterPath.REGISTER_CLUB;
-  
+
   constructor(protected store: Store<AppState>) {
     super(store);
   }

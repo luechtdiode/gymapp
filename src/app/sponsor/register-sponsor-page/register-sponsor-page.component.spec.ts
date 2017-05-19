@@ -46,11 +46,11 @@ describe('RegisterSponsorPageComponent', () => {
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         { provide: FormBuilder, useValue: formBuilderStub },
-        { provide: Store, useValue: storeStub }
+        { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.provideStore({ reducer })
-      ]
+        StoreModule.provideStore({ reducer }),
+      ],
     })
     .compileComponents();
   }));

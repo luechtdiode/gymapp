@@ -7,7 +7,7 @@ import { HomePageComponent } from './home-page.component';
 import { ClubMediaComponent } from '../club/club-media/club-media.component';
 import { CompetitionMediaComponent } from '../competition/competition-media/competition-media.component';
 import { SponsorMediaComponent } from '../sponsor/sponsor-media/sponsor-media.component';
-import { Club, Sponsor, Competition } from "../model/backend-typings";
+import { Club, Sponsor, Competition } from '../model/backend-typings';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
@@ -24,7 +24,7 @@ describe('HomeComponent', () => {
     name: 'Changed-Clubname',
     image: 'images/club.png',
     homepage: '',
-    kind: ['uio']
+    kind: ['uio'],
   };
 
   const sponsorStub = <Sponsor>{
@@ -32,9 +32,9 @@ describe('HomeComponent', () => {
     image: 'images/changed-sponsor.png',
     slogan: 'Changed Slogan of sponsor',
     homepage: undefined,
-    sponsoractions: []
+    sponsoractions: [],
   };
-  
+
   const competitionStub = <Competition>{
     _id: 'testId',
     name: 'TestCompetition',
@@ -63,7 +63,7 @@ describe('HomeComponent', () => {
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
-    }
+    },
   };
 
   beforeEach(async(() => {
