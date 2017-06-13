@@ -1,0 +1,40 @@
+// {type:usecase}
+// {direction:leftToRight}
+
+(Legend)-(note: Green: Public area{bg:#90EE90})
+(Legend)-(note: Yellow: Authentication area{bg:#F0F888})
+(Legend)-(note: Red: Authorized area{bg:#FA8072})
+
+[User]
+[Club]^[User]
+[Sponsor]^[User]
+
+[User]-(View Competitions{bg:#90EE90})
+(View Competitions)>(Show Competition-Details{bg:#90EE90})
+[User]-(View Clubs{bg:#90EE90})
+(View Clubs)>(Show Club-Details{bg:#90EE90})
+[User]-(View Sponsors{bg:#90EE90})
+(View Sponsors)>(Show Sponsor-Details{bg:#90EE90})
+(Register as Club{bg:#F0F888})^(Register)
+(Register as Sponsor{bg:#F0F888})^(Register)
+[User]-(Register as Club{bg:#F0F888})
+[User]-(Register as Sponsor{bg:#F0F888})
+[User]-(Login{bg:#F0F888})
+(Login)-(note: as Sponsor or as Club{bg:beige})
+(Register)^(Login)
+
+[Club]-(Edit Club-Profile{bg:#FA8072})
+[Club]-(Edit Club-Members{bg:#FA8072})
+[Club]-(Plan Competition{bg:#FA8072})
+(Plan Competition)>(Provide Sponsor-Actions{bg:#FA8072})
+[Club]-(Register Team/Members to Competition{bg:#FA8072})
+[Club]-(Get registered Teams/Members from Competition{bg:#FA8072})
+[Club]-(Publish Competition Results{bg:#FA8072})
+
+[Sponsor]-(Edit Sponsor-Profile{bg:#FA8072})
+[Sponsor]-(Support Competition{bg:#FA8072})
+(Support Competition)>(Apply Sponsor-Actions{bg:#FA8072})
+
+(Show Club-Details)>(Edit Club-Profile)
+(Show Sponsor-Details)>(Edit Sponsor-Profile)
+(Show Competition-Details)>(Plan Competition)
