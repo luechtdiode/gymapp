@@ -1,10 +1,23 @@
 <div class="container">
-  <div class="row row-content" >
-    <div class="tab-content" *ngIf="!(isClubloading | async)">
-      <ul class="list-unstyled">
-        <gymapp-competition-media [competition]="competition | async" class="media" ></gymapp-competition-media>
-      </ul>
+  <div class="row row-content">
+      <div class="col-12">
+        <button class="btn btn-xs btn-primary pull-right"
+            type="button" [routerLink]="'/competitions'">
+            Back to competitions
+        </button>
+        <ul class="media-list">
+          <h3 *ngIf="!competition">{{loadingmessage}}</h3>
+          <li class="media" *ngIf="competition">
+            <gymapp-competition-media [competition]="competition | async" class="media" ></gymapp-competition-media>
+            <p>{{(competition | async)?.description}}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <h3>Is supported by the following Sponsors</h3>
+      </div>
+      <div class="col-12">
+        <gymapp-sponsor-list [supportingCompetition]="competition | async"></gymapp-sponsor-list>
+      </div>
     </div>
-  </div>
 </div>
-<gymapp-sponsor-list [supportingCompetition]="competition | async"></gymapp-sponsor-list>
