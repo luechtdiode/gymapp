@@ -9,7 +9,17 @@ import { Observable } from 'rxjs/Observable';
 
 import { CompetitionListComponent } from './competition-list.component';
 import { CompetitionMediaComponent } from '../competition-media/competition-media.component';
-import { Competition } from '../../model/backend-typings';
+import { Sponsor, Competition, CompSponsorAction, Action as RawAction, SponsorAction } from '../../model/backend-typings';
+
+const action1 = <RawAction>{
+    _id: 'testaction1',
+    name: 'testaction1',
+  };
+
+const action2 = <RawAction>{
+    _id: 'testaction2',
+    name: 'testaction2',
+  };
 
 describe('CompetitionListComponent', () => {
   let component: CompetitionListComponent;
@@ -24,6 +34,43 @@ describe('CompetitionListComponent', () => {
       location: 'Basel',
       dates: [new Date(2017, 0, 15)],
       description: 'Testdescription',
+      sponsoractions: [<CompSponsorAction>{
+          action: action1,
+          costperaction: 10.00,
+          maxcnt: 100,
+      }],
+      website: 'www.testcompetition.gym',
+    },
+    <Competition>{
+      _id: 'testId2',
+      name: 'TestCompetition2',
+      image: 'images/competition.png',
+      club: 'Testclub',
+      kind: 'Test',
+      location: 'Basel',
+      dates: [new Date(2017, 0, 15)],
+      description: 'Testdescription',
+      sponsoractions: [<CompSponsorAction>{
+          action: action2,
+          costperaction: 10.00,
+          maxcnt: 100,
+      }],
+      website: 'www.testcompetition.gym',
+    },
+    <Competition>{
+      _id: 'testId3',
+      name: 'TestCompetition3',
+      image: 'images/competition.png',
+      club: 'Testclub',
+      kind: 'Test',
+      location: 'Basel',
+      dates: [new Date(2017, 0, 15)],
+      description: 'Testdescription',
+      sponsoractions: [<CompSponsorAction>{
+          action: action2,
+          costperaction: 10.00,
+          maxcnt: 100,
+      }],
       website: 'www.testcompetition.gym',
     },
   ];
@@ -59,5 +106,34 @@ describe('CompetitionListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should filter Sponsors by matching actions when Competition is set', () => {
+    // expect unfiltered sponsorlist
+    expect(component.items.length).toEqual(3);
+
+    component.supportingSponsor = <Sponsor>{
+      name: 'Sponsor2',
+      image: 'images/sponsor2.png',
+      slogan: 'Slogan of sponsor2',
+      homepage: undefined,
+      sponsoractions: [
+        <SponsorAction>{
+          action: action1,
+          bidperaction: 10.00,
+          maxcnt: 10.00,
+          kinds: ['Test'],
+        },
+        <SponsorAction>{
+          action: action2,
+          bidperaction: 10.00,
+          maxcnt: 10.00,
+          kinds: ['Test'],
+        }],
+    };
+    fixture.detectChanges();
+
+    // expect filtered sponsorlist
+    expect(component.items.length).toEqual(2);
   });
 });

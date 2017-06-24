@@ -103,6 +103,7 @@ export interface Competition {
     kind?: string;
     location?: string;
     dates: Date[];
+    sponsoractions: CompSponsorAction[];
     googleplushandle?: string;
     facebookhandle?: string;
     twitterhandle?: string;

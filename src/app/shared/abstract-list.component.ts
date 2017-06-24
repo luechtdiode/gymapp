@@ -15,15 +15,24 @@ export class AbstractListComponent<T> implements OnDestroy {
 
   protected subscriptions: Subscription[] = [];
 
-  private items: T[];
+  private _items: T[];
   private kindItems: string[] = [];
   private selectedTabSubject = new Subject<string>();
   private selectedTab: string;
   private allKindsMap = {};
   private kindsMap = {};
   private itemExtractor: (T) => string[];
+  private extraFilter = [];
 
   constructor(protected store: Store<AppState>) { }
+
+  addExtraFilter(filterFn: (T) => boolean) {
+    this.extraFilter.push(filterFn);
+  }
+
+  reevaluateExtraFilteredList() {
+    this.selectedTabSubject.next(this.selectedTab);
+  }
 
   protected connect(selector: Selector<AppState, T[]>, maxTabs: number, extractor: (T) => string[]) {
     this.itemExtractor = extractor;
@@ -54,12 +63,15 @@ export class AbstractListComponent<T> implements OnDestroy {
     }));
 
     this.subscriptions.push(Observable.combineLatest(
-      unfilteredItems, this.selectedTabSubject,
-      (items, predicate) => {
-        const ret = items.filter(item => this.filter(item, predicate));
+      unfilteredItems,
+      this.selectedTabSubject, (items, predicate) => {
+        let ret = items.filter(item => this.filter(item, predicate));
+        this.extraFilter.forEach(filterFn => {
+          ret = ret.filter(filterFn);
+        });
         return ret;
       },
-    ).subscribe(items => this.items = items));
+    ).subscribe((items) => this._items = items));
 
     this.selectedTabSubject.next(ALL_KINDS);
   }
@@ -70,6 +82,10 @@ export class AbstractListComponent<T> implements OnDestroy {
 
   select(kind: string) {
     this.selectedTabSubject.next(kind);
+  }
+
+  public get items() {
+    return this._items;
   }
 
   private getKindCount(kind: string) {
