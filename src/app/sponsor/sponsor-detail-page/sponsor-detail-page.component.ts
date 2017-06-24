@@ -26,7 +26,6 @@ export class SponsorDetailPageComponent implements OnInit {
     store.dispatch(loadDetailAction(sponsorid));
     this.sponsor = this.store.select(getDetailSponsor);
     this.store.select(isMemberOfSponsor).subscribe(sponsor => {
-      console.log('isMemberOfSponsor', sponsor, sponsorid);
       this.isSponsorUser = sponsor ? sponsor === sponsorid : false;
     });
   }

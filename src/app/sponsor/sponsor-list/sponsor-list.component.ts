@@ -68,7 +68,6 @@ export class SponsorListComponent extends AbstractListComponent<Sponsor> impleme
     const sponsorActions = sponsor.sponsoractions;
     const competitionActions = this.supportingCompetition.sponsoractions;
     return sponsorActions.find(sa => competitionActions.find(ca => {
-      console.log(sa.action.name, ca.action.name);
       if (this.isActionPairMatching(ca, sa)) {
         if (this.isKindMatching(sa)) {
           return true;

@@ -49,7 +49,6 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
   }
 
   doSave(value) {
-    console.log(value);
     this.store.dispatch(fromClubs.saveAction(Object.assign({}, this.clubOrigin, value)));
   }
 }

@@ -61,7 +61,6 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
   }
 
   doSave(value) {
-    console.log(value);
     this.store.dispatch(saveAction(Object.assign({}, this.sponsorOrigin, value)));
   }
 }

@@ -2,7 +2,7 @@
   <div class="row row-content">
       <div class="col-12">
         <button class="btn btn-xs btn-primary pull-right"
-            type="button" [routerLink]="'/clubs'">
+            type="button" [routerLink]="clubsLink">
             Back to clubs
         </button>
         <ul class="media-list">
@@ -13,7 +13,7 @@
         </ul>
       </div>
       <div class="col-12">
-        <button *ngIf="isClubUser" [routerLink]="'competitions/new/' + (club | async)?._id"
+        <button *ngIf="isClubUser" [routerLink]="'/competitions/new/' + (club | async)?._id"
                 class="btn btn-success pull-right"
                 type="button">
           Plan a new Competition

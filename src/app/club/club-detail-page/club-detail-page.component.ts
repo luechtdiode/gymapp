@@ -5,6 +5,7 @@ import { AppState, getDetailClub, isMemberOfClub } from '../../app-state.reducer
 import { Observable } from 'rxjs/Observable';
 import { Club } from '../../model/backend-typings';
 import { loadDetailAction } from '../club.actions';
+import { RouterPath } from '../../app.routing';
 
 @Component({
   selector: 'gymapp-club-detail-page',
@@ -17,6 +18,7 @@ export class ClubDetailPageComponent implements OnInit {
 
   loadingmessage = 'loading ...';
   isClubUser = false;
+  clubsLink = '/' + RouterPath.CLUBS;
 
   constructor(public router: Router, public store: Store<AppState>) {
     const state: RouterState = router.routerState;
@@ -26,7 +28,6 @@ export class ClubDetailPageComponent implements OnInit {
     store.dispatch(loadDetailAction(clubid));
     this.club = this.store.select(getDetailClub);
     this.store.select(isMemberOfClub).subscribe(club => {
-      console.log('isMemberOfClub', club, clubid);
       this.isClubUser = club ? club === clubid : false;
     });
   }

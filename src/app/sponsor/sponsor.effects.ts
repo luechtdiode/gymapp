@@ -69,7 +69,7 @@ export class SponsorEffects {
   saveSponsorSuccess = this.actions$
     .ofType(ActionTypes.SAVE_SPONSOR_SUCCESS)
     .map(action => action.payload)
-    .map(sponsor => go(['/sponsors/', {routeParam: sponsor._id}]));
+    .map(sponsor => go(['/sponsors/', sponsor._id]));
 
   @Effect()
   deleteSponsor = this.actions$

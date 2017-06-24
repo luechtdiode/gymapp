@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row row-content">
+  <div *ngIf="sponsor | async" class="row row-content">
       <div class="col-12">
         <button class="btn btn-xs btn-primary pull-right"
             type="button" [routerLink]="'/sponsors'">

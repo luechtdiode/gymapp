@@ -68,7 +68,7 @@ export class ClubEffects {
   @Effect()
   saveClubSuccess = this.actions$
     .ofType(ActionTypes.SAVE_CLUB_SUCCESS)
-    .map((action) => go(['/clubs/', {routeParam: action.payload._id}]));
+    .map((action) => go(['/clubs/', action.payload._id]));
 
   @Effect()
   deleteClub = this.actions$
