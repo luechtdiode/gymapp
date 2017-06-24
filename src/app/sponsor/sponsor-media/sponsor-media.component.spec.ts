@@ -2,7 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { SponsorMediaComponent } from './sponsor-media.component';
 
@@ -13,6 +13,7 @@ describe('SponsorMediaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SponsorMediaComponent],
+      schemas: [ NO_ERRORS_SCHEMA ],
     });
     // this is a temporary workaround, as fixture.detectChanges() isn't working
     // for components with ChangeDetectionStrategy.OnPush

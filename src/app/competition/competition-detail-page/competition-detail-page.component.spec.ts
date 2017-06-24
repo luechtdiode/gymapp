@@ -1,25 +1,50 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { CompetitionDetailPageComponent } from './competition-detail-page.component';
+import { CompetitionListComponent } from '../competition-list/competition-list.component';
+import { Observable } from 'rxjs/Observable';
 
 describe('CompetitionDetailPageComponent', () => {
-  let component: CompetitionDetailPageComponent;
+  let comp: CompetitionDetailPageComponent;
   let fixture: ComponentFixture<CompetitionDetailPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CompetitionDetailPageComponent ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    const routerStub = {
+      routerState: {
+        snapshot: {
+          root: {
+            firstChild: {
+              paramMap: {
+                get: () => 'testid',
+              },
+            },
+          },
+        },
+      },
+    };
+    const storeStub = {
+      dispatch: () => ({}),
+      select: () => ({
+        subscribe: () => Observable.of({}),
+      }),
+    };
+
+    TestBed.configureTestingModule({
+      declarations: [ CompetitionDetailPageComponent, CompetitionListComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [
+        { provide: Router, useValue: routerStub },
+        { provide: Store, useValue: storeStub },
+      ],
+    });
     fixture = TestBed.createComponent(CompetitionDetailPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    comp = fixture.componentInstance;
   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
+  it('can load instance', () => {
+    expect(comp).toBeTruthy();
   });
+
 });

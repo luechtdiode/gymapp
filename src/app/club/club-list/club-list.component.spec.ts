@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement  } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { reducer } from '../../app-state.reducer';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { ClubListComponent } from './club-list.component';
 import { ClubMediaComponent } from '../club-media/club-media.component';
 import { Club } from '../../model/backend-typings';
+import { Router } from '@angular/router';
 
 describe('ClubListComponent', () => {
   let component: ClubListComponent;
@@ -34,12 +35,28 @@ describe('ClubListComponent', () => {
         },
     };
 
+  const routerStub = {
+    routerState: {
+      snapshot: {
+        root: {
+          firstChild: {
+            paramMap: {
+              get: () => 'testid',
+            },
+          },
+        },
+      },
+    },
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ClubListComponent, ClubMediaComponent ],
       providers: [
-        {provide: Store, useValue: storeStub},
+        { provide: Router, useValue: routerStub },
+        { provide: Store, useValue: storeStub },
       ],
+      schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
         StoreModule.provideStore({reducer}),
       ],

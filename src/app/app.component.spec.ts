@@ -29,6 +29,9 @@ import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-spons
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { SponsorFormComponent } from './sponsor/sponsor-form/sponsor-form.component';
 import { SplitCurrency } from './shared/split-currency.pipe';
+import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
+import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
+import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 
 describe('AppComponent', () => {
 
@@ -76,6 +79,9 @@ describe('AppComponent', () => {
         EditSponsorPageComponent,
         RegisterSponsorPageComponent,
         SplitCurrency,
+        ClubDetailPageComponent,
+        CompetitionDetailPageComponent,
+        SponsorDetailPageComponent,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
