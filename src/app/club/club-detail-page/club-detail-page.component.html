@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row row-content">
+      <div class="col-12">
+        <button class="btn btn-xs btn-primary pull-right"
+            type="button" [routerLink]="'/clubs'">
+            Back to clubs
+        </button>
+        <ul class="media-list">
+          <h3 *ngIf="!club">{{loadingmessage}}</h3>
+          <li class="media" *ngIf="club">
+            <gymapp-club-media [club]="club | async" class="media" ></gymapp-club-media>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <button *ngIf="isClubUser" [routerLink]="'competitions/new/' + (club | async)?._id"
+                class="btn btn-success pull-right"
+                type="button">
+          Plan a new Competition
+        </button>
+        <h3>Carries the following Competitions</h3>
+      </div>
+      <div class="col-12">
+        <gymapp-competition-list [supportingClub]="club | async"></gymapp-competition-list>
+      </div>
+    </div>
+</div>

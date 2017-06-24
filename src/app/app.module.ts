@@ -56,6 +56,8 @@ import { ActionsService } from './actions/actions.service';
 import { ActionsEffects } from './actions/actions.effects';
 // import { CurrencyFormatDirective } from './shared/currency-format.directive';
 import { SplitCurrency } from './shared/split-currency.pipe';
+import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
+import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { SplitCurrency } from './shared/split-currency.pipe';
     RegisterUserFormComponent,
     // CurrencyFormatDirective,
     SplitCurrency,
+    CompetitionDetailPageComponent,
+    ClubDetailPageComponent,
   ],
   imports: [
     BrowserModule,

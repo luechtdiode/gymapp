@@ -8,6 +8,8 @@ export interface CompetitionsState {
   competitions: Competition[];
   loadingFeatured: boolean;
   featured: Competition;
+  loadingDetail: boolean;
+  detail: Competition;
 };
 
 const initialState: CompetitionsState = {
@@ -17,6 +19,9 @@ const initialState: CompetitionsState = {
 
   loadingFeatured: false,
   featured: undefined,
+
+  loadingDetail: false,
+  detail: undefined,
 };
 
 const dateCompare = (comp1, comp2): number => {
@@ -32,9 +37,6 @@ export function reducer(state = initialState, action: Action): CompetitionsState
       return Object.assign({}, state, {
         loading: true,
         loaded: state.loaded,
-        competitions: state.competitions,
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
       });
     }
 
@@ -71,6 +73,36 @@ export function reducer(state = initialState, action: Action): CompetitionsState
       return Object.assign({}, state, {
         loadingFeatured: false,
         featured: action.payload,
+      });
+    }
+
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case competition.ActionTypes.LOAD_COMPETITION:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: true,
+        detail: undefined,
+      });
+    }
+
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case competition.ActionTypes.LOAD_COMPETITION_FAIL:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: false,
+        detail: undefined,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case competition.ActionTypes.LOAD_COMPETITION_SUCCESS:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: false,
+        detail: action.payload,
+        competitions: [
+          ...state.competitions.filter(comp => comp._id !== action.payload._id),
+          action.payload,
+        ].sort(dateCompare),
       });
     }
 
@@ -113,3 +145,6 @@ export const isLoading = (state: CompetitionsState) => state.loading;
 
 export const getFeatured = (state: CompetitionsState) => state.featured;
 export const isLoadingFeatured = (state: CompetitionsState) => state.loadingFeatured;
+
+export const getCompetition = (state: CompetitionsState) => state.detail;
+export const isLoadingDetail = (state: CompetitionsState) => state.loadingDetail;

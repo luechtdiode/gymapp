@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractListComponent } from '../../shared/abstract-list.component';
 import { Observable } from 'rxjs/Observable';
-import { Competition, Sponsor, SponsorAction, CompSponsorAction } from '../../model/backend-typings';
+import { Competition, Sponsor, SponsorAction, CompSponsorAction, Club } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
 import { Store } from '@ngrx/store';
@@ -13,10 +13,10 @@ import { AppState } from '../../app-state.reducer';
   styleUrls: ['./competition-list.component.scss'],
 })
 export class CompetitionListComponent extends AbstractListComponent<Competition> implements OnInit {
-  isClubloading: Observable<boolean>;
+  isCompetitionsloading: Observable<boolean>;
   message = 'Competitions loading ...';
   private _supportingSponsor: Sponsor;
-
+  private _supportingClub: Club;
   constructor(protected store: Store<AppState>) {
     super(store);
   }
@@ -25,8 +25,8 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
     this.store.dispatch(fromCompetitions.loadAllAction());
     const maxTabs = 6;
     this.connect(fromRoot.getCompetitions, maxTabs, (competition: Competition) => [competition.kind]);
-    this.isClubloading = this.store.select(fromRoot.isLoadingClub);
-    this.addExtraFilter((competition) => this.filterMatchinSponsorActions(competition));
+    this.isCompetitionsloading = this.store.select(fromRoot.isLoadingCompetitions);
+    this.addExtraFilter((competition) => this.filterMatchingActions(competition));
   }
 
   @Input()
@@ -37,6 +37,16 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
 
   public get supportingSponsor(): Sponsor {
     return this._supportingSponsor;
+  }
+
+  @Input()
+  public set supportingClub(club: Club) {
+    this._supportingClub = club;
+    this.reevaluateExtraFilteredList();
+  }
+
+  public get supportingClub(): Club {
+    return this._supportingClub;
   }
 
   isActionPairMatching(sa: SponsorAction, ca: CompSponsorAction): boolean {
@@ -57,21 +67,26 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
     }
   }
 
-  filterMatchinSponsorActions(competition: Competition): boolean {
-    if (!this.supportingSponsor) {
-      return true;
-    }
-    const sponsorActions = this.supportingSponsor.sponsoractions;
-    const competitionActions = competition.sponsoractions;
-    return sponsorActions.find(sa => competitionActions.find(ca => {
-      console.log(sa.action.name, ca.action.name);
-      if (this.isActionPairMatching(sa, ca)) {
-        if (this.isKindMatching(sa, competition)) {
-          return true;
-        }
+  filterMatchingActions(competition: Competition): boolean {
+    if (this._supportingClub) {
+      if (this._supportingClub._id !== competition.clubid._id) {
+        return false;
       }
-      return false;
-    }) !== undefined) !== undefined;
+    }
+    if (this.supportingSponsor) {
+      const sponsorActions = this.supportingSponsor.sponsoractions;
+      const competitionActions = competition.sponsoractions;
+      return sponsorActions.find(sa => competitionActions.find(ca => {
+        console.log(sa.action.name, ca.action.name);
+        if (this.isActionPairMatching(sa, ca)) {
+          if (this.isKindMatching(sa, competition)) {
+            return true;
+          }
+        }
+        return false;
+      }) !== undefined) !== undefined;
+    }
+    return true;
   }
 
 }

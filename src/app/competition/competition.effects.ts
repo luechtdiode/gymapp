@@ -16,15 +16,27 @@ import { ActionTypes,
   loadFeaturedFailedAction,
   loadAllSuccessAction,
   loadAllAction,
+  loadAction,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction } from './competition.actions';
+  deleteFailedAction, 
+  loadDetailSuccessAction,
+  loadDetailFailedAction} from './competition.actions';
 import { go } from '@ngrx/router-store';
 
 @Injectable()
 export class CompetitionEffects {
 
+  @Effect()
+  loadCompetition = this.actions$
+    .ofType(ActionTypes.LOAD_COMPETITION)
+    .mergeMap((action) => this.compService.getCompetition(action.payload))
+    .map(comps => loadDetailSuccessAction(comps))
+    .catch((err) => {
+      console.log(err);
+      return Observable.of(loadDetailFailedAction());
+    });
   @Effect()
   loadFeaturedCompetition = this.actions$
     .ofType(ActionTypes.LOAD_FEATURED_COMPETITION)

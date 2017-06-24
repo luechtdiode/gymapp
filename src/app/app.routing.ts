@@ -15,6 +15,8 @@ import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-sponsor-page.component';
 import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
+import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
+import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -56,9 +58,9 @@ export const RouterPath = {
     COMPETITIONS: 'competitions',
     COMPETITION_DETAILS: 'competitions/:competitionid',
     COMPETITION_EDIT: 'competitions/:competitionid/edit',
-    CREATE_COMPETITION: 'competitions/new',
+    CREATE_COMPETITION: 'competitions/new/:clubid',
     CLUBS: 'clubs',
-    CLUB_DETAILS: ':clubid',
+    CLUB_DETAILS: 'clubs/:clubid',
     SPONSORS: 'sponsors',
     SPONSOR_DETAILS: 'sponsors/:sponsorid',
     CONTACT: 'contact',
@@ -73,17 +75,11 @@ export const appRoutes: Routes = [
   { path: '', redirectTo: RouterPath.HOME, pathMatch: 'full' },
   { path: RouterPath.HOME, component: HomePageComponent },
   { path: RouterPath.ABOUT, component: AboutusPageComponent },
-  { path: RouterPath.COMPETITIONS, component: CompetitionsPageComponent,
-/*    children: [
-        {path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent}
-        {path: RouterPath.COMPETITION_DETAILS, component: CompetitionDetailPageComponent}
-        ]*/
-   },
-  { path: RouterPath.CLUBS, component: ClubsPageComponent,
-/*    children: [
-        {path: RouterPath.CLUB_DETAILS, component: ClubDetailPageComponent}
-        ]*/
-  },
+  { path: RouterPath.COMPETITIONS, component: CompetitionsPageComponent },
+  { path: RouterPath.COMPETITION_DETAILS, component: CompetitionDetailPageComponent },
+  /*{path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent }*/
+  { path: RouterPath.CLUBS, component: ClubsPageComponent },
+  { path: RouterPath.CLUB_DETAILS, component: ClubDetailPageComponent },
   { path: RouterPath.SPONSORS, component: SponsorsPageComponent,
 /*    children: [
         {path: RouterPath.SPONSOR_DETAILS, component: SponsorDetailPageComponent}

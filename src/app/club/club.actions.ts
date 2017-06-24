@@ -11,11 +11,14 @@ export const ActionTypes = {
   DELETE_CLUB:                type('[CLUB] Delete CLUB'),
   DELETE_CLUB_SUCCESS:        type('[CLUB] Delete CLUB Success'),
   DELETE_CLUB_FAIL:           type('[CLUB] Delete CLUB Fail'),
-  LOAD_CLUB:                  type('[CLUB] Load CLUB'),
-  LOAD_CLUB_SUCCESS:          type('[LOAD_CLUB_SUCCESS] Load CLUB Success'),
+  LOAD_CLUB:                  type('[CLUB] Load MemberOf CLUB'),
+  LOAD_CLUB_SUCCESS:          type('[CLUB] Load MemberOf CLUB Success'),
   LOAD_FEATURED_CLUB:         type('[CLUB] Load featured CLUB'),
   LOAD_FEATURED_CLUB_SUCCESS: type('[CLUB] Load featured CLUB success'),
   LOAD_FEATURED_CLUB_FAIL:    type('[CLUB] Load featured CLUB fail'),
+  LOAD_DETAIL_CLUB:           type('[CLUB] Load DETAIL CLUB'),
+  LOAD_DETAIL_CLUB_SUCCESS:   type('[CLUB] Load DETAIL CLUB success'),
+  LOAD_DETAIL_CLUB_FAIL:      type('[CLUB] Load DETAIL CLUB fail'),
 };
 
 export function loadAllAction(): Action {
@@ -91,5 +94,23 @@ export function loadFeaturedSuccessAction(payload: Club): Action {
 export function loadFeaturedFailedAction(): Action {
   return {
     type: ActionTypes.LOAD_FEATURED_CLUB_FAIL,
+  };
+}
+
+export function loadDetailAction(payload: string): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_CLUB,
+    payload: payload,
+  };
+}
+export function loadDetailSuccessAction(payload: Club): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_CLUB_SUCCESS,
+    payload: payload,
+  };
+}
+export function loadDetailFailedAction(): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_CLUB_FAIL,
   };
 }

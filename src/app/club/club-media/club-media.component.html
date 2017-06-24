@@ -1,5 +1,7 @@
-<img class="d-flex align-self-start mr-3" [src]="'assets/' + club.image" [alt]="club.name">
-<div class="media-body">
+<a *ngIf="club" [routerLink]="'/clubs/' + club._id">
+  <img class="d-flex align-self-start mr-3" [src]="'assets/' + club.image" [alt]="club.name">
+</a>
+<div  *ngIf="club" class="media-body">
   <div class="media-body">
     <h2 class="mt-0 mb-1">{{club.name}}
     <span class="label label-warning">{{club.label}}</span></h2>

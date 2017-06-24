@@ -20,7 +20,8 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction } from './club.actions';
+  deleteFailedAction, 
+  loadDetailSuccessAction} from './club.actions';
 import { go } from '@ngrx/router-store';
 
 @Injectable()
@@ -47,6 +48,13 @@ export class ClubEffects {
     .map(action => action.payload)
     .mergeMap(id => this.clubService.getClub(id))
     .map(club => loadSuccessAction(club));
+
+  @Effect()
+  loadDetailClub = this.actions$
+    .ofType(ActionTypes.LOAD_DETAIL_CLUB)
+    .map(action => action.payload)
+    .mergeMap(id => this.clubService.getClub(id))
+    .map(club => loadDetailSuccessAction(club));
 
   @Effect()
   saveClub = this.actions$

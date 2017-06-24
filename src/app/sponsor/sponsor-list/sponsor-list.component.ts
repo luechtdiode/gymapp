@@ -29,7 +29,7 @@ export class SponsorListComponent extends AbstractListComponent<Sponsor> impleme
     this.connect(fromRoot.getSponsors, maxTabs, (sponsor: Sponsor) =>
       flatMap(sponsor.sponsoractions, (actions) => actions.kinds));
     this.isSponsorsloading = this.store.select(fromRoot.isLoadingSponsors);
-    this.addExtraFilter((sponsor) => this.filterMatchinSponsorActions(sponsor));
+    this.addExtraFilter((sponsor) => this.filterMatchingSponsorActions(sponsor));
   }
 
   @Input()
@@ -60,7 +60,7 @@ export class SponsorListComponent extends AbstractListComponent<Sponsor> impleme
     }
   }
 
-  filterMatchinSponsorActions(sponsor: Sponsor): boolean {
+  filterMatchingSponsorActions(sponsor: Sponsor): boolean {
     if (!this.supportingCompetition) {
       return true;
     }

@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="row row-content" >
+    <div class="tab-content" *ngIf="!(isClubloading | async)">
+      <ul class="list-unstyled">
+        <gymapp-competition-media [competition]="competition | async" class="media" ></gymapp-competition-media>
+      </ul>
+    </div>
+  </div>
+</div>
+<gymapp-sponsor-list [supportingCompetition]="competition | async"></gymapp-sponsor-list>

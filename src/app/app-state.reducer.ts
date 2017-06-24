@@ -37,6 +37,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import { combineReducers } from '@ngrx/store';
 import { SponsorsState } from './sponsor/sponsor.reducer';
+import { isLoadingDetail } from './competition/competition.reducer';
 
 export interface AppState {
   competitions: fromCompetitions.CompetitionsState;
@@ -78,8 +79,11 @@ export const getBackUrl = createSelector(getAuthState, fromAuth.backUrl);
 
 export const getCompetitionsState = (state: AppState) => state.competitions;
 export const getCompetitions = createSelector(getCompetitionsState, fromCompetitions.getCompetitions);
+export const isLoadingCompetitions = createSelector(getCompetitionsState, fromCompetitions.isLoading);
 export const getFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.getFeatured);
 export const isLoadingFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.isLoadingFeatured);
+export const getCompetition = createSelector(getCompetitionsState, fromCompetitions.getCompetition);
+export const isLoadingCompetition = createSelector(getCompetitionsState, fromCompetitions.isLoadingDetail);
 
 export const getClubsState = (state: AppState) => state.clubs;
 export const getClubs = createSelector(getClubsState, fromClubs.getClubs);
@@ -87,6 +91,7 @@ export const isLoadingClub = createSelector(getClubsState, fromClubs.isLoading);
 export const getMemberOfClub = createSelector(getClubsState, fromClubs.getMemberOfClub);
 export const getFeaturedClub = createSelector(getClubsState, fromClubs.getFeatured);
 export const isLoadingFeaturedClub = createSelector(getClubsState, fromClubs.isLoadingFeatured);
+export const getDetailClub = createSelector(getClubsState, fromClubs.getDetailClub);
 
 export const getSponsorsState = (state: AppState) => state.sponsors;
 export const getSponsors = createSelector(getSponsorsState, fromSponsors.getSponsors);

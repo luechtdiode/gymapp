@@ -12,6 +12,8 @@ export const ActionTypes = {
   DELETE_COMPETITION_SUCCESS:        type('[COMPETITION] Delete COMPETITION Success'),
   DELETE_COMPETITION_FAIL:           type('[COMPETITION] Delete COMPETITION Fail'),
   LOAD_COMPETITION:                  type('[COMPETITION] Load COMPETITION'),
+  LOAD_COMPETITION_SUCCESS:          type('[COMPETITION] Load COMPETITION success'),
+  LOAD_COMPETITION_FAIL:             type('[COMPETITION] Load COMPETITION fail'),
   LOAD_FEATURED_COMPETITION:         type('[COMPETITION] Load featured COMPETITION'),
   LOAD_FEATURED_COMPETITION_SUCCESS: type('[COMPETITION] Load featured COMPETITION success'),
   LOAD_FEATURED_COMPETITION_FAIL:    type('[COMPETITION] Load featured COMPETITION fail'),
@@ -68,6 +70,17 @@ export function loadAction(payload: string): Action {
   return {
     type: ActionTypes.LOAD_COMPETITION,
     payload: payload,
+  };
+}
+export function loadDetailSuccessAction(payload: Competition): Action {
+  return {
+    type: ActionTypes.LOAD_COMPETITION_SUCCESS,
+    payload: payload,
+  };
+}
+export function loadDetailFailedAction(): Action {
+  return {
+    type: ActionTypes.LOAD_COMPETITION_FAIL,
   };
 }
 export function loadFeaturedAction(): Action {

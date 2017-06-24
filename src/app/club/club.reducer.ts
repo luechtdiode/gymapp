@@ -9,6 +9,8 @@ export interface ClubsState {
   memberOfClub?: Club;
   loadingFeatured: boolean;
   featured: Club;
+  loadingDetail: boolean;
+  club: Club;
 };
 
 const initialState: ClubsState = {
@@ -18,6 +20,8 @@ const initialState: ClubsState = {
   memberOfClub: undefined,
   loadingFeatured: false,
   featured: undefined,
+  loadingDetail: false,
+  club: undefined,
 };
 
 export function reducer(state = initialState, action: Action): ClubsState {
@@ -75,6 +79,30 @@ export function reducer(state = initialState, action: Action): ClubsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
+    case club.ActionTypes.LOAD_DETAIL_CLUB:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: true,
+        club: undefined,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case club.ActionTypes.LOAD_DETAIL_CLUB_FAIL:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: false,
+        club: undefined,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case club.ActionTypes.LOAD_DETAIL_CLUB_SUCCESS:
+    {
+      return Object.assign({}, state, {
+        loadingDetail: false,
+        club: action.payload,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
     case club.ActionTypes.SAVE_CLUB_SUCCESS:
     case club.ActionTypes.DELETE_CLUB_FAIL:
     {
@@ -115,3 +143,4 @@ export const isLoading = (state: ClubsState) => state.loading;
 
 export const getFeatured = (state: ClubsState) => state.featured;
 export const isLoadingFeatured = (state: ClubsState) => state.loadingFeatured;
+export const getDetailClub = (state: ClubsState) => state.club;
