@@ -99,6 +99,8 @@ export const getMemberOfSponsor = createSelector(getSponsorsState, fromSponsors.
 export const isLoadingSponsors = createSelector(getSponsorsState, fromSponsors.isLoading);
 export const getFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.getFeatured);
 export const isLoadingFeaturedSponsor = createSelector(getSponsorsState, fromSponsors.isLoadingFeatured);
+export const getDetailSponsor = createSelector(getSponsorsState, fromSponsors.getDetail);
+export const isLoadingDetailSponsor = createSelector(getSponsorsState, fromSponsors.isLoadingDetail);
 
 export const getActionsState = (state: AppState) => state.actions;
 export const getSponsorActions = createSelector(getActionsState, fromActions.getSponsorActions);

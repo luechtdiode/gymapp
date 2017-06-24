@@ -17,6 +17,7 @@ import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-spons
 import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
+import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -80,11 +81,8 @@ export const appRoutes: Routes = [
   /*{path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent }*/
   { path: RouterPath.CLUBS, component: ClubsPageComponent },
   { path: RouterPath.CLUB_DETAILS, component: ClubDetailPageComponent },
-  { path: RouterPath.SPONSORS, component: SponsorsPageComponent,
-/*    children: [
-        {path: RouterPath.SPONSOR_DETAILS, component: SponsorDetailPageComponent}
-        ]*/
-   },
+  { path: RouterPath.SPONSORS, component: SponsorsPageComponent },
+  { path: RouterPath.SPONSOR_DETAILS, component: SponsorDetailPageComponent},
   { path: RouterPath.CONTACT, component: ContactPageComponent },
   { path: RouterPath.LOGIN, component: LoginComponent },
   { path: RouterPath.CLUBPROFILE, component: EditClubPageComponent, canActivate: [IsClubUserGuardGuard]},

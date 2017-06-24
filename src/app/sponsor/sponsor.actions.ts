@@ -16,6 +16,9 @@ export const ActionTypes = {
   LOAD_FEATURED_SPONSOR:         type('[SPONSOR] Load featured SPONSOR'),
   LOAD_FEATURED_SPONSOR_SUCCESS: type('[SPONSOR] Load featured SPONSOR success'),
   LOAD_FEATURED_SPONSOR_FAIL:    type('[SPONSOR] Load featured SPONSOR fail'),
+  LOAD_DETAIL_SPONSOR:           type('[SPONSOR] Load DETAIL SPONSOR'),
+  LOAD_DETAIL_SPONSOR_SUCCESS:   type('[SPONSOR] Load DETAIL SPONSOR success'),
+  LOAD_DETAIL_SPONSOR_FAIL:      type('[SPONSOR] Load DETAIL SPONSOR fail'),
 };
 
 export function loadAllAction(): Action {
@@ -90,6 +93,23 @@ export function loadFeaturedSuccessAction(payload: Sponsor): Action {
 }
 export function loadFeaturedFailedAction(): Action {
   return {
-    type: ActionTypes.LOAD_FEATURED_SPONSOR_FAIL,
+    type: ActionTypes.LOAD_DETAIL_SPONSOR_FAIL,
+  };
+}
+export function loadDetailAction(payload: string): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_SPONSOR,
+    payload: payload,
+  };
+}
+export function loadDetailSuccessAction(payload: Sponsor): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_SPONSOR_SUCCESS,
+    payload: payload,
+  };
+}
+export function loadDetailFailedAction(): Action {
+  return {
+    type: ActionTypes.LOAD_DETAIL_SPONSOR_FAIL,
   };
 }

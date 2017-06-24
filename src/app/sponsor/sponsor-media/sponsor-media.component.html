@@ -5,9 +5,9 @@
     </a>
   </div>
   <div ng-if="!sponsor.editable"-->
-<!--a ui-sref="app.sponsordetails({id: sponsor._id})" -->
-<img class="d-flex align-self-start mr-3" [src]="'assets/' + sponsor.image" [alt]="sponsor.name">
-<!--/a-->
+<a [routerLink]="'/sponsors/' + sponsor._id">
+  <img class="d-flex align-self-start mr-3" [src]="'assets/' + sponsor.image" [alt]="sponsor.name">
+</a>
 <!--/div-->
 <div class="media-body">
   <div class="media-body">

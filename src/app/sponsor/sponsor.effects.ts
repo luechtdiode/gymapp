@@ -19,7 +19,7 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction, loadSuccessAction,
+  deleteFailedAction, loadSuccessAction, loadDetailSuccessAction,
 } from './sponsor.actions';
 import { go } from '@ngrx/router-store';
 import { Sponsor } from '../model/backend-typings';
@@ -48,6 +48,13 @@ export class SponsorEffects {
     .map(action => action.payload)
     .mergeMap(id => this.sponsorService.getSponsor(id))
     .map(sponsor => loadSuccessAction(sponsor));
+
+  @Effect()
+  loadDetailSponsor = this.actions$
+    .ofType(ActionTypes.LOAD_DETAIL_SPONSOR)
+    .map(action => action.payload)
+    .mergeMap(id => this.sponsorService.getSponsor(id))
+    .map(sponsor => loadDetailSuccessAction(sponsor));
 
   @Effect()
   saveSponsor = this.actions$

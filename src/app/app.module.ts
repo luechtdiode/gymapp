@@ -58,6 +58,7 @@ import { ActionsEffects } from './actions/actions.effects';
 import { SplitCurrency } from './shared/split-currency.pipe';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
+import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-pag
     SplitCurrency,
     CompetitionDetailPageComponent,
     ClubDetailPageComponent,
+    SponsorDetailPageComponent,
   ],
   imports: [
     BrowserModule,

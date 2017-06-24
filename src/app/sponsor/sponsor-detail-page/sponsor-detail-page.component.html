@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row row-content">
+      <div class="col-12">
+        <button class="btn btn-xs btn-primary pull-right"
+            type="button" [routerLink]="'/sponsors'">
+            Back to sponsors
+        </button>
+        <ul class="media-list">
+          <h3 *ngIf="!sponsor">{{loadingmessage}}</h3>
+          <li class="media" *ngIf="sponsor">
+            <gymapp-sponsor-media [sponsor]="sponsor | async" class="media" ></gymapp-sponsor-media>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <h3>Potentially Sponsor of the following Competitions</h3>
+      </div>
+      <div class="col-12">
+        <gymapp-competition-list [supportingSponsor]="sponsor | async"></gymapp-competition-list>
+      </div>
+    </div>
+</div>

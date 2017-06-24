@@ -10,6 +10,8 @@ export interface SponsorsState {
   isMemberOfSponsor?: Sponsor;
   loadingFeatured: boolean;
   featured: Sponsor;
+  detail: Sponsor;
+  loadingDetail: boolean;
 };
 
 const initialState: SponsorsState = {
@@ -19,6 +21,8 @@ const initialState: SponsorsState = {
   isMemberOfSponsor: undefined,
   loadingFeatured: false,
   featured: undefined,
+  detail: undefined,
+  loadingDetail: false,
 };
 
 export function reducer(state = initialState, action: Action): SponsorsState {
@@ -27,10 +31,6 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     {
       return Object.assign({}, state, {
         loading: true,
-        loaded: state.loaded,
-        sponsors: state.sponsors,
-        loadingFeatured: state.loadingFeatured,
-        featured: state.featured,
       });
     }
 
@@ -81,6 +81,31 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
+    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR:
+    {
+      return Object.assign({}, state, {
+        isLoadingDetail: true,
+        detail: undefined,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR_FAIL:
+    {
+      return Object.assign({}, state, {
+        isLoadingDetail: false,
+        detail: undefined,
+      });
+    }
+    // tslint:disable-next-line:no-switch-case-fall-through
+    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR_SUCCESS:
+    {
+      return Object.assign({}, state, {
+        isLoadingDetail: false,
+        detail: action.payload,
+      });
+    }
+
+    // tslint:disable-next-line:no-switch-case-fall-through
     case sponsor.ActionTypes.SAVE_SPONSOR_SUCCESS:
     case sponsor.ActionTypes.DELETE_SPONSOR_FAIL:
     {
@@ -122,3 +147,6 @@ export const isLoading = (state: SponsorsState) => state.loading;
 
 export const getFeatured = (state: SponsorsState) => state.featured;
 export const isLoadingFeatured = (state: SponsorsState) => state.loadingFeatured;
+
+export const getDetail = (state: SponsorsState) => state.detail;
+export const isLoadingDetail = (state: SponsorsState) => state.loadingDetail;
