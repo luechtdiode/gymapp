@@ -5,12 +5,8 @@
             type="button" [routerLink]="'/sponsors'">
             Back to sponsors
         </button>
-        <ul class="media-list">
-          <h3 *ngIf="!sponsor">{{loadingmessage}}</h3>
-          <li class="media" *ngIf="sponsor">
-            <gymapp-sponsor-media [sponsor]="sponsor | async" class="media" ></gymapp-sponsor-media>
-          </li>
-        </ul>
+        <h3 *ngIf="!sponsor">{{loadingmessage}}</h3>
+        <gymapp-sponsor-media *ngIf="sponsor" [sponsor]="sponsor | async" class="media" ></gymapp-sponsor-media>
       </div>
       <div class="col-12">
         <h3>Potentially Sponsor of the following Competitions</h3>

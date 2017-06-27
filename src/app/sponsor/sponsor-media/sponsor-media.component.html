@@ -8,22 +8,20 @@
 <a [routerLink]="'/sponsors/' + sponsor?._id">
   <img class="d-flex align-self-start mr-3" [src]="'assets/' + sponsor.image" [alt]="sponsor.name">
 </a>
-<!--/div-->
+
 <div class="media-body">
-  <div class="media-body">
-    <h2 class="media-heading">{{sponsor.name}}</h2>
-    <div class="well">
-      <p class="slogan">{{sponsor.slogan}}</p>
-      <footer *ngIf="sponsor.homepage !== undefined">See more on, <i class="fa fa-link"></i>
-        <a [href]="sponsor.homepage" target="_blank"><cite title="Homepage">{{sponsor.homepage}}</cite></a></footer>
-    </div>
-    <div *ngIf="editable">
-      <button type="button" class="btn btn-danger pull-right" (click)="onDelete.emit(sponsor._id)">
-        Delete me
-      </button>
-      <button type="button" class="btn btn-success pull-right" (click)="onEdit.emit(sponsor._id)">
-        Edit Sponsor
-      </button>
-    </div>
+  <h2 class="media-heading">{{sponsor.name}}</h2>
+  <div class="well">
+    <p class="slogan">{{sponsor.slogan}}</p>
+    <footer *ngIf="sponsor.homepage !== undefined">See more on, <i class="fa fa-link"></i>
+      <a [href]="sponsor.homepage" target="_blank"><cite title="Homepage">{{sponsor.homepage}}</cite></a></footer>
+  </div>
+  <div *ngIf="editable">
+    <button type="button" class="btn btn-danger pull-right" (click)="onDelete.emit(sponsor._id)">
+      Delete me
+    </button>
+    <button type="button" class="btn btn-success pull-right" (click)="onEdit.emit(sponsor._id)">
+      Edit Sponsor
+    </button>
   </div>
 </div>

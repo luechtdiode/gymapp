@@ -5,12 +5,8 @@
             type="button" [routerLink]="clubsLink">
             Back to clubs
         </button>
-        <ul class="media-list">
-          <h3 *ngIf="!club">{{loadingmessage}}</h3>
-          <li class="media" *ngIf="club">
-            <gymapp-club-media [club]="club | async" class="media" ></gymapp-club-media>
-          </li>
-        </ul>
+        <h3 *ngIf="!club">{{loadingmessage}}</h3>
+        <gymapp-club-media *ngIf="club" [club]="club | async" class="media" ></gymapp-club-media>
       </div>
       <div class="col-12">
         <button *ngIf="isClubUser" [routerLink]="'/competitions/new/' + (club | async)?._id"
