@@ -14,10 +14,10 @@
   <cite>{{competition?.location}}, {{competition?.club}}</cite>
   <div *ngIf="editable">
       <button type="button" class="btn btn-danger pull-right" (click)="onDelete.emit(competition._id)">
-        Delete me
+        Delete
       </button>
       <button type="button" class="btn btn-success pull-right" (click)="onEdit.emit(competition._id)">
-        Edit Competition
+        Edit
       </button>
   </div>
 </div>

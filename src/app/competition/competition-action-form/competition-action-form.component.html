@@ -11,11 +11,11 @@
         </div>
         <div class="col-xs-11 offset-xs-1 col-sm-5 offset-sm-2" *ngIf="isSelected">
                 <div class="form-group">
-                        <label for="'cost_' + action.action._id">cost</label>
+                        <label for="'cost_' + action.action._id">Cost</label>
                         <input type="text" class="form-control input-sm" [id]="'cost_' + action.action._id" 
                                 [name]="'cost_' + action.action._id" 
                                 [placeholder]="'cost per ' + action.action.name + ' applies'"
-                                [title]="'cost per ' + action.action.name + ' applies'" 
+                                [title]="'Cost per ' + action.action.name + ' applies'" 
                                 [formControlName]="'costperaction'" 
                                 required/>
                         <span   *ngIf="isSelected && form.get('costperaction').invalid" 

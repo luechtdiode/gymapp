@@ -8,6 +8,7 @@ import { CompetitionFormModel } from '../competition-form/competition-form.model
 import { createAction } from '../competition.actions';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
 import { loadDetailAction } from '../../club/club.actions';
+import { RouterPath } from '../../app.routing';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CreateCompetitionPageComponent implements OnInit {
     sponsoractions: [],
     dates: [],
   };
+  competitionsLink = '/' + RouterPath.COMPETITIONS;
 
   clubid: string;
   club: Club;
