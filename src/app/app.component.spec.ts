@@ -32,6 +32,7 @@ import { SplitCurrency } from './shared/split-currency.pipe';
 import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
 import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
+import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 
 describe('AppComponent', () => {
 
@@ -82,6 +83,7 @@ describe('AppComponent', () => {
         ClubDetailPageComponent,
         CompetitionDetailPageComponent,
         SponsorDetailPageComponent,
+        CreateCompetitionPageComponent,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [

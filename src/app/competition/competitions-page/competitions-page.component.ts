@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadAllAction } from '../competition.actions';
+import { AppState } from '../../app-state.reducer';
 
 @Component({
   selector: 'gymapp-competitions-page',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompetitionsPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected store: Store<AppState>) {
+    // this.store.dispatch(loadAllAction());
+  }
 
   ngOnInit() {
   }

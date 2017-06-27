@@ -20,9 +20,10 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction, 
+  deleteFailedAction,
   loadDetailSuccessAction,
-  loadDetailFailedAction} from './competition.actions';
+  loadDetailFailedAction,
+  createSuccessAction} from './competition.actions';
 import { go } from '@ngrx/router-store';
 
 @Injectable()
@@ -51,6 +52,21 @@ export class CompetitionEffects {
     .ofType(ActionTypes.LOAD_COMPETITIONS)
     .mergeMap(() => this.compService.getCompetitions())
     .map(comps => loadAllSuccessAction(comps));
+
+  @Effect()
+  createCompetition = this.actions$
+    .ofType(ActionTypes.CREATE_COMPETITION)
+    .map(action => action.payload)
+    .mergeMap(competition => this.compService.saveCompetition(competition)
+      .map(savedCompetition => createSuccessAction(savedCompetition))
+      .catch(() => Observable.of(
+        saveFailedAction(competition))));
+
+  @Effect()
+  createCompetitionSuccess = this.actions$
+    .ofType(ActionTypes.CREATE_COMPETITION_SUCCESS)
+    .map(action => action.payload)
+    .map(competition => go(['/competitions/', {routeParam: competition._id}]));
 
   @Effect()
   saveCompetition = this.actions$

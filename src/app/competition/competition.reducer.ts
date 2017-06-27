@@ -108,10 +108,11 @@ export function reducer(state = initialState, action: Action): CompetitionsState
 
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.SAVE_COMPETITION_SUCCESS:
+    case competition.ActionTypes.CREATE_COMPETITION_SUCCESS:
     case competition.ActionTypes.DELETE_COMPETITION_FAIL:
     {
       return Object.assign({}, state, {
-        loading: true,
+        loading: false,
         competitions: [
           ...state.competitions.filter(comp => comp._id !== action.payload._id),
           action.payload,
@@ -121,6 +122,7 @@ export function reducer(state = initialState, action: Action): CompetitionsState
 
     // tslint:disable-next-line:no-switch-case-fall-through
     case competition.ActionTypes.DELETE_COMPETITION_SUCCESS:
+    case competition.ActionTypes.CREATE_COMPETITION_FAIL:
     case competition.ActionTypes.SAVE_COMPETITION_FAIL:
     {
       return Object.assign({}, state, {
@@ -142,6 +144,7 @@ export const getIds = (state: CompetitionsState) => getCompetitions(state).map(c
 
 export const isLoaded = (state: CompetitionsState) => state.loaded;
 export const isLoading = (state: CompetitionsState) => state.loading;
+export const isLoadingOrLoaded = (state: CompetitionsState) => state.loading || state.loaded;
 
 export const getFeatured = (state: CompetitionsState) => state.featured;
 export const isLoadingFeatured = (state: CompetitionsState) => state.loadingFeatured;

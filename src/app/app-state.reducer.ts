@@ -84,6 +84,7 @@ export const getFeaturedCompetition = createSelector(getCompetitionsState, fromC
 export const isLoadingFeaturedCompetition = createSelector(getCompetitionsState, fromCompetitions.isLoadingFeatured);
 export const getCompetition = createSelector(getCompetitionsState, fromCompetitions.getCompetition);
 export const isLoadingCompetition = createSelector(getCompetitionsState, fromCompetitions.isLoadingDetail);
+export const isCompetitionsLoadingOrLoaded = createSelector(getCompetitionsState, fromCompetitions.isLoadingOrLoaded);
 
 export const getClubsState = (state: AppState) => state.clubs;
 export const getClubs = createSelector(getClubsState, fromClubs.getClubs);

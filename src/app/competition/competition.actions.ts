@@ -5,6 +5,9 @@ import {Competition} from '../model/backend-typings';
 export const ActionTypes = {
   LOAD_COMPETITIONS:                 type('[COMPETITION] Load COMPETITIONs'),
   LOAD_COMPETITIONS_SUCCESS:         type('[COMPETITION] Load COMPETITIONs Success'),
+  CREATE_COMPETITION:                type('[COMPETITION] Create COMPETITION'),
+  CREATE_COMPETITION_SUCCESS:        type('[COMPETITION] Create COMPETITION Success'),
+  CREATE_COMPETITION_FAIL:           type('[COMPETITION] Create COMPETITION Fail'),
   SAVE_COMPETITION:                  type('[COMPETITION] Save COMPETITION'),
   SAVE_COMPETITION_SUCCESS:          type('[COMPETITION] Save COMPETITION Success'),
   SAVE_COMPETITION_FAIL:             type('[COMPETITION] Save COMPETITION Fail'),
@@ -27,6 +30,24 @@ export function loadAllAction(): Action {
 export function loadAllSuccessAction(payload: Competition[]): Action {
   return {
     type: ActionTypes.LOAD_COMPETITIONS_SUCCESS,
+    payload: payload,
+  };
+}
+export function createAction(payload: Competition): Action {
+  return {
+    type: ActionTypes.CREATE_COMPETITION,
+    payload: payload,
+  };
+}
+export function createSuccessAction(payload: Competition): Action {
+  return {
+    type: ActionTypes.CREATE_COMPETITION_SUCCESS,
+    payload: payload,
+  };
+}
+export function createFailedAction(payload: Competition): Action {
+  return {
+    type: ActionTypes.CREATE_COMPETITION_FAIL,
     payload: payload,
   };
 }

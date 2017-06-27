@@ -18,6 +18,8 @@ import { IsSponsorUserGuardGuard } from './sponsor/is-sponsor-user-guard.guard';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
 import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
+import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard';
+import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -76,9 +78,9 @@ export const appRoutes: Routes = [
   { path: '', redirectTo: RouterPath.HOME, pathMatch: 'full' },
   { path: RouterPath.HOME, component: HomePageComponent },
   { path: RouterPath.ABOUT, component: AboutusPageComponent },
-  { path: RouterPath.COMPETITIONS, component: CompetitionsPageComponent },
-  { path: RouterPath.COMPETITION_DETAILS, component: CompetitionDetailPageComponent },
-  /*{path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent }*/
+  { path: RouterPath.COMPETITIONS, component: CompetitionsPageComponent/*, canActivate: [CompetitionsLoadedGuard]*/ },
+  { path: RouterPath.COMPETITION_DETAILS, component: CompetitionDetailPageComponent/*, canActivate: [CompetitionsLoadedGuard]*/ },
+  { path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent },
   { path: RouterPath.CLUBS, component: ClubsPageComponent },
   { path: RouterPath.CLUB_DETAILS, component: ClubDetailPageComponent },
   { path: RouterPath.SPONSORS, component: SponsorsPageComponent },

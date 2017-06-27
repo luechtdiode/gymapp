@@ -59,6 +59,10 @@ import { SplitCurrency } from './shared/split-currency.pipe';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-page.component';
 import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
+import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard';
+import { CompetitionFormComponent } from './competition/competition-form/competition-form.component';
+import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
+import { CompetitionActionFormComponent } from './competition/competition-action-form/competition-action-form.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +99,9 @@ import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponso
     CompetitionDetailPageComponent,
     ClubDetailPageComponent,
     SponsorDetailPageComponent,
+    CompetitionFormComponent,
+    CreateCompetitionPageComponent,
+    CompetitionActionFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,6 +137,7 @@ import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponso
     SponsorEffects,
     IsClubUserGuardGuard,
     IsSponsorUserGuardGuard,
+    CompetitionsLoadedGuard,
     ActionsService,
     ActionsEffects,
   ],

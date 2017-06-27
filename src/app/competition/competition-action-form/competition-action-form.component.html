@@ -1,0 +1,39 @@
+<div [formGroup]="form" class="row">
+        <div class="col-12">
+            <label class="checkbox-inline">
+                <input type="checkbox"
+                [checked]="isSelected"
+                [id]="'selected_' + action.action._id"
+                [name]="'selected_' + action.action._id"
+                (change)="onToggleSelected()">
+                <strong>{{action.action.name}}</strong>
+            </label>
+        </div>
+        <div class="col-xs-11 offset-xs-1 col-sm-5 offset-sm-2" *ngIf="isSelected">
+                <div class="form-group">
+                        <label for="'cost_' + action.action._id">cost</label>
+                        <input type="text" class="form-control input-sm" [id]="'cost_' + action.action._id" 
+                                [name]="'cost_' + action.action._id" 
+                                [placeholder]="'cost per ' + action.action.name + ' applies'"
+                                [title]="'cost per ' + action.action.name + ' applies'" 
+                                [formControlName]="'costperaction'" 
+                                required/>
+                        <span   *ngIf="isSelected && form.get('costperaction').invalid" 
+                                class="help-block">
+                                A cost for that action is required, if you checked the action active.
+                        </span>
+                </div>
+        </div>
+        <div class="col-xs-11 col-sm-5 offset-xs-1" *ngIf="isSelected">
+                <div class="form-group">
+                        <label for="max_{{action.action._id}}">Max</label>
+                        <input type="text" class="form-control input-sm" id="max_{{action.action._id}}" name="max_{{action.action._id}}" placeholder="Maximum of {{action.action.name}} applyments"
+                                title="Maximum of {{action.action.name}} applyments" 
+                                [formControlName]="'maxcnt'" required/>
+                        <span   *ngIf="isSelected && form.get('maxcnt').invalid" 
+                                class="help-block">
+                                A max count for that action is required, if you checked the action active.
+                        </span>        
+                </div>
+        </div>
+</div>

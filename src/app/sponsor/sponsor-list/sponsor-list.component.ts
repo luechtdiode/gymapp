@@ -25,17 +25,17 @@ export class SponsorListComponent extends AbstractListComponent<Sponsor> impleme
 
   ngOnInit() {
     this.store.dispatch(fromSponsor.loadAllAction());
+    this.isSponsorsloading = this.store.select(fromRoot.isLoadingSponsors);
     const maxTabs = 6;
+    this.addExtraFilter((sponsor) => this.filterMatchingSponsorActions(sponsor));
     this.connect(fromRoot.getSponsors, maxTabs, (sponsor: Sponsor) =>
       flatMap(sponsor.sponsoractions, (actions) => actions.kinds));
-    this.isSponsorsloading = this.store.select(fromRoot.isLoadingSponsors);
-    this.addExtraFilter((sponsor) => this.filterMatchingSponsorActions(sponsor));
   }
 
   @Input()
   public set supportingCompetition(competition: Competition) {
     this._supportingCompetition = competition;
-    this.reevaluateExtraFilteredList();
+    this.reconnect();
   }
 
   public get supportingCompetition(): Competition {

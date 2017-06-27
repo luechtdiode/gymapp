@@ -51,6 +51,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sponsorid = this.store.select(fromRoot.isMemberOfSponsor);
     this.loggedIn = this.store.select(fromRoot.isLoggedIn);
     this.username = this.store.select(fromRoot.getUsername);
+    this.clubid.subscribe(clubid => {
+      this.createCompetitionLink = '/' + RouterPath.CREATE_COMPETITION.replace(':clubid', clubid);
+    });
   }
 
   ngOnDestroy() {

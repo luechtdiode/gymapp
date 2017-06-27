@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-describe('IsClubUserGuardGuard', () => {
+describe('IsClubUserGuard', () => {
   const storeStub = <Store<AppState>> {
     select: (selector) => Observable.of(undefined),
   };

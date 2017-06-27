@@ -36,7 +36,7 @@ export interface Action {
 
 export interface CompSponsorAction {
     action: Action;
-    costperaction: number;
+    costperaction: number | string;
     maxcnt: number;
 }
 

@@ -6,6 +6,7 @@ import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
+import { loadAllAction } from '../competition.actions';
 
 @Component({
   selector: 'gymapp-competition-list',
@@ -22,17 +23,17 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   }
 
   ngOnInit() {
-    this.store.dispatch(fromCompetitions.loadAllAction());
-    const maxTabs = 6;
-    this.connect(fromRoot.getCompetitions, maxTabs, (competition: Competition) => [competition.kind]);
+    this.store.dispatch(loadAllAction());
     this.isCompetitionsloading = this.store.select(fromRoot.isLoadingCompetitions);
+    const maxTabs = 6;
     this.addExtraFilter((competition) => this.filterMatchingActions(competition));
+    this.connect(fromRoot.getCompetitions, maxTabs, (competition: Competition) => [competition.kind]);
   }
 
   @Input()
   public set supportingSponsor(sponsor: Sponsor) {
     this._supportingSponsor = sponsor;
-    this.reevaluateExtraFilteredList();
+    this.reconnect();
   }
 
   public get supportingSponsor(): Sponsor {
@@ -42,7 +43,7 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   @Input()
   public set supportingClub(club: Club) {
     this._supportingClub = club;
-    this.reevaluateExtraFilteredList();
+    this.reconnect();
   }
 
   public get supportingClub(): Club {
@@ -69,7 +70,7 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
 
   filterMatchingActions(competition: Competition): boolean {
     if (this._supportingClub) {
-      if (this._supportingClub._id !== competition.clubid._id) {
+      if (!competition.clubid || this._supportingClub._id !== competition.clubid._id) {
         return false;
       }
     }
