@@ -20,6 +20,7 @@ import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-pag
 import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
 import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard';
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
+import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -81,6 +82,7 @@ export const appRoutes: Routes = [
   { path: RouterPath.COMPETITIONS, component: CompetitionsPageComponent/*, canActivate: [CompetitionsLoadedGuard]*/ },
   { path: RouterPath.COMPETITION_DETAILS, component: CompetitionDetailPageComponent/*, canActivate: [CompetitionsLoadedGuard]*/ },
   { path: RouterPath.CREATE_COMPETITION, component: CreateCompetitionPageComponent },
+  { path: RouterPath.COMPETITION_EDIT, component: EditCompetitionPageComponent },
   { path: RouterPath.CLUBS, component: ClubsPageComponent },
   { path: RouterPath.CLUB_DETAILS, component: ClubDetailPageComponent },
   { path: RouterPath.SPONSORS, component: SponsorsPageComponent },

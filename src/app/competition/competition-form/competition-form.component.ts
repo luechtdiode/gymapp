@@ -44,11 +44,12 @@ export class CompetitionFormComponent implements OnInit {
 
   @Input()
   set competition(competition: Competition) {
-    this._competition = Object.assign({sponsoractions: []}, competition);
+    this._competition = Object.assign({sponsoractions: [], dates: ['', '']}, competition);
     if (this._regactions) {
       this._competition.sponsoractions = this._competition.sponsoractions
         .map(a => this.materializeAction(a, this._regactions));
     }
+    this._form.patchValue(this._competition);
     this.syncCompSponsorActions();
   }
 
@@ -57,23 +58,26 @@ export class CompetitionFormComponent implements OnInit {
   }
 
   get date1(): Date | string {
-    return [... this._competition.dates, undefined, undefined][0];
+    return this.toDayString([... this._competition.dates, '', ''][0]);
   }
-  // set date1(date: Date | string) {
-  //   const dates = [this.date1, this.date2];
-  //   date[0] = date === '' ? undefined : date;
-  //   this._competition.dates = dates.map(d => d === undefined ? undefined : new Date(Date.parse(d + '')));
-  // }
 
   get date2(): Date | string {
-    return [... this._competition.dates, undefined, undefined][1];
+    return this.toDayString([... this._competition.dates, '', ''][1]);
   }
-  // set date2(date: Date | string) {
-  //   const dates = [this.date1, this.date2];
-  //   date[1] = date === '' ? undefined : date;
-  //   this._competition.dates = dates.map(d => d === undefined ? undefined : new Date(Date.parse(d + '')));
-  // }
 
+  toDayString(date: Date | string): string {
+    if (date === '') {
+      return date;
+    }
+    if (date === undefined) {
+      return '';
+    }
+    if (typeof date === 'string') {
+      return new Date(Date.parse(date)).toISOString().substr(0, 10);
+    } else {
+      return date.toISOString().substr(0, 10);
+    }
+  }
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {}

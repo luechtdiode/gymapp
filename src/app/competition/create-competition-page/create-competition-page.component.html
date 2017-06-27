@@ -6,5 +6,12 @@
       </div>
     </div>
     <gymapp-competition-form [form]="form" [competition]="competition" [regactions]="regactions | async" class="col-12"></gymapp-competition-form>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="competitionsLink">Cancel</button>
+        <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Create</button>
+        <span *ngIf="form.invalid && form.touched">Fehler: {{form.errors}}</span>
+      </div>
+    </div>
   </form>
 </div>

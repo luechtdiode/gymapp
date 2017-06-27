@@ -4,9 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { Competition, Sponsor, SponsorAction, CompSponsorAction, Club } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../app-state.reducer';
-import { loadAllAction } from '../competition.actions';
+import { Store, combineReducers } from '@ngrx/store';
+import { AppState, isMemberOfClub } from '../../app-state.reducer';
+import { loadAllAction, deleteAction } from '../competition.actions';
+import { go } from '@ngrx/router-store';
+import { RouterPath } from '../../app.routing';
 
 @Component({
   selector: 'gymapp-competition-list',
@@ -18,6 +20,8 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   message = 'Competitions loading ...';
   private _supportingSponsor: Sponsor;
   private _supportingClub: Club;
+  private _isMemberOfClub: string;
+
   constructor(protected store: Store<AppState>) {
     super(store);
   }
@@ -25,6 +29,7 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   ngOnInit() {
     this.store.dispatch(loadAllAction());
     this.isCompetitionsloading = this.store.select(fromRoot.isLoadingCompetitions);
+    this.store.select(isMemberOfClub).subscribe(moc => this._isMemberOfClub = moc);
     const maxTabs = 6;
     this.addExtraFilter((competition) => this.filterMatchingActions(competition));
     this.connect(fromRoot.getCompetitions, maxTabs, (competition: Competition) => [competition.kind]);
@@ -48,6 +53,19 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
 
   public get supportingClub(): Club {
     return this._supportingClub;
+  }
+
+  isEditable(competition: Competition): boolean {
+    return this._supportingClub && competition.clubid && competition.clubid._id === this._supportingClub._id
+    || this._isMemberOfClub && competition.clubid && competition.clubid._id === this._isMemberOfClub;
+  }
+
+  onEdit(competition: Competition) {
+    this.store.dispatch(go([RouterPath.COMPETITION_EDIT.replace(':competitionid', competition._id)]));
+  }
+
+  onDelete(competition: Competition) {
+    this.store.dispatch(deleteAction(competition));
   }
 
   isActionPairMatching(sa: SponsorAction, ca: CompSponsorAction): boolean {

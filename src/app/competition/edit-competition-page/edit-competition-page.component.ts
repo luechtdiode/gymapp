@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppState, getSponsorActions } from '../../app-state.reducer';
+import { AppState, getSponsorActions, getCompetition } from '../../app-state.reducer';
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
 import { CompSponsorAction, Competition } from '../../model/backend-typings';
-import { saveAction } from '../competition.actions';
+import { saveAction, loadAction } from '../competition.actions';
 import { Observable } from 'rxjs/Observable';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
+import { Router, RouterState, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { RouterPath } from '../../app.routing';
 
 @Component({
   selector: 'gymapp-edit-competition-page',
@@ -16,17 +18,26 @@ import { CompetitionFormComponent } from '../competition-form/competition-form.c
 export class EditCompetitionPageComponent implements OnInit {
   form: FormGroup;
   regactions: Observable<CompSponsorAction[]>;
-  competition = <Competition>{
+  competitionsLink = '/' + RouterPath.COMPETITIONS;
+  competition = Observable.of(<Competition>{
     sponsoractions: [],
     dates: [],
-  };
+  });
 
   @ViewChild(CompetitionFormComponent)
   private formComponent: CompetitionFormComponent;
 
- constructor(protected store: Store<AppState>,
-              private fb: FormBuilder) {
-    this.form = this.fb.group(CompetitionFormModel);
+ constructor( router: Router,
+              fb: FormBuilder,
+              public store: Store<AppState>) {
+
+    this.form = fb.group(CompetitionFormModel);
+    const state: RouterState = router.routerState;
+    const snapshot: RouterStateSnapshot = state.snapshot;
+    const root: ActivatedRouteSnapshot = snapshot.root;
+    const competitionid = root.firstChild.paramMap.get('competitionid');
+    store.dispatch(loadAction(competitionid));
+    this.competition = store.select(getCompetition);
   }
 
   ngOnInit() {
@@ -37,6 +48,10 @@ export class EditCompetitionPageComponent implements OnInit {
         costperaction: '10.00',
         maxcnt: 100,
     }));
+
+    // this.competition.filter(c => c !== undefined).subscribe(competition => {
+    //   this.form.patchValue(competition);
+    // });
   }
 
   doSave() {

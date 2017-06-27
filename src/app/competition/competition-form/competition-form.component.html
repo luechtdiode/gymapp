@@ -1,4 +1,5 @@
-<div [formGroup]="form">
+<h2 *ngIf="!_competition">loading ... </h2>
+<div *ngIf="_competition" [formGroup]="form">
   <div class="row" >
     <div class="col-xs-12 col-sm-6">
       <div class="form-group">
@@ -25,7 +26,6 @@
       </div>
     </div>
 
-
     <div class="col-xs-12 col-sm-6">
       <div class="form-group">
           <label for="location">Location</label>
@@ -42,7 +42,7 @@
           <label for="website">Website</label>
           <input type="text" class="form-control input-sm" 
             id="website" name="website" formControlName="website" 
-            placeholder="Website of the competition (optional)" required/>
+            placeholder="Website of the competition (optional)"/>
       </div>
     </div>
     <div class="col-12 col-sm-7">
@@ -54,6 +54,7 @@
           class="help-block">Description is required.</span>
       </div>
     </div>
+
     <div class="col-12 col-sm-5">
       <div class="col-12"><h4>Sponsoring-Actions&nbsp;&nbsp;<span class="badge badge-pill badge-danger">Budget&nbsp;{{ budget | currency:'CHF' | splitCurrency}}&nbsp;</span></h4>
       </div>
@@ -67,56 +68,6 @@
       </gymapp-competition-action-form>  
     </div>
   </div>
-<!--
-
-
-
-
-
-<div class="col-12" [formGroup]="form">
-  <div class="row" >
-    <div class="col-12 col-sm-6">
-      <h2>Competition</h2>
-    </div>
-  </div>
-  <div class="row" >
-    <div class="col-12 col-sm-6">
-      <div class="form-group">
-        <label for="name">Competition name</label>
-        <input type="text" class="form-control input-sm" id="name" name="name" placeholder="Name of the competition" formControlName="name" required/>
-        <span *ngIf="form.controls.name.errors && form.controls.name.touched" class="help-block">The name of your competition is required.</span>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6">
-      <div class="form-group">
-        <label for="homepage">Website</label>
-        <input type="text" class="form-control input-sm" id="website" name="website" placeholder="Website" formControlName="website">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 col-md-6">
-      <div class="form-group">
-        <label for="slogan">Description</label>
-        <textarea rows="12" class="form-control input-sm" id="description" name="description" placeholder="Description" formControlName="description"
-          required></textarea>
-        <span *ngIf="form.controls.description.errors && form.controls.description.touched" class="help-block">Describe Your Competition with some sentences.</span>
-      </div>
-    </div>
-    <div class="col-12 col-md-6">
-      <div class="col-xs-12"><h4>Sponsoring-Actions&nbsp;&nbsp;<span class="badge badge-pill badge-danger">Budget&nbsp;{{ budget | currency:'CHF' | splitCurrency}}&nbsp;</span></h4>
-      </div>
-      <gymapp-competition-action-form 
-          *ngFor="let action of allActions"
-          [action]="action"
-          [isSelected]="isActionSelected(action)"
-          (actionChanged)="onCompSponsorActionChaned($event)"
-          (toggleSelected)="onCompSponsorActionSelected($event)"
-          >
-      </gymapp-competition-action-form>  
-    </div>  
-  </div>
-
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="input-group form-inline">
@@ -141,15 +92,6 @@
         <input type="text" class="form-control input-sm" id="youtubehandle" name="youtubehandle" placeholder="Youtube-Channel" formControlName="youtubehandle"
         />
       </div>
-    </div>
-  </div>
-</div>
-
-  -->
-  <div class="row">
-    <div class="col-12">
-      <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="competitionsLink">Cancel</button>
-      <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Create</button>
     </div>
   </div>
 </div>

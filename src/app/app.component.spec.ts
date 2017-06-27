@@ -33,6 +33,7 @@ import { ClubDetailPageComponent } from './club/club-detail-page/club-detail-pag
 import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponsor-detail-page.component';
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
+import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
 
 describe('AppComponent', () => {
 
@@ -84,6 +85,7 @@ describe('AppComponent', () => {
         CompetitionDetailPageComponent,
         SponsorDetailPageComponent,
         CreateCompetitionPageComponent,
+        EditCompetitionPageComponent,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [

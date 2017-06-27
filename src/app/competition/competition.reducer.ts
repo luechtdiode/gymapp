@@ -126,7 +126,9 @@ export function reducer(state = initialState, action: Action): CompetitionsState
     case competition.ActionTypes.SAVE_COMPETITION_FAIL:
     {
       return Object.assign({}, state, {
-        ids: state.competitions.filter(comp => comp._id !== comp._id),
+        competitions: [
+          ...state.competitions.filter(comp => comp._id !== action.payload._id),
+        ].sort(dateCompare),
       });
     }
 
