@@ -63,6 +63,7 @@ import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard
 import { CompetitionFormComponent } from './competition/competition-form/competition-form.component';
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { CompetitionActionFormComponent } from './competition/competition-action-form/competition-action-form.component';
+import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { CompetitionActionFormComponent } from './competition/competition-action
     CompetitionFormComponent,
     CreateCompetitionPageComponent,
     CompetitionActionFormComponent,
+    EditCompetitionPageComponent,
   ],
   imports: [
     BrowserModule,

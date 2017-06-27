@@ -7,7 +7,7 @@ import { AppState, getSponsorActions, isMemberOfClub, getMemberOfClub, getDetail
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
 import { createAction } from '../competition.actions';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
-import { loadDetailAction } from "../../club/club.actions";
+import { loadDetailAction } from '../../club/club.actions';
 
 
 @Component({
