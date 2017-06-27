@@ -1,5 +1,10 @@
 <div class="container">
-  <form class="row row-content" (ngSubmit)="doSave()" novalidate>
+  <form class="row-content" (ngSubmit)="doSave()" novalidate>
+    <div class="row" >
+      <div class="col-12">
+        <h2>Plan a new Competition</h2>
+      </div>
+    </div>
     <gymapp-competition-form [form]="form" [competition]="competition" [regactions]="regactions | async" class="col-12"></gymapp-competition-form>
   </form>
 </div>

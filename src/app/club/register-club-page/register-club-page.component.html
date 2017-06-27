@@ -1,5 +1,10 @@
 <div class="container">
-  <form class="row row-content" (ngSubmit)="doSave(form.value)" novalidate>
+  <form class="row-content" (ngSubmit)="doSave(form.value)" novalidate>
+    <div class="row" >
+      <div class="col-12 col-sm-6">
+        <h2>Register as new Club</h2>
+      </div>
+    </div>
     <gymapp-register-user-form  [form]="user" class="col-12"></gymapp-register-user-form>
     <gymapp-club-form [form]="clubdetails" class="col-12"></gymapp-club-form>
   </form>
