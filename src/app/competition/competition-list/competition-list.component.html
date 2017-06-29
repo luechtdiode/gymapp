@@ -9,7 +9,7 @@
 </ul>
 <div class="tab-content" *ngIf="!(isClubloading | async)">
   <ul class="list-unstyled">
-    <gymapp-competition-media class="media" *ngFor="let competition of items" 
+    <gymapp-competition-media class="media bottom-separator" *ngFor="let competition of items" 
       [competition] = "competition"
       [editable]='isEditable(competition)'
       (onEdit)='onEdit(competition)'

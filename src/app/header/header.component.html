@@ -2,12 +2,13 @@
 <nav class="navbar navbar-toggleable-sm fixed-top sticky-top navbar-inverse">
   <div class="container">
     <button class="navbar-toggler navbar-toggler-right" type="button" 
-        data-toggle="collapse" data-target="#navbar" 
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        xdata-toggle="collapse" xdata-target="#navbar"
+        (click)="onToggleNavbar()" 
+        aria-label="Toggle navigation">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
     <a class="navbar-brand" routerLink="home"><img src="/assets/images/logo.png" height=30 width=30></a>
-    <div id="navbar" class="collapse navbar-collapse">
+    <div id="navbar" class="collapse navbar-collapse" [ngClass]="showNavbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLink="home" routerLinkActive="active">
           <a [routerLink]="homeLink" routerLinkActive="active" class="nav-link">

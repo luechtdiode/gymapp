@@ -4,7 +4,6 @@ import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 import { logoutAction, elevateAction } from '../shared/auth.actions';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { RouterPath } from '../app.routing';
 import { UrlProvider } from '../shared/urlProvider';
@@ -35,17 +34,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   registerClubLink = '/' + RouterPath.REGISTER_CLUB;
   registerSponsorLink = '/' + RouterPath.REGISTER_SPONSOR;
 
+  showNavbar = '';
   constructor(private store: Store<AppState>,
-              private route: ActivatedRoute,
-              private location: UrlProvider) { }
+              private location: UrlProvider) {
+  }
 
   activeLocation() {
     return this.location.activeLocation();
   }
 
+  onToggleNavbar() {
+    if (this.showNavbar.length === 0) {
+      this.showNavbar = 'show';
+    } else {
+      this.showNavbar = '';
+    }
+  }
+
   ngOnInit() {
     this.subscriptions.push(this.store.select(fromRoot.activeRoute).subscribe((rt) => {
       this.backUrl = rt.path !== '/' + RouterPath.LOGIN ? rt.path : this.backUrl;
+      this.showNavbar = '';
     } ));
     this.clubid = this.store.select(fromRoot.isMemberOfClub);
     this.sponsorid = this.store.select(fromRoot.isMemberOfSponsor);

@@ -13,7 +13,7 @@
 </ul>
 <div class="tab-content" *ngIf="!(isClubloading | async)">
   <ul class="list-unstyled">
-    <gymapp-club-media class="media" *ngFor="let club of items" [club] = "club">
+    <gymapp-club-media class="media bottom-separator" *ngFor="let club of items" [club] = "club">
     </gymapp-club-media>
   </ul>
 </div>

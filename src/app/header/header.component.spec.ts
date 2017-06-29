@@ -7,7 +7,6 @@ import { UrlProvider } from '../shared/urlProvider';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -28,10 +27,6 @@ describe('HeaderComponent', () => {
     },
   };
 
-  const activatedRouteStub = <ActivatedRoute>{
-
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
@@ -39,7 +34,6 @@ describe('HeaderComponent', () => {
         providers: [
           { provide: UrlProvider, useValue: urlProviderStub },
           { provide: Store, useValue: storeStub },
-          { provide: ActivatedRoute, useValue: activatedRouteStub },
         ],
     })
     .compileComponents();
