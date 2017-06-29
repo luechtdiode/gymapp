@@ -1,0 +1,17 @@
+// {type:usecase}
+// {direction:leftToRight}
+
+[Club]^[User]
+[Sponsor]^[User]
+[Anonymous]^[User]
+
+(provide link {bg:#90EE90})
+[Sponsor]-(provide link)
+[Club]-(provide link)
+
+[User]-(post about competition {bg:#FA8072})
+[User]-(post about club {bg:#FA8072})
+[User]-(post about sponsor {bg:#FA8072})
+
+(Legend)-(note: Posts are made to the user-specific social-media-account referencing back to Competition, Club or Sponsor{bg:#FA8072})
+(Legend)-(note: Links are made to make publicity of a Club or a Sponsor {bg:#90EE90})
