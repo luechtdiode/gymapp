@@ -56,8 +56,7 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   }
 
   isEditable(competition: Competition): boolean {
-    return this._supportingClub && competition.clubid && competition.clubid._id === this._supportingClub._id
-    || this._isMemberOfClub && competition.clubid && competition.clubid._id === this._isMemberOfClub;
+    return  this._isMemberOfClub && competition.clubid && competition.clubid._id === this._isMemberOfClub;
   }
 
   onEdit(competition: Competition) {
