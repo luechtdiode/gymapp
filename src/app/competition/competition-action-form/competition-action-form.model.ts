@@ -17,6 +17,6 @@ export const CompetitionActionModel = {
   action: {
     name: [''],
   },
-  costperaction: ['10.00', [minValue(1)]],
+  costperaction: ['10.00', [minValue(0.01)]],
   maxcnt: [100, [minValue(1)]],
 };
