@@ -20,7 +20,7 @@ import { ActionTypes,
   saveSuccessAction,
   saveFailedAction,
   deleteSuccessAction,
-  deleteFailedAction, 
+  deleteFailedAction,
   loadDetailSuccessAction} from './club.actions';
 import { go } from '@ngrx/router-store';
 
