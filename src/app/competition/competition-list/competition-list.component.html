@@ -1,5 +1,5 @@
-<h3 *ngIf="(isClubloading | async)">{{message}}</h3>
-<ul  *ngIf="!(isClubloading | async)" class="nav nav-tabs" role="tablist">
+<h3 *ngIf="(isCompetitionsloading | async)">{{message}}</h3>
+<ul  *ngIf="!(isCompetitionsloading | async)" class="nav nav-tabs" role="tablist">
   <li class="nav-item" *ngFor="let kind of kindItems" role="presentation"
   [ngClass]="{active:isSelected(kind)}">
   
@@ -7,7 +7,7 @@
   aria-controls="kind"
   role="tab"><span class="badge badge-pill badge-default pull-right">{{getKindCount(kind)}}</span>{{kind}}</a></li>
 </ul>
-<div class="tab-content" *ngIf="!(isClubloading | async)">
+<div class="tab-content" *ngIf="!(isCompetitionsloading | async)">
   <ul class="list-unstyled">
     <gymapp-competition-media class="media bottom-separator" *ngFor="let competition of items" 
       [competition] = "competition"
