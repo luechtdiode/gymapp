@@ -52,7 +52,7 @@ export class AuthEffects {
                   firstname : '',
                   lastname : '',
                   homepage: '',
-                  image: '',
+                  image: action.payload.club.image,
                   googleplushandle: '',
                   facebookhandle: '',
                   twitterhandle: '',
