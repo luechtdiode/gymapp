@@ -63,7 +63,7 @@ export class AuthEffects {
                 }, action.payload.user, action.payload.club))
             .map((response) => {
                 console.log('register success: ' + response);
-                return loginAction(action.payload.rememberMe, action.payload.user);
+                return loginAction(action.payload.rememberMe, action.payload.user, RouterPath.CLUBPROFILE);
             }),
         // TODO integrate toastr component
         ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
@@ -85,11 +85,11 @@ export class AuthEffects {
                   company : action.payload.sponsor.name,
                   slogan : action.payload.sponsor.slogan,
                   budget : action.payload.sponsor.budget,
-                  regactions : action.payload.sponsor.sponsoractions,
+                  regactions : action.payload.sponsor.sponsoractions.map(ra => Object.assign({}, ra, {selected: true})),
                 }, action.payload.user))
             .map((response) => {
                 console.log('register success: ' + response);
-                return loginAction(action.payload.rememberMe, action.payload.user);
+                return loginAction(action.payload.rememberMe, action.payload.user, RouterPath.SPONSORPROFILE);
             }),
         // TODO integrate toastr component
         ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
