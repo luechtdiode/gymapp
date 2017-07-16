@@ -85,15 +85,15 @@ export class AuthEffects {
                   company : action.payload.sponsor.name,
                   slogan : action.payload.sponsor.slogan,
                   budget : action.payload.sponsor.budget,
-                  regactions : action.payload.sponsor.sponsoractions.map(ra =>
-                    Object.assign({}, ra, {selected: true, kinds: ra.kinds.join(',')})),
+                  regactions : action.payload.sponsor.sponsoractions ? action.payload.sponsor.sponsoractions.map(ra =>
+                    Object.assign({}, ra, {selected: true, kinds: ra.kinds ? ra.kinds.join(',') : []})) : [],
                 }, action.payload.user))
             .map((response) => {
                 console.log('register success: ' + response);
                 return loginAction(action.payload.rememberMe, action.payload.user, RouterPath.SPONSORPROFILE);
             }),
         // TODO integrate toastr component
-        ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
+        ).catch((e) => [removeCredentialsAction(), go([RouterPath.HOME])]);
 
     @Effect()
     login = this.actions$

@@ -97,7 +97,7 @@ describe('The Auth Effect', () => {
         name: 'testclub',
         kind: [],
       };
-      const expectedResult = loginAction(undefined, user);
+      const expectedResult = loginAction(undefined, user, 'auth/clubprofile');
       runner.queue(registerClubAction(user, club));
       spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
 
@@ -137,7 +137,7 @@ describe('The Auth Effect', () => {
         name: 'testsponsor',
         kind: [],
       };
-      const expectedResult = loginAction(undefined, user);
+      const expectedResult = loginAction(undefined, user, 'auth/sponsorprofile');
       runner.queue(registerSponsorAction(user, sponsor));
       spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
 

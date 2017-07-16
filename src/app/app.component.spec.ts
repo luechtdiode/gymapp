@@ -92,7 +92,7 @@ describe('AppComponent', () => {
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, { useHash: true }),
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/'},

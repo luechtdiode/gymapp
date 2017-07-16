@@ -112,7 +112,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
       return Object.assign({}, state, {
         loading: true,
         sponsors: [
-          ...state.sponsors.filter(sponsor => sponsor._id !== action.payload._id),
+          ...state.sponsors.filter(s => s._id !== action.payload._id),
           action.payload,
         ].sort((sponsor1, sponsor2): number => {
           return sponsor1.name.localeCompare(sponsor2.name);
@@ -125,7 +125,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     case sponsor.ActionTypes.SAVE_SPONSOR_FAIL:
     {
       return Object.assign({}, state, {
-        ids: state.sponsors.filter(sponsor => sponsor._id !== sponsor._id),
+        ids: state.sponsors.filter(s => s._id !== s._id),
       });
     }
 

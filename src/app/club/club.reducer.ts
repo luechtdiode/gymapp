@@ -109,7 +109,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       return Object.assign({}, state, {
         loading: true,
         clubs: [
-          ...state.clubs.filter(club => club._id !== action.payload._id),
+          ...state.clubs.filter(c => c._id !== action.payload._id),
           action.payload,
         ].sort((club1, club2): number => {
           return club1.name.localeCompare(club2.name);
@@ -122,7 +122,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
     case club.ActionTypes.SAVE_CLUB_FAIL:
     {
       return Object.assign({}, state, {
-        ids: state.clubs.filter(club => club._id !== club._id),
+        ids: state.clubs.filter(c => c._id !== c._id),
       });
     }
 

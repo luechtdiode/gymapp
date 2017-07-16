@@ -14,6 +14,7 @@ import { Competition } from '../../model/backend-typings';
 export class CompetitionDetailPageComponent implements OnInit {
 
   competition: Observable<Competition>;
+  loadingmessage = 'loading competition details...';
 
   constructor(public router: Router, public store: Store<AppState>) {
     const state: RouterState = router.routerState;

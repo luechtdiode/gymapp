@@ -8,7 +8,7 @@ import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
 import { Club } from '../../model/backend-typings';
 import { RouterPath } from '../../app.routing';
-import { deleteAction } from "../club.actions";
+import { deleteAction } from '../club.actions';
 
 @Component({
   selector: 'gymapp-edit-club-page',
@@ -38,7 +38,7 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
             this.store.select(getMemberOfClub)
               .filter(club => club !== undefined)
               .subscribe(club => {
-                const toEdit = Object.assign({}, club, {kind: club.kind.join(',')});
+                const toEdit = Object.assign({}, club, {kind: club.kind ? club.kind.join(',') : []});
                 this.clubOrigin = toEdit;
                 this.form.patchValue(toEdit);
               }),

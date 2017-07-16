@@ -8,7 +8,7 @@ describe('RegisterClubPageComponent', () => {
   let comp: RegisterClubPageComponent;
   let fixture: ComponentFixture<RegisterClubPageComponent>;
   let formBuilderStub: any;
-  let storeStub: any; 
+  let storeStub: any;
 
   beforeEach(() => {
     formBuilderStub = {

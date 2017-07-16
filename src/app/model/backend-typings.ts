@@ -14,7 +14,7 @@ export interface Club {
     name?: string;
     image?: string;
     label?: string;
-    kind: string[];
+    kind?: string[];
     googleplushandle?: string;
     facebookhandle?: string;
     twitterhandle?: string;
@@ -41,6 +41,7 @@ export interface CompSponsorAction {
 }
 
 export interface SponsorAction {
+    selected?: boolean;
     action: Action;
     bidperaction: number | string;
     maxcnt: number;

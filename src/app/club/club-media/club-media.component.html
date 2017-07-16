@@ -6,14 +6,5 @@
     <h2 class="mt-0 mb-1">{{club.name}}
     <span class="label label-warning">{{club.label}}</span></h2>
     <p>{{club.description}}</p>
-    <div *ngIf="club.editable">
-      <button type="button" class="btn btn-danger pull-right" (click)="delete(club._id)">
-        Delete me
-      </button>
-      <button type="button" class="btn btn-success pull-right">
-        <!-- ui-sref="app.editclub({id: club._id})"-->
-        Edit Club
-      </button>
-    </div>
   </div>
 </div>
