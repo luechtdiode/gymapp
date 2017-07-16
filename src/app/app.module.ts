@@ -111,7 +111,7 @@ import { EditCompetitionPageComponent } from './competition/edit-competition-pag
     ReactiveFormsModule,
     HttpModule,
     StoreModule.provideStore(reducer),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(ActionsEffects),
