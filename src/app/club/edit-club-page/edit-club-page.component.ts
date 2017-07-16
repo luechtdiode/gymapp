@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -7,6 +7,8 @@ import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
 import { Club } from '../../model/backend-typings';
+import { RouterPath } from '../../app.routing';
+import { deleteAction } from "../club.actions";
 
 @Component({
   selector: 'gymapp-edit-club-page',
@@ -14,6 +16,8 @@ import { Club } from '../../model/backend-typings';
   styleUrls: ['./edit-club-page.component.scss'],
 })
 export class EditClubPageComponent implements OnInit, OnDestroy {
+
+  clubsLink = '/' + RouterPath.CLUBS;
 
   form: FormGroup;
   clubOrigin: Club;
@@ -34,7 +38,7 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
             this.store.select(getMemberOfClub)
               .filter(club => club !== undefined)
               .subscribe(club => {
-                const toEdit = Object.assign({}, club);
+                const toEdit = Object.assign({}, club, {kind: club.kind.join(',')});
                 this.clubOrigin = toEdit;
                 this.form.patchValue(toEdit);
               }),
@@ -49,6 +53,10 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
   }
 
   doSave(value) {
-    this.store.dispatch(fromClubs.saveAction(Object.assign({}, this.clubOrigin, value)));
+    this.store.dispatch(fromClubs.saveAction(Object.assign({}, this.clubOrigin, value, {kind: value.kind.split(',')})));
+  }
+
+  onDelete() {
+    this.store.dispatch(deleteAction(this.clubOrigin));
   }
 }

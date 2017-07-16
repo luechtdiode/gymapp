@@ -13,6 +13,7 @@ function minValue(min: number): ValidatorFn {
 }
 
 export const SponsorActionModel = {
+  selected: [true],
   action: {
     name: [''],
   },

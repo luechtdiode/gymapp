@@ -23,6 +23,7 @@ import { ActionTypes,
 } from './sponsor.actions';
 import { go } from '@ngrx/router-store';
 import { Sponsor } from '../model/backend-typings';
+import { logoutAction } from '../shared/auth.actions';
 
 @Injectable()
 export class SponsorEffects {
@@ -79,6 +80,11 @@ export class SponsorEffects {
       .mapTo(deleteSuccessAction(comp))
       .catch(() => Observable.of(
         deleteFailedAction(comp))));
+
+  @Effect()
+  deleteSponsorSuccess = this.actions$
+    .ofType(ActionTypes.DELETE_SPONSOR_SUCCESS)
+    .mapTo(logoutAction());
 
   constructor(private actions$: Actions,
               private sponsorService: SponsorService) {

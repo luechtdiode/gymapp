@@ -13,7 +13,7 @@ function minValue(min: number): ValidatorFn {
 }
 
 export const CompetitionActionModel = {
-  selected: [],
+  selected: [true],
   action: {
     name: [''],
   },

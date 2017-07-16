@@ -5,6 +5,7 @@ import { AppState } from '../../app-state.reducer';
 import { ClubFormModel } from '../club-form/club-form.model';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
 import { registerClubAction } from '../../shared/auth.actions';
+import { RouterPath } from '../../app.routing';
 
 @Component({
   selector: 'gymapp-register-club-page',
@@ -12,6 +13,7 @@ import { registerClubAction } from '../../shared/auth.actions';
   styleUrls: ['./register-club-page.component.scss'],
 })
 export class RegisterClubPageComponent implements OnInit {
+  clubsLink = '/' + RouterPath.CLUBS;
 
   user: FormGroup;
   clubdetails: FormGroup;

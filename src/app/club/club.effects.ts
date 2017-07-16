@@ -23,6 +23,7 @@ import { ActionTypes,
   deleteFailedAction,
   loadDetailSuccessAction} from './club.actions';
 import { go } from '@ngrx/router-store';
+import { logoutAction } from '../shared/auth.actions';
 
 @Injectable()
 export class ClubEffects {
@@ -78,6 +79,11 @@ export class ClubEffects {
       .mapTo(deleteSuccessAction(comp))
       .catch(() => Observable.of(
         deleteFailedAction(comp))));
+
+  @Effect()
+  deleteSponsorSuccess = this.actions$
+    .ofType(ActionTypes.DELETE_CLUB_SUCCESS)
+    .mapTo(logoutAction());
 
   constructor(private actions$: Actions,
               private clubService: ClubService) {

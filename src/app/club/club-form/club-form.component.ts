@@ -8,7 +8,6 @@ import { RouterPath } from '../../app.routing';
   styleUrls: ['./club-form.component.scss'],
 })
 export class ClubFormComponent implements OnInit {
-  clubsLink = '/' + RouterPath.CLUBS;
 
   @Input()
   form: FormGroup;
