@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 
 @Injectable()
 export class UrlProvider {
-  // originHRef: string = window.location.origin;
+  originHRef: string = window.location.origin;
 
   public static getBackendUrl(path: string): string {
     // let host: string = window.location.hostname;
