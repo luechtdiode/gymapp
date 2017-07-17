@@ -1,6 +1,6 @@
 
 <a *ngIf="competition" [routerLink]="'/competitions/' + competition._id">
-  <img class="d-flex align-self-start mr-3" [src]="'assets/' + competition.image" [alt]="competition.name">
+  <img class="d-flex align-self-start mr-3" [src]="'./assets/' + competition.image" [alt]="competition.name">
 </a>
 
 <div class="media-body" *ngIf="competition">
