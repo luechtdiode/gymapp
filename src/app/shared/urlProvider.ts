@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 
 @Injectable()
 export class UrlProvider {
-  originHRef = window.location.origin;
+  // originHRef: string = window.location.origin;
 
   public static getBackendUrl(path: string): string {
     // let host: string = window.location.hostname;
@@ -12,7 +12,7 @@ export class UrlProvider {
     // } else if (host === '127.0.0.1') {
     //   return 'http://127.0.0.1:4200' + path;
     // }
-    return path;
+    return '.' + path;
   }
 
   constructor(private location: Location) { }
