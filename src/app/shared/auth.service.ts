@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   register(registerData) {
-    return this.remote.post('api/users/register', registerData);
+    return this.remote.post('/api/users/register', registerData);
   }
 
 }
