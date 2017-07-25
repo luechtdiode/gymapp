@@ -18,14 +18,7 @@ import * as fromActions from './actions/actions.reducer';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import { compose } from '@ngrx/core/compose';
-
-/**
- * storeFreeze prevents state from being mutated. When mutation occurs, an
- * exception will be thrown. This is useful during development mode to
- * ensure that none of the reducers accidentally mutates the state.
- */
-import { storeFreeze } from 'ngrx-store-freeze';
+import { compose } from '@ngrx/core';
 
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
@@ -35,7 +28,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import { combineReducers } from '@ngrx/store';
+import { combineReducers, ActionReducerMap } from '@ngrx/store';
 import { SponsorsState } from './sponsor/sponsor.reducer';
 import { isLoadingDetail } from './competition/competition.reducer';
 
@@ -44,11 +37,11 @@ export interface AppState {
   clubs: fromClubs.ClubsState;
   sponsors: fromSponsors.SponsorsState;
   auth: fromAuth.AuthState;
-  router: fromRouter.RouterState;
+  router: fromRouter.RouterReducerState;
   actions: fromActions.ActionsState;
 }
 
-const reducers = {
+export const reducers: ActionReducerMap<AppState> = {
   competitions: fromCompetitions.reducer,
   clubs: fromClubs.reducer,
   sponsors: fromSponsors.reducer,
@@ -56,17 +49,6 @@ const reducers = {
   router: fromRouter.routerReducer,
   actions: fromActions.reducer,
 };
-
-const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
-
-export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
-  } else {
-    return developmentReducer(state, action);
-  }
-}
 
 export const activeRoute = (state: AppState) => state.router;
 export const getAuthState = (state: AppState) => state.auth;

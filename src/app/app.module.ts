@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { CachedCrudService } from './shared/cached-crud.service';
@@ -12,8 +13,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { appRoutes } from './app.routing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducer } from './app-state.reducer';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { reducers } from './app-state.reducer';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { LocalStorageService } from './shared/local-storage.service';
@@ -64,6 +65,7 @@ import { CompetitionFormComponent } from './competition/competition-form/competi
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { CompetitionActionFormComponent } from './competition/competition-action-form/competition-action-form.component';
 import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
+import { environment } from '../environments/environment'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -109,16 +111,17 @@ import { EditCompetitionPageComponent } from './competition/edit-competition-pag
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule.forRoot(),
     HttpModule,
-    StoreModule.provideStore(reducer),
+    StoreModule.forRoot(reducers),
     RouterModule.forRoot(appRoutes, { useHash: true }),
-    RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    EffectsModule.run(ActionsEffects),
-    EffectsModule.run(AuthEffects),
-    EffectsModule.run(CompetitionEffects),
-    EffectsModule.run(ClubEffects),
-    EffectsModule.run(SponsorEffects),
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+    EffectsModule.forRoot([ActionsEffects
+      , AuthEffects
+      , CompetitionEffects
+      , ClubEffects
+      , SponsorEffects]),
   ],
   providers: [
     UrlProvider,

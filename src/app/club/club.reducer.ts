@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Club} from '../model/backend-typings';
-import * as club from './club.actions';
+import * as clubActions from './club.actions';
 
 export interface ClubsState {
   loaded: boolean;
@@ -24,9 +24,9 @@ const initialState: ClubsState = {
   club: undefined,
 };
 
-export function reducer(state = initialState, action: Action): ClubsState {
+export function reducer(state = initialState, action: clubActions.Actions): ClubsState {
   switch (action.type) {
-    case club.ActionTypes.LOAD_CLUBS:
+    case clubActions.LOAD_CLUBS:
     {
       return Object.assign({}, state, {
         loading: true,
@@ -34,7 +34,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_CLUBS_SUCCESS:
+    case clubActions.LOAD_CLUBS_SUCCESS:
     {
       const cs: Club[] = action.payload;
       return Object.assign({}, state, {
@@ -47,7 +47,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_FEATURED_CLUB:
+    case clubActions.LOAD_FEATURED_CLUB:
     {
       return Object.assign({}, state, {
         loadingFeatured: true,
@@ -55,7 +55,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_FEATURED_CLUB_FAIL:
+    case clubActions.LOAD_FEATURED_CLUB_FAIL:
     {
       return Object.assign({}, state, {
         loadingFeatured: false,
@@ -63,7 +63,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_FEATURED_CLUB_SUCCESS:
+    case clubActions.LOAD_FEATURED_CLUB_SUCCESS:
     {
       return Object.assign({}, state, {
         loadingFeatured: false,
@@ -71,7 +71,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_CLUB_SUCCESS:
+    case clubActions.LOAD_CLUB_SUCCESS:
     {
       return Object.assign({}, state, {
         memberOfClub: action.payload,
@@ -79,7 +79,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_DETAIL_CLUB:
+    case clubActions.LOAD_DETAIL_CLUB:
     {
       return Object.assign({}, state, {
         loadingDetail: true,
@@ -87,7 +87,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_DETAIL_CLUB_FAIL:
+    case clubActions.LOAD_DETAIL_CLUB_FAIL:
     {
       return Object.assign({}, state, {
         loadingDetail: false,
@@ -95,7 +95,7 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.LOAD_DETAIL_CLUB_SUCCESS:
+    case clubActions.LOAD_DETAIL_CLUB_SUCCESS:
     {
       return Object.assign({}, state, {
         loadingDetail: false,
@@ -103,8 +103,8 @@ export function reducer(state = initialState, action: Action): ClubsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.SAVE_CLUB_SUCCESS:
-    case club.ActionTypes.DELETE_CLUB_FAIL:
+    case clubActions.SAVE_CLUB_SUCCESS:
+    case clubActions.DELETE_CLUB_FAIL:
     {
       return Object.assign({}, state, {
         loading: true,
@@ -118,8 +118,8 @@ export function reducer(state = initialState, action: Action): ClubsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case club.ActionTypes.DELETE_CLUB_SUCCESS:
-    case club.ActionTypes.SAVE_CLUB_FAIL:
+    case clubActions.DELETE_CLUB_SUCCESS:
+    case clubActions.SAVE_CLUB_FAIL:
     {
       return Object.assign({}, state, {
         ids: state.clubs.filter(c => c._id !== c._id),

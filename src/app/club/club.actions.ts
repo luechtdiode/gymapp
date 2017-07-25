@@ -1,116 +1,100 @@
-import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
 import { Club } from '../model/backend-typings';
 
-export const ActionTypes = {
-  LOAD_CLUBS:                 type('[CLUB] Load CLUBs'),
-  LOAD_CLUBS_SUCCESS:         type('[CLUB] Load CLUBs Success'),
-  SAVE_CLUB:                  type('[CLUB] Save CLUB'),
-  SAVE_CLUB_SUCCESS:          type('[CLUB] Save CLUB Success'),
-  SAVE_CLUB_FAIL:             type('[CLUB] Save CLUB Fail'),
-  DELETE_CLUB:                type('[CLUB] Delete CLUB'),
-  DELETE_CLUB_SUCCESS:        type('[CLUB] Delete CLUB Success'),
-  DELETE_CLUB_FAIL:           type('[CLUB] Delete CLUB Fail'),
-  LOAD_CLUB:                  type('[CLUB] Load MemberOf CLUB'),
-  LOAD_CLUB_SUCCESS:          type('[CLUB] Load MemberOf CLUB Success'),
-  LOAD_FEATURED_CLUB:         type('[CLUB] Load featured CLUB'),
-  LOAD_FEATURED_CLUB_SUCCESS: type('[CLUB] Load featured CLUB success'),
-  LOAD_FEATURED_CLUB_FAIL:    type('[CLUB] Load featured CLUB fail'),
-  LOAD_DETAIL_CLUB:           type('[CLUB] Load DETAIL CLUB'),
-  LOAD_DETAIL_CLUB_SUCCESS:   type('[CLUB] Load DETAIL CLUB success'),
-  LOAD_DETAIL_CLUB_FAIL:      type('[CLUB] Load DETAIL CLUB fail'),
-};
+export const   LOAD_CLUBS                 = '[CLUB] Load CLUBs';
+export const   LOAD_CLUBS_SUCCESS         = '[CLUB] Load CLUBs Success';
+export const   SAVE_CLUB                  = '[CLUB] Save CLUB';
+export const   SAVE_CLUB_SUCCESS          = '[CLUB] Save CLUB Success';
+export const   SAVE_CLUB_FAIL             = '[CLUB] Save CLUB Fail';
+export const   DELETE_CLUB                = '[CLUB] Delete CLUB';
+export const   DELETE_CLUB_SUCCESS        = '[CLUB] Delete CLUB Success';
+export const   DELETE_CLUB_FAIL           = '[CLUB] Delete CLUB Fail';
+export const   LOAD_CLUB                  = '[CLUB] Load MemberOf CLUB';
+export const   LOAD_CLUB_SUCCESS          = '[CLUB] Load MemberOf CLUB Success';
+export const   LOAD_FEATURED_CLUB         = '[CLUB] Load featured CLUB';
+export const   LOAD_FEATURED_CLUB_SUCCESS = '[CLUB] Load featured CLUB success';
+export const   LOAD_FEATURED_CLUB_FAIL    = '[CLUB] Load featured CLUB fail';
+export const   LOAD_DETAIL_CLUB           = '[CLUB] Load DETAIL CLUB';
+export const   LOAD_DETAIL_CLUB_SUCCESS   = '[CLUB] Load DETAIL CLUB success';
+export const   LOAD_DETAIL_CLUB_FAIL      = '[CLUB] Load DETAIL CLUB fail';
 
-export function loadAllAction(): Action {
-  return {
-    type: ActionTypes.LOAD_CLUBS,
-  };
+export class LoadAllAction implements Action {
+  readonly type = LOAD_CLUBS;
 }
-export function loadAllSuccessAction(payload: Club[]): Action {
-  return {
-    type: ActionTypes.LOAD_CLUBS_SUCCESS,
-    payload: payload,
-  };
+export class LoadAllSuccessAction implements Action {
+  readonly type = LOAD_CLUBS_SUCCESS;
+  constructor(public payload:  Club[]) { };
 }
-export function saveAction(payload: Club): Action {
-  return {
-    type: ActionTypes.SAVE_CLUB,
-    payload: payload,
-  };
+export class SaveAction implements Action {
+  readonly type = SAVE_CLUB;
+  constructor(public payload: Club) { };
 }
-export function saveSuccessAction(payload: Club): Action {
-  return {
-    type: ActionTypes.SAVE_CLUB_SUCCESS,
-    payload: payload,
-  };
+export class SaveSuccessAction implements Action {
+   readonly type = SAVE_CLUB_SUCCESS;
+   constructor(public payload: Club) { };
 }
-export function saveFailedAction(payload: Club): Action {
-  return {
-    type: ActionTypes.SAVE_CLUB_FAIL,
-    payload: payload,
-  };
+export class SaveFailedAction implements Action {
+  readonly type = SAVE_CLUB_FAIL;
+  constructor(public payload: Club) { };
 }
-export function deleteAction(payload: Club): Action {
-  return {
-    type: ActionTypes.DELETE_CLUB,
-    payload: payload,
-  };
+export class DeleteAction implements Action {
+  readonly type = DELETE_CLUB;
+  constructor(public payload: Club) { };
 }
-export function deleteSuccessAction(payload: Club): Action {
-  return {
-    type: ActionTypes.DELETE_CLUB_SUCCESS,
-    payload: payload,
-  };
+export class DeleteSuccessAction implements Action {
+  readonly type = DELETE_CLUB_SUCCESS;
+  constructor(public payload: Club) { };
 }
-export function deleteFailedAction(payload: Club): Action {
-  return {
-    type: ActionTypes.DELETE_CLUB_FAIL,
-    payload: payload,
-  };
+export class DeleteFailedAction implements Action {
+  readonly type = DELETE_CLUB_FAIL;
+  constructor(public payload: Club) { };
 }
-export function loadAction(payload: string): Action {
-  return {
-    type: ActionTypes.LOAD_CLUB,
-    payload: payload,
-  };
+export class LoadAction implements Action {
+  readonly type = LOAD_CLUB;
+  constructor(public payload: string) { };
 }
-export function loadSuccessAction(payload: Club): Action {
-  return {
-    type: ActionTypes.LOAD_CLUB_SUCCESS,
-    payload: payload,
-  };
+export class LoadSuccessAction implements Action {
+  readonly type = LOAD_CLUB_SUCCESS;
+  constructor(public payload: Club) { };
 }
-export function loadFeaturedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_CLUB,
-  };
+export class LoadFeaturedAction implements Action {
+  readonly type = LOAD_FEATURED_CLUB;
 }
-export function loadFeaturedSuccessAction(payload: Club): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_CLUB_SUCCESS,
-    payload: payload,
-  };
+export class LoadFeaturedSuccessAction implements Action {
+  readonly type = LOAD_FEATURED_CLUB_SUCCESS;
+  constructor(public payload: Club) { };
 }
-export function loadFeaturedFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_CLUB_FAIL,
-  };
+export class LoadFeaturedFailedAction implements Action {
+  readonly type = LOAD_FEATURED_CLUB_FAIL;
 }
 
-export function loadDetailAction(payload: string): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_CLUB,
-    payload: payload,
-  };
+export class LoadDetailAction implements Action {
+  readonly type = LOAD_DETAIL_CLUB;
+  constructor(public payload: string) { };
 }
-export function loadDetailSuccessAction(payload: Club): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_CLUB_SUCCESS,
-    payload: payload,
-  };
+export class LoadDetailSuccessAction implements Action {
+  readonly type = LOAD_DETAIL_CLUB_SUCCESS;
+  constructor(public payload: Club) { };
 }
-export function loadDetailFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_CLUB_FAIL,
-  };
+export class LoadDetailFailedAction implements Action {
+  readonly type = LOAD_DETAIL_CLUB_FAIL;
 }
+
+
+export type Actions =
+    LoadAllAction
+  | LoadAllSuccessAction
+  | SaveAction
+  | SaveSuccessAction
+  | SaveFailedAction
+  | DeleteAction
+  | DeleteSuccessAction
+  | DeleteFailedAction
+  | LoadAction
+  | LoadSuccessAction
+  | LoadFeaturedAction
+  | LoadFeaturedSuccessAction
+  | LoadFeaturedFailedAction
+  | LoadDetailAction
+  | LoadDetailSuccessAction
+  | LoadDetailFailedAction;
