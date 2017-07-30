@@ -7,9 +7,9 @@ describe('the flatmap', () => {
         const monad2 = [4, 5, 6];
         const outer = [monad1, monad2];
 
-        const flatten = flatMap(outer, (monad) => monad);
+        const flattened = flatMap(outer, (monad) => monad);
 
-        expect(flatten).toEqual([1, 2, 3, 4, 5, 6]);
+        expect(flattened).toEqual([1, 2, 3, 4, 5, 6]);
     });
 
     it('should map a monadic type to the outer type - type-extraction case', () => {
@@ -17,9 +17,9 @@ describe('the flatmap', () => {
         const monad2 = {names: ['mona', 'lisa']};
         const outer = [monad1, monad2];
 
-        const flatten = flatMap(outer, (monad) => monad.names);
+        const flattened = flatMap(outer, (monad) => monad.names);
 
-        expect(flatten).toEqual(['hans', 'joachim', 'mona', 'lisa']);
+        expect(flattened).toEqual(['hans', 'joachim', 'mona', 'lisa']);
     });
 
     it('should flatten inner array-elements to outer array-elements', () => {
@@ -27,9 +27,9 @@ describe('the flatmap', () => {
         const monad2 = [4, 5, 6];
         const outer = [monad1, monad2];
 
-        const f = flatten(outer);
+        const flattened = flatten(outer);
 
-        expect(f).toEqual([1, 2, 3, 4, 5, 6]);
+        expect(flattened).toEqual([1, 2, 3, 4, 5, 6]);
     });
 
 });
