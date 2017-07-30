@@ -6,9 +6,8 @@ import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
 import { Store, combineReducers } from '@ngrx/store';
 import { AppState, isMemberOfClub } from '../../app-state.reducer';
-import { loadAllAction, deleteAction } from '../competition.actions';
-import { go } from '@ngrx/router-store';
 import { RouterPath } from '../../app.routing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'gymapp-competition-list',
@@ -22,12 +21,13 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   private _supportingClub: Club;
   private _isMemberOfClub: string;
 
-  constructor(protected store: Store<AppState>) {
+  constructor(protected store: Store<AppState>
+  , private router: Router) {
     super(store);
   }
 
   ngOnInit() {
-    this.store.dispatch(loadAllAction());
+    this.store.dispatch(new fromCompetitions.LoadAllAction());
     this.isCompetitionsloading = this.store.select(fromRoot.isLoadingCompetitions);
     this.store.select(isMemberOfClub).subscribe(moc => this._isMemberOfClub = moc);
     const maxTabs = 6;
@@ -60,11 +60,11 @@ export class CompetitionListComponent extends AbstractListComponent<Competition>
   }
 
   onEdit(competition: Competition) {
-    this.store.dispatch(go([RouterPath.COMPETITION_EDIT.replace(':competitionid', competition._id)]));
+    this.router.navigate([RouterPath.COMPETITION_EDIT.replace(':competitionid', competition._id)]);
   }
 
   onDelete(competition: Competition) {
-    this.store.dispatch(deleteAction(competition));
+    this.store.dispatch(new fromCompetitions.DeleteAction(competition));
   }
 
   isActionPairMatching(sa: SponsorAction, ca: CompSponsorAction): boolean {

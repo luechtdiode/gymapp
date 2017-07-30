@@ -2,80 +2,89 @@ import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
 import { User, Club, Sponsor } from '../model/backend-typings';
 
-export const ActionTypes = {
-  LOAD_CREDENTIALS:         type('[LOAD_CREDENTIALS] load user creds'),
-  REMOVE_CREDENTIALS:       type('[REMOVE_CREDENTIALS] permanent remove user creds'),
-  ELEVATE:                  type('[ELEVATE] force user login'),
-  LOGIN:                    type('[LOGIN] user login'),
-  LOGIN_SUCCESS:            type('[LOGIN_SUCCESS] user login Success'),
-  LOGOUT:                   type('[LOGOUT] user logout'),
-  LOGOUT_SUCCESS:           type('[LOGOUT_SUCCESS] user logout Success'),
-  REGISTER_CLUB:            type('[REGISTER_CLUB] club register'),
-  // REGISTER_CLUB_SUCCESS:    type('[REGISTER_CLUB_SUCCESS] club register Success'),
-  REGISTER_SPONSOR:         type('[REGISTER_SPONSOR] sponsor register'),
-  // REGISTER_SPONSOR_SUCCESS: type('[REGISTER_SPONSOR_SUCCESS] sponsor register Success'),
+
+export const LOAD_CREDENTIALS =        '[LOAD_CREDENTIALS] load user creds';
+export const REMOVE_CREDENTIALS =      '[REMOVE_CREDENTIALS] permanent remove user creds';
+export const ELEVATE =                 '[ELEVATE] force user login';
+export const LOGIN =                   '[LOGIN] user login';
+export const LOGIN_SUCCESS =           '[LOGIN_SUCCESS] user login Success';
+export const LOGOUT =                  '[LOGOUT] user logout';
+export const LOGOUT_SUCCESS =          '[LOGOUT_SUCCESS] user logout Success';
+export const REGISTER_CLUB =           '[REGISTER_CLUB] club register';
+  // export const REGISTER_CLUB_SUCCESS =   '[REGISTER_CLUB_SUCCESS] club register Success';
+export const REGISTER_SPONSOR =        '[REGISTER_SPONSOR] sponsor register';
+  // export const REGISTER_SPONSOR_SUCCESS ='[REGISTER_SPONSOR_SUCCESS] sponsor register Success';
+
+export class LoadCredentialsAction implements Action {
+  type = LOAD_CREDENTIALS;
+  payload: any = undefined;
 };
 
-export function loadCredentialsAction(): Action {
-  return {
-    type: ActionTypes.LOAD_CREDENTIALS,
-  };
+export class RemoveCredentialsAction implements Action {
+  type = REMOVE_CREDENTIALS;
+  payload: any = undefined;
+};
+
+export class ElevateAction implements Action {
+  type = ELEVATE;
+  constructor(public payload: string) {}
 }
-export function removeCredentialsAction(): Action {
-  return {
-    type: ActionTypes.REMOVE_CREDENTIALS,
-  };
+export class RegisterClubAction implements Action {
+  type = REGISTER_CLUB;
+  payload: any;
+  constructor(user: User, club: Club) {
+    this.payload =  {user: user, club: club };
+  }
 }
-export function elevateAction(backUrl: string): Action {
-  return {
-    type: ActionTypes.ELEVATE,
-    payload: backUrl,
-  };
-}
-export function registerClubAction(user: User, club: Club): Action {
-  return {
-    type: ActionTypes.REGISTER_CLUB,
-    payload: {user: user, club: club },
-  };
-}
-/* export function registerClubSuccessAction(user: User, club: Club): Action {
-  return {
-    type: ActionTypes.REGISTER_CLUB_SUCCESS,
-    payload: {user: user, club: club },
+/* export class registerClubSuccessAction(user: User, club: Club): Action {
+  type = REGISTER_CLUB_SUCCESS;
+    paylo
+    : {user: user, club: club },
   };
 }*/
-export function registerSponsorAction(user: User, sponsor: Sponsor): Action {
-  return {
-    type: ActionTypes.REGISTER_SPONSOR,
-    payload: {user: user, sponsor: sponsor },
-  };
+export class RegisterSponsorAction implements Action {
+  type = REGISTER_SPONSOR;
+  payload: any;
+  constructor(user: User, sponsor: Sponsor) {
+    this.payload = {user: user, sponsor: sponsor };
+  }
 }
-/*export function registerSponsorSuccessAction(user: User, sponsor: Sponsor): Action {
+/*export class registerSponsorSuccessAction(user: User, sponsor: Sponsor): Action {
   return {
     type: ActionTypes.REGISTER_SPONSOR_SUCCESS,
     payload: {user: user, sponsor: sponsor },
   };
 }*/
-export function loginAction(remember: boolean, user: User, backUrl: string = undefined): Action {
-  return {
-    type: ActionTypes.LOGIN,
-    payload: {user: user, rememberMe: remember, backUrl: backUrl},
-  };
+export class LoginAction implements Action {
+  type = LOGIN;
+  payload: any;
+  constructor(remember: boolean, user: User, backUrl: string = undefined) {
+    this.payload = {user: user, rememberMe: remember, backUrl: backUrl};
+  }
 }
-export function loginSuccessAction(user: User, backUrl: string = undefined): Action {
-  return {
-    type: ActionTypes.LOGIN_SUCCESS,
-    payload: {user: user, backUrl: backUrl },
-  };
+export class LoginSuccessAction implements Action {
+  type = LOGIN_SUCCESS;
+  payload: any;
+  constructor(user: User, backUrl: string = undefined) {
+    this.payload = {user: user, backUrl: backUrl };
+  }
 }
-export function logoutAction(): Action {
-  return {
-    type: ActionTypes.LOGOUT,
-  };
+export class LogoutAction implements Action {
+  type = LOGOUT;
+  payload: any = undefined;
 }
-export function logoutSuccessAction(): Action {
-  return {
-    type: ActionTypes.LOGOUT_SUCCESS,
-  };
+export class LogoutSuccessAction implements Action {
+  type = LOGOUT_SUCCESS;
+  payload: any = undefined;
 }
 
+export type Actions =
+    LoadCredentialsAction
+  | RemoveCredentialsAction
+  | ElevateAction
+  | RegisterClubAction
+  | RegisterSponsorAction
+  | LoginAction
+  | LoginSuccessAction
+  | LogoutAction
+  | LogoutSuccessAction;

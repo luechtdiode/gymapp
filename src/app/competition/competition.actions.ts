@@ -2,121 +2,108 @@ import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
 import {Competition} from '../model/backend-typings';
 
-export const ActionTypes = {
-  LOAD_COMPETITIONS:                 type('[COMPETITION] Load COMPETITIONs'),
-  LOAD_COMPETITIONS_SUCCESS:         type('[COMPETITION] Load COMPETITIONs Success'),
-  CREATE_COMPETITION:                type('[COMPETITION] Create COMPETITION'),
-  CREATE_COMPETITION_SUCCESS:        type('[COMPETITION] Create COMPETITION Success'),
-  CREATE_COMPETITION_FAIL:           type('[COMPETITION] Create COMPETITION Fail'),
-  SAVE_COMPETITION:                  type('[COMPETITION] Save COMPETITION'),
-  SAVE_COMPETITION_SUCCESS:          type('[COMPETITION] Save COMPETITION Success'),
-  SAVE_COMPETITION_FAIL:             type('[COMPETITION] Save COMPETITION Fail'),
-  DELETE_COMPETITION:                type('[COMPETITION] Delete COMPETITION'),
-  DELETE_COMPETITION_SUCCESS:        type('[COMPETITION] Delete COMPETITION Success'),
-  DELETE_COMPETITION_FAIL:           type('[COMPETITION] Delete COMPETITION Fail'),
-  LOAD_COMPETITION:                  type('[COMPETITION] Load COMPETITION'),
-  LOAD_COMPETITION_SUCCESS:          type('[COMPETITION] Load COMPETITION success'),
-  LOAD_COMPETITION_FAIL:             type('[COMPETITION] Load COMPETITION fail'),
-  LOAD_FEATURED_COMPETITION:         type('[COMPETITION] Load featured COMPETITION'),
-  LOAD_FEATURED_COMPETITION_SUCCESS: type('[COMPETITION] Load featured COMPETITION success'),
-  LOAD_FEATURED_COMPETITION_FAIL:    type('[COMPETITION] Load featured COMPETITION fail'),
-};
+export const LOAD_COMPETITIONS =                 '[COMPETITION] Load COMPETITIONs';
+export const LOAD_COMPETITIONS_SUCCESS =         '[COMPETITION] Load COMPETITIONs Success';
+export const CREATE_COMPETITION =                '[COMPETITION] Create COMPETITION';
+export const CREATE_COMPETITION_SUCCESS =        '[COMPETITION] Create COMPETITION Success';
+export const CREATE_COMPETITION_FAIL =           '[COMPETITION] Create COMPETITION Fail';
+export const SAVE_COMPETITION =                  '[COMPETITION] Save COMPETITION';
+export const SAVE_COMPETITION_SUCCESS =          '[COMPETITION] Save COMPETITION Success';
+export const SAVE_COMPETITION_FAIL =             '[COMPETITION] Save COMPETITION Fail';
+export const DELETE_COMPETITION =                '[COMPETITION] Delete COMPETITION';
+export const DELETE_COMPETITION_SUCCESS =        '[COMPETITION] Delete COMPETITION Success';
+export const DELETE_COMPETITION_FAIL =           '[COMPETITION] Delete COMPETITION Fail';
+export const LOAD_COMPETITION =                  '[COMPETITION] Load COMPETITION';
+export const LOAD_COMPETITION_SUCCESS =          '[COMPETITION] Load COMPETITION success';
+export const LOAD_COMPETITION_FAIL =             '[COMPETITION] Load COMPETITION fail';
+export const LOAD_FEATURED_COMPETITION =         '[COMPETITION] Load featured COMPETITION';
+export const LOAD_FEATURED_COMPETITION_SUCCESS = '[COMPETITION] Load featured COMPETITION success';
+export const LOAD_FEATURED_COMPETITION_FAIL =    '[COMPETITION] Load featured COMPETITION fail';
 
-export function loadAllAction(): Action {
-  return {
-    type: ActionTypes.LOAD_COMPETITIONS,
-  };
+export class LoadAllAction implements Action {
+  type = LOAD_COMPETITIONS;
+  payload: any = undefined;
 }
-export function loadAllSuccessAction(payload: Competition[]): Action {
-  return {
-    type: ActionTypes.LOAD_COMPETITIONS_SUCCESS,
-    payload: payload,
-  };
+export class LoadAllSuccessAction implements Action {
+  type = LOAD_COMPETITIONS_SUCCESS;
+  constructor(public payload: Competition[]) {}
 }
-export function createAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.CREATE_COMPETITION,
-    payload: payload,
-  };
+export class CreateAction implements Action {
+  type = CREATE_COMPETITION;
+  constructor(public payload: Competition) {}
 }
-export function createSuccessAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.CREATE_COMPETITION_SUCCESS,
-    payload: payload,
-  };
+export class CreateSuccessAction implements Action {
+  type = CREATE_COMPETITION_SUCCESS;
+  constructor(public payload: Competition) {}
 }
-export function createFailedAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.CREATE_COMPETITION_FAIL,
-    payload: payload,
-  };
+export class CreateFailedAction implements Action {
+  type = CREATE_COMPETITION_FAIL;
+  constructor(public payload: Competition) {}
 }
-export function saveAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.SAVE_COMPETITION,
-    payload: payload,
-  };
+export class SaveAction implements Action {
+  type = SAVE_COMPETITION;
+  constructor(public payload: Competition) {}
 }
-export function saveSuccessAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.SAVE_COMPETITION_SUCCESS,
-    payload: payload,
-  };
+export class SaveSuccessAction implements Action {
+  type = SAVE_COMPETITION_SUCCESS;
+  constructor(public payload: Competition) {}
 }
-export function saveFailedAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.SAVE_COMPETITION_FAIL,
-    payload: payload,
-  };
+export class SaveFailedAction implements Action {
+  type = SAVE_COMPETITION_FAIL;
+  constructor(public payload: Competition) {}
 }
-export function deleteAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.DELETE_COMPETITION,
-    payload: payload,
-  };
+export class DeleteAction implements Action {
+  type = DELETE_COMPETITION;
+  constructor(public payload: Competition) {}
 }
-export function deleteSuccessAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.DELETE_COMPETITION_SUCCESS,
-    payload: payload,
-  };
+export class DeleteSuccessAction implements Action {
+  type = DELETE_COMPETITION_SUCCESS;
+  constructor(public payload: Competition) {}
 }
-export function deleteFailedAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.DELETE_COMPETITION_FAIL,
-    payload: payload,
-  };
+export class DeleteFailedAction implements Action {
+  type = DELETE_COMPETITION_FAIL;
+  constructor(public payload: Competition) {}
 }
-export function loadAction(payload: string): Action {
-  return {
-    type: ActionTypes.LOAD_COMPETITION,
-    payload: payload,
-  };
+export class LoadAction implements Action {
+  type = LOAD_COMPETITION;
+  constructor(public payload: string) {}
 }
-export function loadDetailSuccessAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.LOAD_COMPETITION_SUCCESS,
-    payload: payload,
-  };
+export class LoadDetailSuccessAction implements Action {
+  type = LOAD_COMPETITION_SUCCESS;
+  constructor(public payload: Competition) {}
 }
-export function loadDetailFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_COMPETITION_FAIL,
-  };
+export class LoadDetailFailedAction implements Action {
+  type = LOAD_COMPETITION_FAIL;
+  payload: any = undefined;
 }
-export function loadFeaturedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_COMPETITION,
-  };
+export class LoadFeaturedAction implements Action {
+  type = LOAD_FEATURED_COMPETITION;
+  payload: any = undefined;
 }
-export function loadFeaturedSuccessAction(payload: Competition): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_COMPETITION_SUCCESS,
-    payload: payload,
-  };
+export class LoadFeaturedSuccessAction implements Action {
+  type = LOAD_FEATURED_COMPETITION_SUCCESS;
+  constructor(public payload: Competition) {}
 }
-export function loadFeaturedFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_COMPETITION_FAIL,
-  };
+export class LoadFeaturedFailedAction implements Action {
+  type = LOAD_FEATURED_COMPETITION_FAIL;
+  payload: any = undefined;
 }
+
+export type Actions =
+    LoadAllAction
+  | LoadAllSuccessAction
+  | CreateAction
+  | CreateSuccessAction
+  | CreateFailedAction
+  | SaveAction
+  | SaveSuccessAction
+  | SaveFailedAction
+  | DeleteAction
+  | DeleteSuccessAction
+  | DeleteFailedAction
+  | LoadAction
+  | LoadDetailSuccessAction
+  | LoadDetailFailedAction
+  | LoadFeaturedAction
+  | LoadFeaturedSuccessAction
+  | LoadFeaturedFailedAction;

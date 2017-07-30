@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
-import { logoutAction, elevateAction } from '../shared/auth.actions';
+import { LogoutAction, ElevateAction } from '../shared/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
 import { RouterPath } from '../app.routing';
 import { UrlProvider } from '../shared/urlProvider';
@@ -52,8 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.store.select(fromRoot.activeRoute).subscribe((rt) => {
-      this.backUrl = rt.path !== '/' + RouterPath.LOGIN ? rt.path : this.backUrl;
+    this.subscriptions.push(this.store.select(fromRoot.activeRoute).filter(rt => !!rt).subscribe((rt) => {
+      this.backUrl = rt.state.url !== '/' + RouterPath.LOGIN ? rt.state.url : this.backUrl;
       this.showNavbar = '';
     } ));
     this.clubid = this.store.select(fromRoot.isMemberOfClub);
@@ -70,11 +70,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logIn() {
-    this.store.dispatch(elevateAction(this.backUrl + ''));
+    this.store.dispatch(new ElevateAction(this.backUrl + ''));
   }
 
   logOut() {
-    this.store.dispatch(logoutAction());
+    this.store.dispatch(new LogoutAction());
   }
 
 }

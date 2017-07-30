@@ -7,7 +7,7 @@ import { RegisterSponsorPageComponent } from './register-sponsor-page.component'
 import { Sponsor } from '../../model/backend-typings';
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState, reducer } from '../../app-state.reducer';
+import { AppState, reducers } from '../../app-state.reducer';
 import { FormBuilder } from '@angular/forms';
 
 describe('RegisterSponsorPageComponent', () => {
@@ -49,7 +49,7 @@ describe('RegisterSponsorPageComponent', () => {
         { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.provideStore({ reducer }),
+        StoreModule.forRoot({ reducers }),
       ],
     })
     .compileComponents();

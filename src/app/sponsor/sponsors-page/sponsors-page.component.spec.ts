@@ -4,8 +4,7 @@ import { SponsorsPageComponent } from './sponsors-page.component';
 import { SponsorListComponent } from '../sponsor-list/sponsor-list.component';
 import { SponsorMediaComponent } from '../sponsor-media/sponsor-media.component';
 import { Store, Action, StoreModule } from '@ngrx/store';
-import { AppState } from '../../app-state.reducer';
-import { reducer } from '../../app-state.reducer';
+import { AppState, reducers } from '../../app-state.reducer';
 import { Sponsor } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 
@@ -39,7 +38,7 @@ describe('SponsorsPageComponent', () => {
         { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.provideStore({ reducer }),
+        StoreModule.forRoot({ reducers }),
       ],
     })
       .compileComponents();

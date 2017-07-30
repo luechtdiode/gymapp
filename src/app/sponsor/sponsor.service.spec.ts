@@ -20,7 +20,7 @@ describe('SponsorService', () => {
 
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
-    authenticated: () => false,
+    authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
     get: (url: string) => Observable.of(sponsorListStub),
   };

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
 import { AppState, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
-import { registerSponsorAction } from '../../shared/auth.actions';
+import { RegisterSponsorAction } from '../../shared/auth.actions';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 
@@ -44,7 +44,7 @@ export class RegisterSponsorPageComponent implements OnInit {
   }
 
   doSave(value) {
-    this.store.dispatch(registerSponsorAction(value.user, value.sponsor));
+    this.store.dispatch(new RegisterSponsorAction(value.user, value.sponsor));
   }
 
 }

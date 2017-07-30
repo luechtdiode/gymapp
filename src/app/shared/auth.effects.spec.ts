@@ -1,95 +1,98 @@
-import {EffectsTestingModule, EffectsRunner} from '@ngrx/effects/testing';
 import {TestBed, inject} from '@angular/core/testing';
-import {go} from '@ngrx/router-store';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { hot, cold } from 'jasmine-marbles';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
 import {EffectsModule} from '@ngrx/effects';
 import { AuthEffects } from './auth.effects';
-import { loadCredentialsAction, loginAction, removeCredentialsAction, elevateAction, registerClubAction, registerSponsorAction,
-         loginSuccessAction, logoutAction, logoutSuccessAction } from './auth.actions';
+import { LoadCredentialsAction, LoginAction, RemoveCredentialsAction, ElevateAction, RegisterClubAction, RegisterSponsorAction,
+         LoginSuccessAction, LogoutAction, LogoutSuccessAction } from './auth.actions';
 import { User, Club, Sponsor } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
-import { RouterPath } from '../app.routing';
+import { RouterPath, appRoutes } from '../app.routing';
 import { username, isMemberOfSponsor } from './auth.reducer';
 import { Observable } from 'rxjs/Rx';
+import { Router, RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../app-state.reducer';
 
-describe('The Auth Effect', () => {
-
+xdescribe('The Auth Effect', () => {
+  let actions: Observable<any>;
   const authServiceStub = <AuthService> {
     register: (registerdata) => Observable.of({}),
     login: (logindata: User) => Observable.of({}),
     logout: () => Observable.of({}),
   };
+  const routerStub = {
+    navigate: () => {},
+  };
 
-  beforeEach(() => TestBed.configureTestingModule({
-      imports: [
-          EffectsTestingModule,
-      ],
-      providers: [
-          AuthEffects,
-          LocalStorageService,
-          {provide: AuthService, useValue: authServiceStub},
-
-      ],
-  }));
-
-  let runner: EffectsRunner;
   let authEffects: AuthEffects;
   let authService: AuthService;
   let localStorage: LocalStorageService;
+  let router: Router;
 
-  beforeEach(inject([
-      EffectsRunner,
-      AuthEffects,
-      AuthService,
-      LocalStorageService,
-  ], (_runner, _authEffects, _authService, _localStorage) => {
-      runner = _runner;
-      authEffects = _authEffects;
-      authService = _authService;
-      localStorage = _localStorage;
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+      ],
+      providers: [
+          LocalStorageService,
+          {provide: AuthService, useValue: authServiceStub},
+          {provide: Router, useValue: routerStub},
+          provideMockActions(() => {
+            console.log(actions);
+            return actions}),
+          AuthEffects,
+      ],
+    });
+    authService = TestBed.get(AuthService);
+    localStorage = TestBed.get(LocalStorageService);
+    router = TestBed.get(Router);
+    authEffects = TestBed.get(AuthEffects);
+  });
+
+  it('should smoketest', () => {
+      actions = hot('--a-', {a: new LoadCredentialsAction()});
+      const expected = cold('--b', { b: new LoginAction(true, {}) });
+      // expect(authEffects.logActions).toBeObservable(expected);
+  });
 
   describe('loadCredentials', () => {
-    it('should get creds from localstorage and force automatic login', done => {
+    it('should get creds from localstorage and force automatic login', () => {
       const credentials = <User>{
         username: 'tester',
       };
-      const expectedResult = loginAction(true, credentials);
       spyOn(localStorage, 'getObject').and.returnValue(credentials);
-      runner.queue(loadCredentialsAction());
-
-      authEffects.loadCredentials.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new LoadCredentialsAction()});
+      const expected = cold('--b', { b: new LoginAction(true, credentials) });
+      expect(authEffects.loadCredentials).toBeObservable(expected);
     });
 
-    it('should get empty creds from localstorage not force automatic login', done => {
-      const expectedResult = removeCredentialsAction();
+    it('should get empty creds from localstorage not force automatic login', () => {
       spyOn(localStorage, 'getObject').and.returnValue({});
-      runner.queue(loadCredentialsAction());
-
-      authEffects.loadCredentials.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new LoadCredentialsAction()});
+      const expected = cold('--b', { b: new RemoveCredentialsAction() });
+      expect(authEffects.loadCredentials).toBeObservable(expected);
     });
   });
 
   describe('elevate', () => {
-    it('should trigger go login-action', done => {
-      const expectedResult = go([RouterPath.LOGIN]);
-      runner.queue(elevateAction('backurl-test'));
-
-      authEffects.elevate.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+    it('should trigger go login-action', () => {
+      spyOn(router, 'navigate');
+      actions = hot('--a-', {a: new ElevateAction('backurl-test')});
+      const expected = cold('--b', { b: new Promise(() => true) });
+      expect(authEffects.elevate).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalled();
+      // const expectedResult = go([RouterPath.LOGIN]);
     });
   });
 
   describe('registerClub', () => {
-    it('should trigger go login-action after successful registration service call', done => {
+    it('should trigger go login-action after successful registration service call', () => {
       const user = <User>{
         username: 'tester',
       };
@@ -97,14 +100,10 @@ describe('The Auth Effect', () => {
         name: 'testclub',
         kind: [],
       };
-      const expectedResult = loginAction(undefined, user, 'auth/clubprofile');
-      runner.queue(registerClubAction(user, club));
-      spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
 
-      authEffects.registerClub.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new RegisterClubAction(user, club)});
+      const expected = cold('--b', { b: new LoginAction(undefined, user, 'auth/clubprofile') });
+      expect(authEffects.registerClub).toBeObservable(expected);
     });
 
     it('should trigger removeCredentialsAction after unsuccessful registration service call', done => {
@@ -115,21 +114,18 @@ describe('The Auth Effect', () => {
         name: 'testclub',
         kind: [],
       };
-      const expectedResult = [removeCredentialsAction(), go([RouterPath.HOME])];
-      runner.queue(registerClubAction(user, club));
       spyOn(authService, 'register').and.throwError('testexception');
-      let idx = 0;
-      authEffects.registerClub.subscribe((result) => {
-        expect(result).toEqual(expectedResult[idx++]);
-        if (idx >= expectedResult.length) {
-          done();
-        }
-      });
+      spyOn(router, 'navigate');
+      actions = hot('--a-', {a: new RegisterClubAction(user, club)});
+      const expected = cold('--b', { b: new RemoveCredentialsAction() });
+      expect(authEffects.registerClub).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalled();
+
     });
   });
 
   describe('registerSponsor', () => {
-    it('should trigger go login-action after successful registration service call', done => {
+    it('should trigger go login-action after successful registration service call', () => {
       const user = <User>{
         username: 'tester',
       };
@@ -137,14 +133,11 @@ describe('The Auth Effect', () => {
         name: 'testsponsor',
         kind: [],
       };
-      const expectedResult = loginAction(undefined, user, 'auth/sponsorprofile');
-      runner.queue(registerSponsorAction(user, sponsor));
+      const expectedResult = new LoginAction(undefined, user, 'auth/sponsorprofile');
       spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
-
-      authEffects.registerSponsor.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new RegisterSponsorAction(user, sponsor)});
+      const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.registerSponsor).toBeObservable(expected);
     });
 
     it('should trigger removeCredentialsAction after unsuccessful registration service call', done => {
@@ -155,16 +148,13 @@ describe('The Auth Effect', () => {
         name: 'testsponsor',
         kind: [],
       };
-      const expectedResult = [removeCredentialsAction(), go([RouterPath.HOME])];
-      runner.queue(registerSponsorAction(user, sponsor));
+
+      spyOn(router, 'navigate');
       spyOn(authService, 'register').and.throwError('testexception');
-      let idx = 0;
-      authEffects.registerSponsor.subscribe((result) => {
-        expect(result).toEqual(expectedResult[idx++]);
-        if (idx >= expectedResult.length) {
-          done();
-        }
-      });
+      actions = hot('--a-', {a: new RegisterSponsorAction(user, sponsor)});
+      const expected = cold('--b', { b: new RemoveCredentialsAction() });
+      expect(authEffects.registerSponsor).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalled();
     });
   });
 
@@ -180,17 +170,14 @@ describe('The Auth Effect', () => {
         isMemberOfClub: 'clubid',
         isMemberOfSponsor: undefined,
       };
-      const expectedResult = loginSuccessAction(registereduser, 'backurl-test');
-      runner.queue(loginAction(false, user, 'backurl-test'));
-      spyOn(authService, 'login').and.returnValue(Observable.of(registereduser));
+      const expectedResult = new LoginSuccessAction(registereduser, 'backurl-test');
 
-      authEffects.login.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new LoginAction(false, user, 'backurl-test')});
+      const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.login).toBeObservable(expected);
     });
 
-    it('should trigger loginSuccessAction with rememberMe after successful registration service call', done => {
+    it('should trigger loginSuccessAction with rememberMe after successful registration service call', () => {
       const user = <User>{
         username: 'tester',
         token: '4711',
@@ -201,8 +188,7 @@ describe('The Auth Effect', () => {
         isMemberOfClub: 'clubid',
         isMemberOfSponsor: undefined,
       };
-      const expectedResult = loginSuccessAction(registereduser, 'backurl-test');
-      runner.queue(loginAction(true, user, 'backurl-test'));
+      const expectedResult = new LoginSuccessAction(registereduser, 'backurl-test');
       const localStorageSpy = spyOn(localStorage, 'storeObject');
       const localStorageSpyArgs = [
         'GCToken',
@@ -216,36 +202,33 @@ describe('The Auth Effect', () => {
       const localStorCallsSpy = localStorageSpy.calls;
       spyOn(authService, 'login').and.returnValue(Observable.of(registereduser));
 
-      authEffects.login.subscribe((result) => {
-        expect(localStorCallsSpy.mostRecent().args).toEqual(localStorageSpyArgs);
-        expect(localStorCallsSpy.count()).toEqual(1);
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new LoginAction(true, user, 'backurl-test')});
+      const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.login).toBeObservable(expected);
+      expect(localStorCallsSpy.mostRecent().args).toEqual(localStorageSpyArgs);
+      expect(localStorCallsSpy.count()).toEqual(1);
     });
   });
 
   describe('removeCredentials', () => {
-    it('should trigger removeCredentialsAction and remove creds in localstorage', done => {
+    it('should trigger removeCredentialsAction and remove creds in localstorage', () => {
       const localStorageSpy = spyOn(localStorage, 'storeObject');
       const localStorageSpyArgs = [
         'GCToken',
         {},
       ];
-      runner.queue(removeCredentialsAction());
+      actions = hot('--a-', {a: new RemoveCredentialsAction()});
+      // const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.removeCredentials).toBeUndefined();
       const localStorCallsSpy = localStorageSpy.calls;
-      authEffects.removeCredentials.subscribe((result) => {
-        expect(localStorCallsSpy.mostRecent().args).toEqual(localStorageSpyArgs);
-        expect(localStorCallsSpy.count()).toEqual(1);
-        done();
-      });
+      expect(localStorCallsSpy.mostRecent().args).toEqual(localStorageSpyArgs);
+      expect(localStorCallsSpy.count()).toEqual(1);
     });
   });
 
   describe('loginSuccess', () => {
-    it('should trigger go home action on login-success', done => {
+    it('should trigger go home action on login-success', () => {
       const backurl = 'test-backurl';
-      const expectedAction = go([backurl]);
       const loggedinUser = <User>{
         username: 'tester',
         token: '4711',
@@ -253,50 +236,40 @@ describe('The Auth Effect', () => {
         isMemberOfSponsor: undefined,
       };
 
-      runner.queue(loginSuccessAction(loggedinUser, backurl));
-
-      authEffects.loginSuccess.subscribe((result) => {
-        expect(result).toEqual(expectedAction);
-        done();
-      });
+      spyOn(router, 'navigate');
+      actions = hot('--a-', {a: new LoginSuccessAction(loggedinUser, backurl)});
+      // const expected = cold('--b', { b: new RemoveCredentialsAction() });
+      // expect(authEffects.registerClub).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalled();
     });
   });
 
   describe('logout', () => {
-    it('should logout on service', done => {
-
-      const expectedResult = logoutSuccessAction();
-      runner.queue(logoutAction());
-
-      authEffects.logout.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+    it('should logout on service', () => {
+      const expectedResult = new LogoutSuccessAction();
+      actions = hot('--a-', {a: new LogoutAction()});
+      const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.login).toBeObservable(expected);
     });
 
     it('should trigger logout Success even on service.logout()-exceptions', done => {
 
-      const expectedResult = logoutSuccessAction();
-      runner.queue(logoutAction());
+      const expectedResult = new LogoutSuccessAction();
       spyOn(authService, 'logout').and.throwError('test-exception');
-      authEffects.logout.subscribe((result) => {
-        expect(result).toEqual(expectedResult);
-        done();
-      });
+      actions = hot('--a-', {a: new LogoutAction()});
+      const expected = cold('--b', { b: expectedResult });
+      expect(authEffects.login).toBeObservable(expected);
     });
   });
 
   describe('logoutSuccess', () => {
-    it('should remove creds on logoutSuccessAction', done => {
-      runner.queue(logoutSuccessAction());
-      const expectedResult = [removeCredentialsAction(), go([RouterPath.HOME])];
-      let idx = 0;
-      authEffects.logoutSuccess.subscribe((result) => {
-        expect(result).toEqual(expectedResult[idx++]);
-        if (idx >= expectedResult.length) {
-          done();
-        }
-      });
+    it('should remove creds on logoutSuccessAction', () => {
+      spyOn(router, 'navigate');
+      actions = hot('--a-', {a: new LogoutSuccessAction()});
+      const expected = cold('--b', { b: new RemoveCredentialsAction() });
+      expect(authEffects.logoutSuccess).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalled();
+
     });
   });
 });

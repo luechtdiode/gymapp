@@ -4,7 +4,7 @@ import * as fromRoot from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
-import { loadAllAction } from './competition.actions';
+import { LoadAllAction } from './competition.actions';
 
 @Injectable()
 export class CompetitionsLoadedGuard implements CanActivate {
@@ -15,7 +15,7 @@ export class CompetitionsLoadedGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.loaded.map(ready => {
       if (!ready) {
-        this.store.dispatch(loadAllAction());
+        this.store.dispatch(new LoadAllAction());
       }
       return true;
     });

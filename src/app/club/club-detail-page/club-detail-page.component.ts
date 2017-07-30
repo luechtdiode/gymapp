@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState, getDetailClub, isMemberOfClub } from '../../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Club } from '../../model/backend-typings';
-import { loadDetailAction } from '../club.actions';
+import { LoadDetailAction } from '../club.actions';
 import { RouterPath } from '../../app.routing';
 
 @Component({
@@ -25,7 +25,7 @@ export class ClubDetailPageComponent implements OnInit {
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
     const clubid = root.firstChild.paramMap.get('clubid');
-    store.dispatch(loadDetailAction(clubid));
+    store.dispatch(new LoadDetailAction(clubid));
     this.club = this.store.select(getDetailClub);
     this.store.select(isMemberOfClub).subscribe(club => {
       this.isClubUser = club ? club === clubid : false;

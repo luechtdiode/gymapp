@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadAllAction } from '../competition.actions';
+import { LoadAllAction } from '../competition.actions';
 import { AppState } from '../../app-state.reducer';
 
 @Component({
@@ -11,7 +11,7 @@ import { AppState } from '../../app-state.reducer';
 export class CompetitionsPageComponent implements OnInit {
 
   constructor(protected store: Store<AppState>) {
-    // this.store.dispatch(loadAllAction());
+    // this.store.dispatch(new LoadAllAction());
   }
 
   ngOnInit() {

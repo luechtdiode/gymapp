@@ -26,15 +26,15 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(fromCompetition.loadFeaturedAction());
+    this.store.dispatch(new fromCompetition.LoadFeaturedAction());
     this.competition = this.store.select(fromRoot.getFeaturedCompetition);
     this.isFeaturedCompetitionloading = this.store.select(fromRoot.isLoadingFeaturedCompetition);
 
-    this.store.dispatch(fromClub.loadFeaturedAction());
+    this.store.dispatch(new fromClub.LoadFeaturedAction());
     this.club = this.store.select(fromRoot.getFeaturedClub);
     this.isFeaturedClubloading = this.store.select(fromRoot.isLoadingFeaturedClub);
 
-    this.store.dispatch(fromSponsor.loadFeaturedAction());
+    this.store.dispatch(new fromSponsor.LoadFeaturedAction());
     this.sponsor = this.store.select(fromRoot.getFeaturedSponsor);
     this.isFeaturedSponsorloading = this.store.select(fromRoot.isLoadingFeaturedSponsor);
   }

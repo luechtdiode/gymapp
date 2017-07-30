@@ -4,15 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 
 import { UrlProvider } from './urlProvider';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, activeRoute } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
-import { elevateAction } from './auth.actions';
+import { ElevateAction } from './auth.actions';
 
+const JWT_TOKEN_NAME = 'x-access-token';
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
     new AuthConfig(
@@ -21,7 +22,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         headerPrefix: '',
         noTokenScheme: true,
         tokenName: 'x-access-token',
-        tokenGetter: (() => sessionStorage.getItem('x-access-token')),
+        tokenGetter: (() => sessionStorage.getItem(JWT_TOKEN_NAME)),
         globalHeaders: [ {'Content-Type': 'application/json'} ],
         noJwtError: false,
       },
@@ -47,10 +48,10 @@ export class CrudService implements OnDestroy {
     private route: ActivatedRoute) {
 
     this.subscriptions.push(store.select(fromRoot.getGWToken).subscribe((token) => {
-      sessionStorage.setItem('x-access-token', token);
+      sessionStorage.setItem(JWT_TOKEN_NAME, token);
     } ));
-    this.subscriptions.push(store.select(activeRoute).subscribe((rt) => {
-      this.currentUrl = rt.path;
+    this.subscriptions.push(store.select(activeRoute).filter(rt => !!rt).subscribe((rt) => {
+      this.currentUrl = rt.state.url;
     } ));
   }
 
@@ -58,8 +59,10 @@ export class CrudService implements OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  public authenticated() {
-    return sessionStorage.getItem('x-access-token') !== undefined;
+  public authenticated(token: string) {
+    const t = token === undefined ? sessionStorage.getItem(JWT_TOKEN_NAME) : token;
+    return t !== undefined
+        && tokenNotExpired(JWT_TOKEN_NAME, t.toString());
   }
 
   public unsave(): CrudService {
@@ -111,12 +114,12 @@ export class CrudService implements OnDestroy {
     console.log('error', error);
     if (error.message === 'No JWT present or has expired') {
       console.log('no JWT, redirecting to login page');
-      this.store.dispatch(elevateAction(this.currentUrl));
+      this.store.dispatch(new ElevateAction(this.currentUrl));
       return true;
     }
     if (error.message === 'JWT must have 3 parts') {
       console.log('invalid jwt-token', error);
-      this.store.dispatch(elevateAction(this.currentUrl));
+      this.store.dispatch(new ElevateAction(this.currentUrl));
       return true;
     }
     return false;

@@ -11,9 +11,8 @@ import 'rxjs/add/operator/do';
 import { Effect, toPayload, Actions } from '@ngrx/effects';
 import { ClubService } from './club.service';
 import * as clubActions from './club.actions';
-import { go } from '@ngrx/router-store';
-import { logoutAction } from '../shared/auth.actions';
-import { LoadDetailAction, SaveAction, SaveSuccessAction, DeleteAction } from './club.actions';
+import { LogoutAction } from '../shared/auth.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ClubEffects {
@@ -56,10 +55,10 @@ export class ClubEffects {
       .catch(() => Observable.of(
         new clubActions.SaveFailedAction(club))));
 
-  @Effect()
+  @Effect({ dispatch: false })
   saveClubSuccess = this.actions$
     .ofType(clubActions.SAVE_CLUB_SUCCESS)
-    .map((action: clubActions.SaveSuccessAction) => go(['/clubs/', action.payload._id]));
+    .do((action: clubActions.SaveSuccessAction) => this.router.navigate(['/clubs/', action.payload._id]));
 
   @Effect()
   deleteClub = this.actions$
@@ -73,10 +72,11 @@ export class ClubEffects {
   @Effect()
   deleteSponsorSuccess = this.actions$
     .ofType(clubActions.DELETE_CLUB_SUCCESS)
-    .mapTo(logoutAction());
+    .mapTo(new LogoutAction());
 
   constructor(private actions$: Actions,
-              private clubService: ClubService) {
+              private clubService: ClubService,
+              private router: Router) {
   }
 
 }

@@ -24,7 +24,7 @@ export class SponsorListComponent extends AbstractListComponent<Sponsor> impleme
   }
 
   ngOnInit() {
-    this.store.dispatch(fromSponsor.loadAllAction());
+    this.store.dispatch(new fromSponsor.LoadAllAction());
     this.isSponsorsloading = this.store.select(fromRoot.isLoadingSponsors);
     const maxTabs = 6;
     this.addExtraFilter((sponsor) => this.filterMatchingSponsorActions(sponsor));

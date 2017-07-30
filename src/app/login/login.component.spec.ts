@@ -8,6 +8,7 @@ import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app-state.reducer';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,11 +24,16 @@ describe('LoginComponent', () => {
     },
   };
 
+  const routerStub = {
+    navigate: (any) => { },
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
+        { provide: Router, useValue: routerStub },
         { provide: Store, useValue: storeStub },
       ],
       imports: [ FormsModule ],

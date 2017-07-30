@@ -13,7 +13,8 @@ export class AuthService {
   }
 
   login(loginData): Observable<any> {
-    if (!(loginData.password) && (loginData.token) && this.crud.authenticated()) {
+    console.log('Logindata', loginData);
+    if (!(loginData.password) && (loginData.token) && this.crud.authenticated(loginData.token)) {
       return Observable.of(Object.assign({}, loginData, {success: true}));
     }
 

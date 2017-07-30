@@ -10,90 +10,79 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Effect, toPayload, Actions } from '@ngrx/effects';
 import { CompetitionService } from './competition.service';
-import { ActionTypes,
-  loadFeaturedAction,
-  loadFeaturedSuccessAction,
-  loadFeaturedFailedAction,
-  loadAllSuccessAction,
-  loadAllAction,
-  loadAction,
-  saveSuccessAction,
-  saveFailedAction,
-  deleteSuccessAction,
-  deleteFailedAction,
-  loadDetailSuccessAction,
-  loadDetailFailedAction,
-  createSuccessAction} from './competition.actions';
-import { go } from '@ngrx/router-store';
+import * as compActions from './competition.actions';
+import { SaveAction, SaveSuccessAction, DeleteAction } from './competition.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CompetitionEffects {
 
   @Effect()
   loadCompetition = this.actions$
-    .ofType(ActionTypes.LOAD_COMPETITION)
-    .mergeMap((action) => this.compService.getCompetition(action.payload))
-    .map(comps => loadDetailSuccessAction(comps))
+    .ofType(compActions.LOAD_COMPETITION)
+    .mergeMap((action: compActions.LoadAction) => this.compService.getCompetition(action.payload))
+    .map(comps => new compActions.LoadDetailSuccessAction(comps))
     .catch((err) => {
       console.log(err);
-      return Observable.of(loadDetailFailedAction());
+      return Observable.of(new compActions.LoadDetailFailedAction());
     });
   @Effect()
   loadFeaturedCompetition = this.actions$
-    .ofType(ActionTypes.LOAD_FEATURED_COMPETITION)
+    .ofType(compActions.LOAD_FEATURED_COMPETITION)
     .mergeMap(() => this.compService.getFeaturedCompetition())
-    .map(comps => loadFeaturedSuccessAction(comps))
+    .map(comps => new compActions.LoadFeaturedSuccessAction(comps))
     .catch((err) => {
       console.log(err);
-      return Observable.of(loadFeaturedFailedAction());
+      return Observable.of(new compActions.LoadFeaturedFailedAction());
     });
   @Effect()
   loadCompetitions = this.actions$
-    .ofType(ActionTypes.LOAD_COMPETITIONS)
+    .ofType(compActions.LOAD_COMPETITIONS)
     .mergeMap(() => this.compService.getCompetitions())
-    .map(comps => loadAllSuccessAction(comps));
+    .map(comps => new compActions.LoadAllSuccessAction(comps));
 
   @Effect()
   createCompetition = this.actions$
-    .ofType(ActionTypes.CREATE_COMPETITION)
-    .map(action => action.payload)
+    .ofType(compActions.CREATE_COMPETITION)
+    .map((action: compActions.CreateAction) => action.payload)
     .mergeMap(competition => this.compService.saveCompetition(competition)
-      .map(savedCompetition => createSuccessAction(savedCompetition))
+      .map(savedCompetition => new compActions.CreateSuccessAction(savedCompetition))
       .catch(() => Observable.of(
-        saveFailedAction(competition))));
+        new compActions.SaveFailedAction(competition))));
 
-  @Effect()
+  @Effect({ dispatch: false })
   createCompetitionSuccess = this.actions$
-    .ofType(ActionTypes.CREATE_COMPETITION_SUCCESS)
-    .map(action => action.payload)
-    .map(competition => go(['/competitions/', {routeParam: competition._id}]));
+    .ofType(compActions.CREATE_COMPETITION_SUCCESS)
+    .map((action: compActions.CreateSuccessAction) => action.payload)
+    .do(competition => this.router.navigate(['/competitions/', {routeParam: competition._id}]));
 
   @Effect()
   saveCompetition = this.actions$
-    .ofType(ActionTypes.SAVE_COMPETITION)
-    .map(action => action.payload)
+    .ofType(compActions.SAVE_COMPETITION)
+    .map((action: compActions.SaveAction) => action.payload)
     .mergeMap(competition => this.compService.saveCompetition(competition)
-      .map(savedCompetition => saveSuccessAction(savedCompetition))
+      .map(savedCompetition => new compActions.SaveSuccessAction(savedCompetition))
       .catch(() => Observable.of(
-        saveFailedAction(competition))));
+        new compActions.SaveFailedAction(competition))));
 
-  @Effect()
+  @Effect({ dispatch: false })
   saveCompetitionSuccess = this.actions$
-    .ofType(ActionTypes.SAVE_COMPETITION_SUCCESS)
-    .map(action => action.payload)
-    .map(competition => go(['/competitions/', {routeParam: competition._id}]));
+    .ofType(compActions.SAVE_COMPETITION_SUCCESS)
+    .map((action: compActions.SaveSuccessAction) => action.payload)
+    .do(competition => this.router.navigate(['/competitions/', {routeParam: competition._id}]));
 
   @Effect()
   deleteCompetition = this.actions$
-    .ofType(ActionTypes.DELETE_COMPETITION)
-    .map(action => action.payload)
+    .ofType(compActions.DELETE_COMPETITION)
+    .map((action: compActions.DeleteAction) => action.payload)
     .mergeMap(comp => this.compService.deleteCompetition(comp._id)
-      .mapTo(deleteSuccessAction(comp))
+      .mapTo(new compActions.DeleteSuccessAction(comp))
       .catch(() => Observable.of(
-        deleteFailedAction(comp))));
+        new compActions.DeleteFailedAction(comp))));
 
   constructor(private actions$: Actions,
-              private compService: CompetitionService) {
+              private compService: CompetitionService,
+              private router: Router) {
   }
 
 }

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { ClubFormModel } from '../club-form/club-form.model';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
-import { registerClubAction } from '../../shared/auth.actions';
+import { RegisterClubAction } from '../../shared/auth.actions';
 import { RouterPath } from '../../app.routing';
 
 @Component({
@@ -36,7 +36,7 @@ export class RegisterClubPageComponent implements OnInit {
 
   doSave(value) {
     console.log(value);
-    this.store.dispatch(registerClubAction(value.user, value.clubdetails));
+    this.store.dispatch(new RegisterClubAction(value.user, value.clubdetails));
   }
 
 }

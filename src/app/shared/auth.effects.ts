@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { go } from '@ngrx/router-store';
+import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMapTo';
+import 'rxjs/add/operator/mergeMapTo';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -15,38 +14,42 @@ import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 import { isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
 import { RouterPath } from '../app.routing';
-import {
-    ActionTypes, loadCredentialsAction, loginAction,
-    removeCredentialsAction, loginSuccessAction, logoutSuccessAction,
-} from './auth.actions';
+import * as authActions from './auth.actions';
+import { Router } from '@angular/router';
+import { of } from 'rxjs/observable/of';
+import { defer } from 'rxjs/observable/defer';
 
 const TOKEN_KEY = 'GCToken';
 
 @Injectable()
 export class AuthEffects {
+   @Effect({ dispatch: false }) logActions = this.actions$
+   .ofType(authActions.LOGIN)
+    .do(action => {
+      console.log(action);
+    });
+    // constructor(private actions$: Actions) {}
+/*     @Effect()
+    init$: Observable<Action> = defer(() => {
+//      return of(new authActions.LoadCredentialsAction());
+        console.log('loading creds ...');
+        const credentials = this.localStorage.getObject(TOKEN_KEY, {}) as User;
+        if (credentials && credentials.username) {
+            return of(new authActions.LoginAction(true, credentials));
+        } else {
+            return of(new authActions.RemoveCredentialsAction());
+        };
+    }); */
 
-    @Effect()
-    loadCredentials = this.actions$
-        .ofType(ActionTypes.LOAD_CREDENTIALS)
-        .startWith(loadCredentialsAction())
-        .map(() => this.localStorage.getObject(TOKEN_KEY, {}))
-        .map((credentials: User) => {
-            if (credentials && credentials.username) {
-                return loginAction(true, credentials);
-            } else {
-                return removeCredentialsAction();
-            };
-        });
-
-    @Effect()
+    @Effect({ dispatch: false })
     elevate = this.actions$
-        .ofType(ActionTypes.ELEVATE)
-        .map((action) => go([RouterPath.LOGIN]));
+        .ofType(authActions.ELEVATE)
+        .do((action) => this.router.navigate([RouterPath.LOGIN]));
 
     @Effect()
     registerClub = this.actions$
-        .ofType(ActionTypes.REGISTER_CLUB)
-        .mergeMap((action) => this.authService.register(Object.assign(
+        .ofType(authActions.REGISTER_CLUB)
+        .mergeMap((action: authActions.RegisterClubAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
                   firstname : '',
@@ -63,15 +66,18 @@ export class AuthEffects {
                 }, action.payload.user, action.payload.club))
             .map((response) => {
                 console.log('register success: ' + response);
-                return loginAction(action.payload.rememberMe, action.payload.user, RouterPath.CLUBPROFILE);
+                return new authActions.LoginAction(action.payload.rememberMe, action.payload.user, RouterPath.CLUBPROFILE);
             }),
         // TODO integrate toastr component
-        ).catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
+        ).catch(() => {
+            this.router.navigate([RouterPath.HOME]);
+            return [new authActions.RemoveCredentialsAction()];
+        });
 
     @Effect()
     registerSponsor = this.actions$
-        .ofType(ActionTypes.REGISTER_SPONSOR)
-        .mergeMap((action) => this.authService.register(Object.assign(
+        .ofType(authActions.REGISTER_SPONSOR)
+        .mergeMap((action: authActions.RegisterSponsorAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
                   firstname : '',
@@ -90,16 +96,19 @@ export class AuthEffects {
                 }, action.payload.user))
             .map((response) => {
                 console.log('register success: ' + response);
-                return loginAction(action.payload.rememberMe, action.payload.user, RouterPath.SPONSORPROFILE);
+                return new authActions.LoginAction(action.payload.rememberMe, action.payload.user, RouterPath.SPONSORPROFILE);
             }),
         // TODO integrate toastr component
-        ).catch((e) => [removeCredentialsAction(), go([RouterPath.HOME])]);
+        ).catch((e) => {
+            this.router.navigate([RouterPath.HOME]);
+            return [new authActions.RemoveCredentialsAction()];
+        });
 
     @Effect()
     login = this.actions$
-        .ofType(ActionTypes.LOGIN)
-        .mergeMap((action) => this.authService.login(action.payload.user)
-            .map((credentialsAccepted) => {
+        .ofType(authActions.LOGIN)
+        .mergeMap((action: authActions.LoginAction) => this.authService.login(action.payload.user)
+            .map((credentialsAccepted: User) => {
                 console.log('login success');
                 if (action.payload.rememberMe) {
                     this.localStorage.storeObject(TOKEN_KEY, {
@@ -109,38 +118,60 @@ export class AuthEffects {
                         isMemberOfSponsor: credentialsAccepted.isMemberOfSponsor,
                     });
                 }
-                return loginSuccessAction( credentialsAccepted, action.payload.backUrl);
+                return new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl);
             })
-            .catch(() => [removeCredentialsAction(), go([RouterPath.HOME])]),
+            .catch(() => {
+                this.router.navigate([RouterPath.HOME]);
+                return [new authActions.RemoveCredentialsAction()];
+            }),
         // TODO integrate toastr component
         );
 
     @Effect({ dispatch: false })
     removeCredentials = this.actions$
-        .ofType(ActionTypes.REMOVE_CREDENTIALS)
-        .map(() => this.localStorage.storeObject(TOKEN_KEY, {}));
+        .ofType(authActions.REMOVE_CREDENTIALS)
+        .do(() => this.localStorage.storeObject(TOKEN_KEY, {}));
 
     @Effect()
+    loadCredentials = this.actions$
+        .ofType(authActions.LOAD_CREDENTIALS)
+        .startWith(new authActions.LoadCredentialsAction())
+        .mergeMap((action) => {
+            console.log('loading creds ...');
+            const credentials = this.localStorage.getObject(TOKEN_KEY, {}) as User;
+            if (credentials && credentials.username) {
+                return [new authActions.LoginAction(true, credentials)];
+            } else {
+                return [new authActions.RemoveCredentialsAction()];
+            };
+        });
+
+    @Effect({ dispatch: false })
     loginSuccess = this.actions$
-        .ofType(ActionTypes.LOGIN_SUCCESS)
-        .filter((action) => action.payload.backUrl)
-        .map((action) => go([action.payload.backUrl]));
+        .ofType(authActions.LOGIN_SUCCESS)
+        .filter((action: authActions.LoginSuccessAction) => action.payload.backUrl)
+        .do((action: authActions.LoginSuccessAction) => this.router.navigate([action.payload.backUrl]));
 
     @Effect()
     logout = this.actions$
-        .ofType(ActionTypes.LOGOUT)
+        .ofType(authActions.LOGOUT)
         .map(() => this.authService.logout())
-        .map(logoutCompleted => logoutSuccessAction())
-        .catch(() => Observable.of(logoutSuccessAction()));
+        .map(logoutCompleted => new authActions.LogoutSuccessAction())
+        .catch(() => Observable.of(new authActions.LogoutSuccessAction()));
 
     @Effect()
     logoutSuccess = this.actions$
-        .ofType(ActionTypes.LOGOUT_SUCCESS/*, ActionTypes.LOGIN_SUCCESS*/)
-        .flatMap(() => [removeCredentialsAction(), go([RouterPath.HOME])]);
+        .ofType(authActions.LOGOUT_SUCCESS)
+        .map(() => {
+            this.router.navigate([RouterPath.HOME]);
+            return of(new authActions.RemoveCredentialsAction());
+        });
 
     constructor(
         private actions$: Actions,
         private authService: AuthService,
-        private localStorage: LocalStorageService) {
+        private localStorage: LocalStorageService,
+        private router: Router) {
+            console.log('AuthEffect created');
     }
 }

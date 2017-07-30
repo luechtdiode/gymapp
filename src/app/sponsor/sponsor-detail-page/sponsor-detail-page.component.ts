@@ -3,7 +3,7 @@ import { isMemberOfSponsor, AppState, getDetailSponsor } from '../../app-state.r
 import { RouterState, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { loadDetailAction } from '../sponsor.actions';
+import { LoadDetailAction } from '../sponsor.actions';
 import { Sponsor } from '../../model/backend-typings';
 
 @Component({
@@ -23,7 +23,7 @@ export class SponsorDetailPageComponent implements OnInit {
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
     const sponsorid = root.firstChild.paramMap.get('sponsorid');
-    store.dispatch(loadDetailAction(sponsorid));
+    store.dispatch(new LoadDetailAction(sponsorid));
     this.sponsor = this.store.select(getDetailSponsor);
     this.store.select(isMemberOfSponsor).subscribe(sponsor => {
       this.isSponsorUser = sponsor ? sponsor === sponsorid : false;

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 describe('AuthService', () => {
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
-    authenticated: () => false,
+    authenticated: (token) => false,
     post: (url: string, loginData) => {},
   };
 

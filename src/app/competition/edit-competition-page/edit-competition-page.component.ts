@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppState, getSponsorActions, getCompetition } from '../../app-state.reducer';
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
 import { CompSponsorAction, Competition } from '../../model/backend-typings';
-import { saveAction, loadAction } from '../competition.actions';
 import { Observable } from 'rxjs/Observable';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
 import { Router, RouterState, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { RouterPath } from '../../app.routing';
+import { SaveAction, LoadAction } from '../competition.actions';
 
 @Component({
   selector: 'gymapp-edit-competition-page',
@@ -36,7 +36,7 @@ export class EditCompetitionPageComponent implements OnInit {
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
     const competitionid = root.firstChild.paramMap.get('competitionid');
-    store.dispatch(loadAction(competitionid));
+    store.dispatch(new LoadAction(competitionid));
     this.competition = store.select(getCompetition);
   }
 
@@ -60,6 +60,6 @@ export class EditCompetitionPageComponent implements OnInit {
         this.formComponent.getEditedCompetition(),
       );
     console.log('submit', toSave);
-    this.store.dispatch(saveAction(toSave));
+    this.store.dispatch(new SaveAction(toSave));
   }
 }

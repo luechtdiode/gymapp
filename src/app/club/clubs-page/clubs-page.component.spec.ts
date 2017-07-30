@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
-import { reducer } from '../../app-state.reducer';
+import { reducers } from '../../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 
 import { ClubsPageComponent } from './clubs-page.component';
@@ -42,7 +42,7 @@ describe('ClubsPageComponent', () => {
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
-        StoreModule.provideStore({reducer}),
+        StoreModule.forRoot({reducers}),
       ],
     })
     .compileComponents();

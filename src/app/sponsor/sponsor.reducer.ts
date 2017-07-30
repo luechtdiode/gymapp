@@ -25,9 +25,9 @@ const initialState: SponsorsState = {
   loadingDetail: false,
 };
 
-export function reducer(state = initialState, action: Action): SponsorsState {
+export function reducer(state = initialState, action: sponsor.Actions): SponsorsState {
   switch (action.type) {
-    case sponsor.ActionTypes.LOAD_SPONSORS:
+    case sponsor.LOAD_SPONSORS:
     {
       return Object.assign({}, state, {
         loading: true,
@@ -35,7 +35,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_SPONSORS_SUCCESS:
+    case sponsor.LOAD_SPONSORS_SUCCESS:
     {
       const cs: Sponsor[] = action.payload;
       return Object.assign({}, state, {
@@ -48,7 +48,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR:
+    case sponsor.LOAD_FEATURED_SPONSOR:
     {
       return Object.assign({}, state, {
         loadingFeatured: true,
@@ -56,7 +56,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR_FAIL:
+    case sponsor.LOAD_FEATURED_SPONSOR_FAIL:
     {
       return Object.assign({}, state, {
         loadingFeatured: false,
@@ -64,7 +64,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_FEATURED_SPONSOR_SUCCESS:
+    case sponsor.LOAD_FEATURED_SPONSOR_SUCCESS:
     {
       return Object.assign({}, state, {
         loadingFeatured: false,
@@ -73,7 +73,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_SPONSOR_SUCCESS:
+    case sponsor.LOAD_SPONSOR_SUCCESS:
     {
       return Object.assign({}, state, {
         isMemberOfSponsor: action.payload,
@@ -81,7 +81,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR:
+    case sponsor.LOAD_DETAIL_SPONSOR:
     {
       return Object.assign({}, state, {
         isLoadingDetail: true,
@@ -89,7 +89,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR_FAIL:
+    case sponsor.LOAD_DETAIL_SPONSOR_FAIL:
     {
       return Object.assign({}, state, {
         isLoadingDetail: false,
@@ -97,7 +97,7 @@ export function reducer(state = initialState, action: Action): SponsorsState {
       });
     }
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.LOAD_DETAIL_SPONSOR_SUCCESS:
+    case sponsor.LOAD_DETAIL_SPONSOR_SUCCESS:
     {
       return Object.assign({}, state, {
         isLoadingDetail: false,
@@ -106,8 +106,8 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.SAVE_SPONSOR_SUCCESS:
-    case sponsor.ActionTypes.DELETE_SPONSOR_FAIL:
+    case sponsor.SAVE_SPONSOR_SUCCESS:
+    case sponsor.DELETE_SPONSOR_FAIL:
     {
       return Object.assign({}, state, {
         loading: true,
@@ -121,8 +121,8 @@ export function reducer(state = initialState, action: Action): SponsorsState {
     }
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    case sponsor.ActionTypes.DELETE_SPONSOR_SUCCESS:
-    case sponsor.ActionTypes.SAVE_SPONSOR_FAIL:
+    case sponsor.DELETE_SPONSOR_SUCCESS:
+    case sponsor.SAVE_SPONSOR_FAIL:
     {
       return Object.assign({}, state, {
         ids: state.sponsors.filter(s => s._id !== s._id),

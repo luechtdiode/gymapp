@@ -5,10 +5,10 @@ import { Competition, CompSponsorAction, Club } from '../../model/backend-typing
 import { Store } from '@ngrx/store';
 import { AppState, getSponsorActions, isMemberOfClub, getMemberOfClub, getDetailClub } from '../../app-state.reducer';
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
-import { createAction } from '../competition.actions';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
-import { loadDetailAction } from '../../club/club.actions';
 import { RouterPath } from '../../app.routing';
+import { LoadDetailAction } from '../../club/club.actions';
+import { CreateAction } from '../competition.actions';
 
 
 @Component({
@@ -40,7 +40,7 @@ export class CreateCompetitionPageComponent implements OnInit {
   ngOnInit() {
     this.store.select(isMemberOfClub).subscribe(moc => {
       this.clubid = moc;
-      this.store.dispatch(loadDetailAction(moc));
+      this.store.dispatch(new LoadDetailAction(moc));
     });
     this.store.select(getDetailClub).subscribe(club => this.club = club);
     this.regactions = this.store.select(getSponsorActions)
@@ -61,6 +61,6 @@ export class CreateCompetitionPageComponent implements OnInit {
         this.formComponent.getEditedCompetition(),
       );
     console.log('submit', toSave);
-    this.store.dispatch(createAction(toSave));
+    this.store.dispatch(new CreateAction(toSave));
   }
 }

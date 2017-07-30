@@ -10,7 +10,6 @@ import { RegisterClubPageComponent } from './club/register-club-page/register-cl
 import { EditClubPageComponent } from './club/edit-club-page/edit-club-page.component';
 import { flatten } from './shared/collection-util';
 import { Action } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 import { IsClubUserGuardGuard } from './club/is-club-user-guard.guard';
 import { RegisterSponsorPageComponent } from './sponsor/register-sponsor-page/register-sponsor-page.component';
 import { EditSponsorPageComponent } from './sponsor/edit-sponsor-page/edit-sponsor-page.component';
@@ -46,14 +45,14 @@ export function composeRoute(toPath: string, activeRoute: ActivatedRoute): strin
     return result;
 }
 
-export function goRelative(toRelativePath: string, activeRoute: ActivatedRoute): Action {
+export function goRelative(toRelativePath: string, activeRoute: ActivatedRoute): string[] {
     // go(toRelativePath, '', { relativeTo: activeRoute}) doesn't work when store freezes it's content (bug)
     // (https://github.com/codewareio/ngrx-store-freeze/issues/5)
     // so we have to work around it ...
     if (toRelativePath.startsWith('/')) {
         throw new Error('absolute paths not supported: ' + toRelativePath);
     }
-    return go(composeRoute(toRelativePath, activeRoute));
+    return composeRoute(toRelativePath, activeRoute);
 }
 
 export const RouterPath = {

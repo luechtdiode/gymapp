@@ -6,8 +6,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { SponsorListComponent } from './sponsor-list.component';
 import { SponsorMediaComponent } from '../sponsor-media/sponsor-media.component';
 import { Store, Action, StoreModule } from '@ngrx/store';
-import { AppState } from '../../app-state.reducer';
-import { reducer } from '../../app-state.reducer';
+import { AppState, reducers } from '../../app-state.reducer';
 import { Sponsor, Competition, CompSponsorAction, Action as RawAction, SponsorAction } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 
@@ -87,7 +86,7 @@ describe('SponsorListComponent', () => {
         {provide: Store, useValue: storeStub},
       ],
       imports: [
-        StoreModule.provideStore({reducer}),
+        StoreModule.forRoot({reducers}),
       ],
     })
     .compileComponents();

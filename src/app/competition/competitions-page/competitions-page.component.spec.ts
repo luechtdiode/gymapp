@@ -3,14 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, Action, StoreModule } from '@ngrx/store';
-import { AppState } from '../../app-state.reducer';
-import { reducer } from '../../app-state.reducer';
+import { AppState, reducers } from '../../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 
 import { CompetitionsPageComponent } from './competitions-page.component';
 import { CompetitionListComponent } from '../competition-list/competition-list.component';
 import { CompetitionMediaComponent } from '../competition-media/competition-media.component';
 import { Competition } from '../../model/backend-typings';
+import { Router } from '@angular/router';
 
 describe('CompetitionsPageComponent', () => {
   let component: CompetitionsPageComponent;
@@ -39,15 +39,20 @@ describe('CompetitionsPageComponent', () => {
         },
     };
 
+  const routerStub = {
+    navigate: (any) => { },
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CompetitionsPageComponent, CompetitionListComponent, CompetitionMediaComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         {provide: Store, useValue: storeStub},
+        { provide: Router, useValue: routerStub },
       ],
       imports: [
-        StoreModule.provideStore({reducer}),
+        StoreModule.forRoot({reducers}),
       ],
     })
     .compileComponents();

@@ -3,7 +3,7 @@ import { RouterModule, RouterStateSnapshot, Router, RouterState, ActivatedRouteS
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AppState, getCompetition } from '../../app-state.reducer';
-import { loadAction } from '../competition.actions';
+import { LoadAction } from '../competition.actions';
 import { Competition } from '../../model/backend-typings';
 
 @Component({
@@ -20,7 +20,7 @@ export class CompetitionDetailPageComponent implements OnInit {
     const state: RouterState = router.routerState;
     const snapshot: RouterStateSnapshot = state.snapshot;
     const root: ActivatedRouteSnapshot = snapshot.root;
-    store.dispatch(loadAction(root.firstChild.paramMap.get('competitionid')));
+    store.dispatch(new LoadAction(root.firstChild.paramMap.get('competitionid')));
     this.competition = this.store.select(getCompetition);
   }
 

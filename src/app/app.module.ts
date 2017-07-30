@@ -9,7 +9,7 @@ import { CachedCrudService } from './shared/cached-crud.service';
 import { CrudService, authHttpServiceFactory } from './shared/crud.service';
 import { AuthHttp } from 'angular2-jwt';
 
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routing';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';

@@ -20,14 +20,14 @@ const initialState: AuthState = {
     isAuthenticated: false,
 };
 
-export function reducer(state = initialState, action: Action): AuthState {
+export function reducer(state = initialState, action: auth.Actions): AuthState {
     switch (action.type) {
         // tslint:disable-next-line:no-switch-case-fall-through
-        case auth.ActionTypes.REMOVE_CREDENTIALS: {
+        case auth.REMOVE_CREDENTIALS: {
             return Object.assign({}, initialState);
         }
         // tslint:disable-next-line:no-switch-case-fall-through
-        case auth.ActionTypes.ELEVATE: {
+        case auth.ELEVATE: {
             const backurl = action.payload;
             console.log('start login from: ', backurl );
             return Object.assign({}, state, initialState, {
@@ -35,14 +35,14 @@ export function reducer(state = initialState, action: Action): AuthState {
             });
         }
         // tslint:disable-next-line:no-switch-case-fall-through
-        case auth.ActionTypes.LOGIN_SUCCESS: {
+        case auth.LOGIN_SUCCESS: {
             return Object.assign({}, state, {
                 user: action.payload.user,
                 isAuthenticated: action.payload.user.success,
             });
         }
         // tslint:disable-next-line:no-switch-case-fall-through
-        case auth.ActionTypes.LOGOUT_SUCCESS: {
+        case auth.LOGOUT_SUCCESS: {
            return Object.assign({}, initialState);
         }
 

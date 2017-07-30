@@ -23,7 +23,7 @@ export class ClubListComponent extends AbstractListComponent<Club> implements On
   }
 
   ngOnInit() {
-    this.store.dispatch(fromClubs.loadAllAction());
+    this.store.dispatch(new fromClubs.LoadAllAction());
     const maxTabs = 6;
     this.connect(fromRoot.getClubs, maxTabs, (club) => club.kind);
     this.isClubloading = this.store.select(fromRoot.isLoadingClub);

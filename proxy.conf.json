@@ -1,7 +1,8 @@
 {
    "/api/**": {
-      "target_": "http://localhost:3000/",
-      "target": "https://gymcompetition.mybluemix.net:443/",
+      "target__": "http://pluto:3000/",
+      "target_": "https://gymcompetition.mybluemix.net:443/",
+      "target": "https://38qniweusmuwjkbr.myfritz.net:443/gymapp/",
       "autoRewrite": true,
       "xfwd": true,
       "secure": false,

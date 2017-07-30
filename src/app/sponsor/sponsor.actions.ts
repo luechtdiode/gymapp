@@ -2,114 +2,103 @@ import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
 import { Sponsor } from '../model/backend-typings';
 
-export const ActionTypes = {
-  LOAD_SPONSORS:                 type('[SPONSOR] Load SPONSORs'),
-  LOAD_SPONSORS_SUCCESS:         type('[SPONSOR] Load SPONSORs Success'),
-  SAVE_SPONSOR:                  type('[SPONSOR] Save SPONSOR'),
-  SAVE_SPONSOR_SUCCESS:          type('[SPONSOR] Save SPONSOR Success'),
-  SAVE_SPONSOR_FAIL:             type('[SPONSOR] Save SPONSOR Fail'),
-  DELETE_SPONSOR:                type('[SPONSOR] Delete SPONSOR'),
-  DELETE_SPONSOR_SUCCESS:        type('[SPONSOR] Delete SPONSOR Success'),
-  DELETE_SPONSOR_FAIL:           type('[SPONSOR] Delete SPONSOR Fail'),
-  LOAD_SPONSOR:                  type('[SPONSOR] Load SPONSOR'),
-  LOAD_SPONSOR_SUCCESS:          type('[SPONSOR] Load SPONSOR Success'),
-  LOAD_FEATURED_SPONSOR:         type('[SPONSOR] Load featured SPONSOR'),
-  LOAD_FEATURED_SPONSOR_SUCCESS: type('[SPONSOR] Load featured SPONSOR success'),
-  LOAD_FEATURED_SPONSOR_FAIL:    type('[SPONSOR] Load featured SPONSOR fail'),
-  LOAD_DETAIL_SPONSOR:           type('[SPONSOR] Load DETAIL SPONSOR'),
-  LOAD_DETAIL_SPONSOR_SUCCESS:   type('[SPONSOR] Load DETAIL SPONSOR success'),
-  LOAD_DETAIL_SPONSOR_FAIL:      type('[SPONSOR] Load DETAIL SPONSOR fail'),
-};
+export const LOAD_SPONSORS =                 '[SPONSOR] Load SPONSORs';
+export const LOAD_SPONSORS_SUCCESS =         '[SPONSOR] Load SPONSORs Success';
+export const SAVE_SPONSOR =                  '[SPONSOR] Save SPONSOR';
+export const SAVE_SPONSOR_SUCCESS =          '[SPONSOR] Save SPONSOR Success';
+export const SAVE_SPONSOR_FAIL =             '[SPONSOR] Save SPONSOR Fail';
+export const DELETE_SPONSOR =                '[SPONSOR] Delete SPONSOR';
+export const DELETE_SPONSOR_SUCCESS =        '[SPONSOR] Delete SPONSOR Success';
+export const DELETE_SPONSOR_FAIL =           '[SPONSOR] Delete SPONSOR Fail';
+export const LOAD_SPONSOR =                  '[SPONSOR] Load SPONSOR';
+export const LOAD_SPONSOR_SUCCESS =          '[SPONSOR] Load SPONSOR Success';
+export const LOAD_FEATURED_SPONSOR =         '[SPONSOR] Load featured SPONSOR';
+export const LOAD_FEATURED_SPONSOR_SUCCESS = '[SPONSOR] Load featured SPONSOR success';
+export const LOAD_FEATURED_SPONSOR_FAIL =    '[SPONSOR] Load featured SPONSOR fail';
+export const LOAD_DETAIL_SPONSOR =           '[SPONSOR] Load DETAIL SPONSOR';
+export const LOAD_DETAIL_SPONSOR_SUCCESS =   '[SPONSOR] Load DETAIL SPONSOR success';
+export const LOAD_DETAIL_SPONSOR_FAIL =      '[SPONSOR] Load DETAIL SPONSOR fail';
 
-export function loadAllAction(): Action {
-  return {
-    type: ActionTypes.LOAD_SPONSORS,
-  };
+
+export class LoadAllAction implements Action {
+  type = LOAD_SPONSORS;
+  payload: any;
 }
-export function loadAllSuccessAction(payload: Sponsor[]): Action {
-  return {
-    type: ActionTypes.LOAD_SPONSORS_SUCCESS,
-    payload: payload,
-  };
+export class LoadAllSuccessAction implements Action {
+  type = LOAD_SPONSORS_SUCCESS;
+  constructor(public payload: Sponsor[]) {}
 }
-export function saveAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.SAVE_SPONSOR,
-    payload: payload,
-  };
+export class SaveAction implements Action {
+  type = SAVE_SPONSOR;
+  constructor(public  payload: Sponsor) {}
 }
-export function saveSuccessAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.SAVE_SPONSOR_SUCCESS,
-    payload: payload,
-  };
+export class SaveSuccessAction implements Action {
+  type = SAVE_SPONSOR_SUCCESS;
+  constructor(public payload: Sponsor) {}
 }
-export function saveFailedAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.SAVE_SPONSOR_FAIL,
-    payload: payload,
-  };
+export class SaveFailedAction implements Action {
+  type = SAVE_SPONSOR_FAIL;
+  constructor(public payload: Sponsor) {}
 }
-export function deleteAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.DELETE_SPONSOR,
-    payload: payload,
-  };
+export class DeleteAction implements Action {
+  type = DELETE_SPONSOR;
+  constructor(public payload: Sponsor) {}
 }
-export function deleteSuccessAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.DELETE_SPONSOR_SUCCESS,
-    payload: payload,
-  };
+export class DeleteSuccessAction implements Action {
+  type = DELETE_SPONSOR_SUCCESS;
+  constructor(public payload: Sponsor) {}
 }
-export function deleteFailedAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.DELETE_SPONSOR_FAIL,
-    payload: payload,
-  };
+export class DeleteFailedAction implements Action {
+  type = DELETE_SPONSOR_FAIL;
+  constructor(public payload: Sponsor) {}
 }
-export function loadAction(payload: string): Action {
-  return {
-    type: ActionTypes.LOAD_SPONSOR,
-    payload: payload,
-  };
+export class LoadAction implements Action {
+  type = LOAD_SPONSOR;
+  constructor(public payload: string) {}
 }
-export function loadSuccessAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.LOAD_SPONSOR_SUCCESS,
-    payload: payload,
-  };
+export class LoadSuccessAction implements Action {
+  type = LOAD_SPONSOR_SUCCESS;
+  constructor(public payload: Sponsor) {}
 }
-export function loadFeaturedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_SPONSOR,
-  };
+export class LoadFeaturedAction implements Action {
+  type = LOAD_FEATURED_SPONSOR;
+  payload: any;
 }
-export function loadFeaturedSuccessAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.LOAD_FEATURED_SPONSOR_SUCCESS,
-    payload: payload,
-  };
+export class LoadFeaturedSuccessAction implements Action {
+  type = LOAD_FEATURED_SPONSOR_SUCCESS;
+  constructor(public payload: Sponsor) { }
 }
-export function loadFeaturedFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_SPONSOR_FAIL,
-  };
+export class LoadFeaturedFailedAction implements Action {
+  type = LOAD_DETAIL_SPONSOR_FAIL;
+  payload: any;
 }
-export function loadDetailAction(payload: string): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_SPONSOR,
-    payload: payload,
-  };
+export class LoadDetailAction implements Action {
+  type = LOAD_DETAIL_SPONSOR;
+  constructor(public payload: string) { }
 }
-export function loadDetailSuccessAction(payload: Sponsor): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_SPONSOR_SUCCESS,
-    payload: payload,
-  };
+export class LoadDetailSuccessAction implements Action {
+  type = LOAD_DETAIL_SPONSOR_SUCCESS;
+  constructor(public payload: Sponsor) { }
 }
-export function loadDetailFailedAction(): Action {
-  return {
-    type: ActionTypes.LOAD_DETAIL_SPONSOR_FAIL,
-  };
+export class LoadDetailFailedAction implements Action {
+  type = LOAD_DETAIL_SPONSOR_FAIL;
+  payload: any;
 }
+
+export type Actions =
+    LoadAllAction
+  | LoadAllSuccessAction
+  | SaveAction
+  | SaveSuccessAction
+  | SaveFailedAction
+  | DeleteAction
+  | DeleteSuccessAction
+  | DeleteFailedAction
+  | LoadAction
+  | LoadSuccessAction
+  | LoadFeaturedAction
+  | LoadFeaturedSuccessAction
+  | LoadFeaturedFailedAction
+  | LoadDetailAction
+  | LoadDetailSuccessAction
+  | LoadDetailFailedAction;

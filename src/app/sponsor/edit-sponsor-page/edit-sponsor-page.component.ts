@@ -8,7 +8,7 @@ import { isMemberOfSponsor, getMemberOfSponsor, getSponsorActions } from '../../
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
-import { saveAction } from '../sponsor.actions';
+import { SaveAction } from '../sponsor.actions';
 
 @Component({
   selector: 'gymapp-edit-sponsor-page',
@@ -48,7 +48,7 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
       this.store.select(isMemberOfSponsor)
         .filter(id => id && id.length > 0)
         .subscribe(sponsorid => {
-          this.store.dispatch(fromSponsors.loadAction(sponsorid));
+          this.store.dispatch(new fromSponsors.LoadAction(sponsorid));
           this.subscriptions.push(this.sponsor.subscribe(sponsor => {
             this.sponsorOrigin = sponsor;
             this.form.patchValue(sponsor);
@@ -61,6 +61,6 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
   }
 
   doSave(value) {
-    this.store.dispatch(saveAction(Object.assign({}, this.sponsorOrigin, value)));
+    this.store.dispatch(new SaveAction(Object.assign({}, this.sponsorOrigin, value)));
   }
 }
