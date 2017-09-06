@@ -17,17 +17,10 @@ const clubListStub: Club[] = [
     },
   ];
 
-  const crudStub: CrudService = <CrudService>{
-    unsave: () => crudStub,
-    authenticated: () => false,
-    post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(clubListStub),
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: ClubService, useValue: new ClubService(crudStub)},
+        {provide: ClubService, useValue: new ClubService({})},
       ],
     })
     .compileComponents();

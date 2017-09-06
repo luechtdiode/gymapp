@@ -20,13 +20,7 @@ describe('CompetitionService', () => {
       website: 'www.testcompetition.gym',
     },
   ];
-
-  const crudStub: CrudService = <CrudService>{
-    unsave: () => crudStub,
-    authenticated: () => false,
-    post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(competitionListStub),
-  };
+  const crudStub: CrudService = <CrudService>{};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

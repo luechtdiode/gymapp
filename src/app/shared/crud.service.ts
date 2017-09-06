@@ -33,19 +33,27 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 }
 
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+export interface CrudService {
+  authenticated?: (token: string) => any;
+  unsave?: () => CrudService;
+  get?: <T>(url: string) => Observable<T>;
+  post?: <T>(url: string, data: T) => Observable<T>;
+  put?: <T>(url: string, data: T) => Observable<T>;
+  doDelete?: (url: string) => Observable<Response>;
+}
 
 @Injectable()
-export class CrudService implements OnDestroy {
+export class CrudServiceImpl implements CrudService, OnDestroy {
 
-  private currentUrl: string;
-  private useAuth = true;
-  private subscriptions: Subscription[] = [];
+  private currentUrl?: string;
+  private useAuth? = true;
+  private subscriptions?: Subscription[] = [];
 
   constructor(
-    private http: Http,
-    private authHttp: AuthHttp,
-    private store: Store<AppState>,
-    private route: ActivatedRoute) {
+    private http?: Http,
+    private authHttp?: AuthHttp,
+    private store?: Store<AppState>,
+    private route?: ActivatedRoute) {
 
     this.subscriptions.push(store.select(fromRoot.getGWToken).subscribe((token) => {
       sessionStorage.setItem(JWT_TOKEN_NAME, token);

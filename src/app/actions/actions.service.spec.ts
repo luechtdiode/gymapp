@@ -4,6 +4,10 @@ import { ActionsService } from './actions.service';
 import { Action } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
 import { Observable } from 'rxjs/Observable';
+import { Http } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
 
 describe('ActionsService', () => {
   const actionsStub: Action[] = [
@@ -13,11 +17,9 @@ describe('ActionsService', () => {
     },
   ];
 
-  const crudStub: CrudService = <CrudService>{
+  const crudStub = <CrudService>{
     unsave: () => crudStub,
-    authenticated: () => false,
-    post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(actionsStub),
+    get: () => Observable.of(actionsStub),
   };
 
   beforeEach(async(() => {
