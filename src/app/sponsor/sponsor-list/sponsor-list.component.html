@@ -5,7 +5,7 @@
     >
     <a *ngIf="getKindCount(kind) > 0" class="nav-link" (click)="select(kind)"
     aria-controls="kind"
-    role="tab"><span class="badge badge-pill badge-default pull-right">{{getKindCount(kind)}}</span>{{kind}}</a></li>
+    role="tab"><span class="badge badge-pill badge-secondary pull-right">{{getKindCount(kind)}}</span>{{kind}}</a></li>
   </ul>
   <div class="tab-content" *ngIf="!(isSponsorsloading | async)">
     <ul class="list-unstyled">

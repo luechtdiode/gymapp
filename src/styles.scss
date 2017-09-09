@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 //@import "../node_modules/font-awesome/scss/font-awesome.scss";
-//@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 .row-header {
   margin: 0px auto;
@@ -22,6 +22,11 @@
   background: #333333;
   background-image: url("assets/images/header-background2.png");
   color: floralwhite;
+}
+@include media-breakpoint-down(sm) {
+  .hidden-sm-down {
+    display: none;
+  }
 }
 .bottom-separator {
   padding-bottom: 20px;
@@ -50,13 +55,22 @@
 }
 .navbar-inverse {
   background: #303f9f;
-  color: #ffffff;
+  color: rgb(200, 237, 204); 
   padding-top: 0px; 
   padding-bottom: 0px;
 }
+.navbar-toggler {
+  color: rgb(200, 237, 204); 
+}
+.navbar-collapse {
+  padding-top: 2px;
+  margin-top: 2px;
+  border-top: 1px;
+  border-top-color: black;
+}
 
 @media (max-width: 576px) {
-  .navbar-toggleable-sm > .container {
+  .navbar-expand-sm > .container {
     width: 540px;
     max-width: 100%;
   }
@@ -66,19 +80,24 @@
   margin-top: 6px;
 }
 .navbar-inverse .navbar-nav > .nav-item {
+ 
   & :hover {
     background: rgb(65, 150, 65);  
   }
   & :focus {
-    background: rgb(65, 150, 65);  
+    background: rgb(65, 150, 65);
+    color: rgb(210, 220, 255);
   }
   .active {
     background: #1a237e;
+    color: rgb(255, 255, 255);
   }
 }
 .navbar-nav .nav-link {
     padding-left: 8px;
+    color: rgb(158, 195, 248);
 }
+
 .label-warning {
   font-size: 60%;
   border-radius: .3em;

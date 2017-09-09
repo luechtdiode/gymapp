@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   registerClubLink = '/' + RouterPath.REGISTER_CLUB;
   registerSponsorLink = '/' + RouterPath.REGISTER_SPONSOR;
 
-  showNavbar = '';
   constructor(private store: Store<AppState>,
               private location: UrlProvider) {
   }
@@ -43,18 +42,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.location.activeLocation();
   }
 
-  onToggleNavbar() {
-    if (this.showNavbar.length === 0) {
-      this.showNavbar = 'show';
-    } else {
-      this.showNavbar = '';
-    }
-  }
-
   ngOnInit() {
     this.subscriptions.push(this.store.select(fromRoot.activeRoute).filter(rt => !!rt).subscribe((rt) => {
       this.backUrl = rt.state.url !== '/' + RouterPath.LOGIN ? rt.state.url : this.backUrl;
-      this.showNavbar = '';
     } ));
     this.clubid = this.store.select(fromRoot.isMemberOfClub);
     this.sponsorid = this.store.select(fromRoot.isMemberOfSponsor);

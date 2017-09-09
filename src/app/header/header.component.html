@@ -1,63 +1,72 @@
 
-<nav class="navbar navbar-toggleable-sm fixed-top sticky-top navbar-inverse">
+<nav class="navbar navbar-expand-sm fixed-top sticky-top navbar-inverse">
   <div class="container">
-    <button class="navbar-toggler navbar-toggler-right" type="button" 
-        xdata-toggle="collapse" xdata-target="#navbar"
-        (click)="onToggleNavbar()" 
-        aria-label="Toggle navigation">
+    <a class="navbar-brand" routerLink="home"><img src="./assets/images/logo.png" height=30 width=30></a>
+    <button class="navbar-toggler" type="button" 
+      data-toggle="collapse" data-target=".navbar-collapse"      
+      aria-label="Toggle navigation">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
-    <a class="navbar-brand" routerLink="home"><img src="./assets/images/logo.png" height=30 width=30></a>
-    <div id="navbar" class="collapse navbar-collapse" [ngClass]="showNavbar">
+      <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLink="home" routerLinkActive="active">
-          <a [routerLink]="homeLink" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="homeLink" routerLinkActive="active" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </li>
         <li class="nav-item" routerLink="aboutus" routerLinkActive="active">
-          <a [routerLink]="aboutLink" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="aboutLink" routerLinkActive="active" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-info" aria-hidden="true"></i> About</a>
         </li>
         <li class="nav-item" routerLink="competitions" routerLinkActive="active">
-          <a [routerLink]="competitionsLink" routerLinkActive="active"  class="nav-link">
+          <a [routerLink]="competitionsLink" routerLinkActive="active"  class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Competitions
           </a>
         </li>
         <li class="nav-item" routerLink="clubs" routerLinkActive="active">
-          <a [routerLink]="clubsLink" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="clubsLink" routerLinkActive="active" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Clubs
           </a>
         </li>
         <li class="nav-item" routerLink="sponsors" routerLinkActive="active">
-          <a [routerLink]="sponsorsLink" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="sponsorsLink" routerLinkActive="active" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Sponsors
           </a>
         </li>
         <li class="nav-item" routerLink="contact" routerLinkActive="active">
-          <a [routerLink]="contactLink" routerLinkActive="active" class="nav-link">
+          <a [routerLink]="contactLink" routerLinkActive="active" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-envelope-o"></i> Contact</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">
         <li class="nav-item" routerLinkActive="active" *ngIf="!(loggedIn | async)">
-          <a (click)="logIn()" class="nav-link" routerLinkActive="active">
+          <a (click)="logIn()" class="nav-link" routerLinkActive="active" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
         <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (clubid | async) !== undefined">
-          <a [routerLink]="editClubProfileLink" class="nav-link" routerLinkActive="active">{{username | async}} (as Club)</a>
+          <a [routerLink]="editClubProfileLink" class="nav-link" routerLinkActive="active" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">{{username | async}} (as Club)</a>
         </li>
         <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined">
-          <a [routerLink]="editSponsorProfileLink" class="nav-link" routerLinkActive="active">{{username | async}} (as Sponsor)</a>
+          <a [routerLink]="editSponsorProfileLink" class="nav-link" routerLinkActive="active" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">{{username | async}} (as Sponsor)</a>
         </li>
         <li class="nav-item" *ngIf="(loggedIn | async)">
-          <a (click)="logOut()" class="nav-link" >
+          <a (click)="logOut()" class="nav-link" 
+          data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-sign-out" aria-hidden="true"></i> Logout {{username | async}}</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<header class="jumbotron hidden-xs-down">
+<header class="jumbotron hidden-sm-down">
   <!-- Main component for a primary marketing message or call to action -->
   <div class="container">
     <div class="row row-header">
