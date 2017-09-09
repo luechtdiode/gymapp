@@ -11,7 +11,7 @@ import { LoadCredentialsAction, LoginAction, RemoveCredentialsAction, ElevateAct
 import { User, Club, Sponsor } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
-import { RouterPath, appRoutes } from '../app.routing';
+import { appRoutes } from '../app.routing';
 import { username, isMemberOfSponsor } from './auth.reducer';
 import { Observable } from 'rxjs/Rx';
 import { Router, RouterModule } from '@angular/router';
