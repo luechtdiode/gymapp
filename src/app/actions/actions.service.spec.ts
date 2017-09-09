@@ -17,9 +17,11 @@ describe('ActionsService', () => {
     },
   ];
 
-  const crudStub = <CrudService>{
+  const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
-    get: () => Observable.of(actionsStub),
+    authenticated: (token: string) => false,
+    post: (url: string, loginData) => {},
+    get: (url: string) => Observable.of(actionsStub),
   };
 
   beforeEach(async(() => {

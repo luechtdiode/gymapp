@@ -7,7 +7,7 @@ import { ClubService } from './club.service';
 import { Club } from '../model/backend-typings';
 
 describe('ClubService', () => {
-const clubListStub: Club[] = [
+  const clubListStub: Club[] = [
     <Club>{
       _id: 'testId',
       name: 'Changed-Clubname',
@@ -16,11 +16,17 @@ const clubListStub: Club[] = [
       kind: ['uio'],
     },
   ];
+  const crudStub: CrudService = <CrudService>{
+    unsave: () => crudStub,
+    authenticated: (token: string) => false,
+    post: (url: string, loginData) => {},
+    get: (url: string) => Observable.of(clubListStub),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: ClubService, useValue: new ClubService({})},
+        {provide: ClubService, useValue: new ClubService(crudStub)},
       ],
     })
     .compileComponents();

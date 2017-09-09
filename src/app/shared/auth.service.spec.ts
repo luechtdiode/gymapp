@@ -3,13 +3,17 @@
 import { AuthService } from './auth.service';
 import { CrudService } from './crud.service';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app-state.reducer';
 
 describe('AuthService', () => {
   const crudStub: CrudService = <CrudService>{
     unsave: () => crudStub,
-    authenticated: (token) => false,
+    authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
+    get: (url: string) => Observable.of({}),
   };
+
 
   const service = new AuthService(crudStub);
 

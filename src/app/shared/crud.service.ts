@@ -33,21 +33,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 }
 
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
-export interface CrudService {
-  authenticated?: (token: string) => any;
-  unsave?: () => CrudService;
-  get?: <T>(url: string) => Observable<T>;
-  post?: <T>(url: string, data: T) => Observable<T>;
-  put?: <T>(url: string, data: T) => Observable<T>;
-  doDelete?: (url: string) => Observable<Response>;
-}
 
 @Injectable()
-export class CrudServiceImpl implements CrudService, OnDestroy {
+export class CrudService implements OnDestroy {
 
-  private currentUrl?: string;
-  private useAuth? = true;
-  private subscriptions?: Subscription[] = [];
+  private currentUrl: string;
+  private useAuth = true;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private http?: Http,
