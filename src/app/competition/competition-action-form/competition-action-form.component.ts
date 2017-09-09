@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitte
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 import { SelectionChangedEvent } from '../../shared/util';
 import { Competition, CompSponsorAction } from '../../model/backend-typings';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 import { CompetitionActionModel } from './competition-action-form.model';
 
 @Component({

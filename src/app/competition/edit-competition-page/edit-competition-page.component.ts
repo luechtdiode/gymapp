@@ -7,7 +7,7 @@ import { CompSponsorAction, Competition } from '../../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
 import { Router, RouterState, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 import { SaveAction, LoadAction } from '../competition.actions';
 
 @Component({

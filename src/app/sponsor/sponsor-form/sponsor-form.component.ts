@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Sponsor, SponsorAction } from '../../model/backend-typings';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 import { SelectionChangedEvent } from '../../shared/util';
 import { SponsorActionModel } from '../sponsor-action-form/sponsor-action-form.model';
 

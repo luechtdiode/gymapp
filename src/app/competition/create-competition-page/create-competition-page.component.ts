@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState, getSponsorActions, isMemberOfClub, getMemberOfClub, getDetailClub } from '../../app-state.reducer';
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 import { LoadDetailAction } from '../../club/club.actions';
 import { CreateAction } from '../competition.actions';
 

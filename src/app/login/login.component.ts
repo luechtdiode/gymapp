@@ -5,7 +5,7 @@ import { LoginAction } from '../shared/auth.actions';
 import { User } from '../model/backend-typings';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
-import { RouterPath } from '../app.routing';
+import { RouterPath } from '../router-path';
 import { Router } from '@angular/router';
 
 @Component({

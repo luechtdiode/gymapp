@@ -9,35 +9,35 @@
     </button>
       <div id="navbar" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLink="home" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="homeLink" routerLinkActive="active">
           <a [routerLink]="homeLink" routerLinkActive="active" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-home" aria-hidden="true"></i> Home</a>
         </li>
-        <li class="nav-item" routerLink="aboutus" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="aboutLink" routerLinkActive="active">
           <a [routerLink]="aboutLink" routerLinkActive="active" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-info" aria-hidden="true"></i> About</a>
         </li>
-        <li class="nav-item" routerLink="competitions" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="competitionsLink" routerLinkActive="active">
           <a [routerLink]="competitionsLink" routerLinkActive="active"  class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Competitions
           </a>
         </li>
-        <li class="nav-item" routerLink="clubs" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="clubsLink" routerLinkActive="active">
           <a [routerLink]="clubsLink" routerLinkActive="active" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Clubs
           </a>
         </li>
-        <li class="nav-item" routerLink="sponsors" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="sponsorsLink" routerLinkActive="active">
           <a [routerLink]="sponsorsLink" routerLinkActive="active" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-list-alt" aria-hidden="true"></i> Sponsors
           </a>
         </li>
-        <li class="nav-item" routerLink="contact" routerLinkActive="active">
+        <li class="nav-item" [routerLink]="contactLink" routerLinkActive="active">
           <a [routerLink]="contactLink" routerLinkActive="active" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-envelope-o"></i> Contact</a>
@@ -49,13 +49,17 @@
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (clubid | async) !== undefined">
+        <li class="nav-item" [routerLink]="editClubProfileLink" routerLinkActive="active"
+          *ngIf="(loggedIn | async) && (clubid | async) !== undefined">
           <a [routerLink]="editClubProfileLink" class="nav-link" routerLinkActive="active" 
-          data-toggle="collapse" data-target=".navbar-collapse.show">{{username | async}} (as Club)</a>
+          data-toggle="collapse" data-target=".navbar-collapse.show">
+          {{username | async}} (as Club)</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined">
+        <li class="nav-item" [routerLink]="editSponsorProfileLink" routerLinkActive="active"
+          *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined">
           <a [routerLink]="editSponsorProfileLink" class="nav-link" routerLinkActive="active" 
-          data-toggle="collapse" data-target=".navbar-collapse.show">{{username | async}} (as Sponsor)</a>
+          data-toggle="collapse" data-target=".navbar-collapse.show">
+          {{username | async}} (as Sponsor)</a>
         </li>
         <li class="nav-item" *ngIf="(loggedIn | async)">
           <a (click)="logOut()" class="nav-link" 

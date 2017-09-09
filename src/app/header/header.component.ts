@@ -5,7 +5,7 @@ import * as fromRoot from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
 import { LogoutAction, ElevateAction } from '../shared/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
-import { RouterPath } from '../app.routing';
+import { RouterPath } from '../router-path';
 import { UrlProvider } from '../shared/urlProvider';
 
 @Component({

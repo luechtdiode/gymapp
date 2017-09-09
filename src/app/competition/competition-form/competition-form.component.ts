@@ -3,7 +3,7 @@ import { CompetitionActionModel } from '../competition-action-form/competition-a
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SelectionChangedEvent } from '../../shared/util';
 import { CompSponsorAction, Competition } from '../../model/backend-typings';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-competition-form',

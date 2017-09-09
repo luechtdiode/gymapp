@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterPath } from '../app.routing';
+import { RouterPath } from '../router-path';
 import { UrlProvider } from '../shared/urlProvider';
 
 @Component({

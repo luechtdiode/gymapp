@@ -13,7 +13,7 @@ import { User } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 import { isMemberOfClub, isMemberOfSponsor } from './auth.reducer';
-import { RouterPath } from '../app.routing';
+import { RouterPath } from '../router-path';
 import * as authActions from './auth.actions';
 import { Router } from '@angular/router';
 import { of } from 'rxjs/observable/of';

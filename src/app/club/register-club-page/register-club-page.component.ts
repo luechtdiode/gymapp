@@ -5,7 +5,7 @@ import { AppState } from '../../app-state.reducer';
 import { ClubFormModel } from '../club-form/club-form.model';
 import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
 import { RegisterClubAction } from '../../shared/auth.actions';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-register-club-page',

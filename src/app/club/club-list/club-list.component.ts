@@ -6,7 +6,7 @@ import { Club } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromClubs from '../club.actions';
 import { AbstractListComponent } from '../../shared/abstract-list.component';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-club-list',

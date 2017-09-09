@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UrlProvider } from '../shared/urlProvider';
 import { FooterComponent } from './footer.component';
-import { RouterPath } from '../app.routing';
+import { RouterPath } from '../router-path';
 
 describe('FooterComponent', () => {
   let comp: FooterComponent;

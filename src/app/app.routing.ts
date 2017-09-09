@@ -20,6 +20,7 @@ import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponso
 import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard';
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
+import { RouterPath } from './router-path';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -54,25 +55,6 @@ export function goRelative(toRelativePath: string, activeRoute: ActivatedRoute):
     }
     return composeRoute(toRelativePath, activeRoute);
 }
-
-export const RouterPath = {
-    HOME: 'home',
-    ABOUT: 'aboutus',
-    COMPETITIONS: 'competitions',
-    COMPETITION_DETAILS: 'competitions/:competitionid',
-    COMPETITION_EDIT: 'competitions/:competitionid/edit',
-    CREATE_COMPETITION: 'competitions/new/:clubid',
-    CLUBS: 'clubs',
-    CLUB_DETAILS: 'clubs/:clubid',
-    SPONSORS: 'sponsors',
-    SPONSOR_DETAILS: 'sponsors/:sponsorid',
-    CONTACT: 'contact',
-    LOGIN: 'auth/login',
-    REGISTER_CLUB: 'auth/registerclub',
-    REGISTER_SPONSOR: 'auth/registersponsor',
-    CLUBPROFILE: 'auth/clubprofile',
-    SPONSORPROFILE: 'auth/sponsorprofile',
-};
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: RouterPath.HOME, pathMatch: 'full' },

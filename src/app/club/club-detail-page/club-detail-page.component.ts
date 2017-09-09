@@ -5,7 +5,7 @@ import { AppState, getDetailClub, isMemberOfClub } from '../../app-state.reducer
 import { Observable } from 'rxjs/Observable';
 import { Club } from '../../model/backend-typings';
 import { LoadDetailAction } from '../club.actions';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-club-detail-page',

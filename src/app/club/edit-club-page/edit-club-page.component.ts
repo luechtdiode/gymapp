@@ -7,7 +7,7 @@ import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
 import { Club } from '../../model/backend-typings';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-edit-club-page',

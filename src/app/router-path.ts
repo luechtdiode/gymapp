@@ -1,0 +1,18 @@
+export const RouterPath = {
+    HOME: 'home',
+    ABOUT: 'aboutus',
+    COMPETITIONS: 'competitions',
+    COMPETITION_DETAILS: 'competitions/:competitionid',
+    COMPETITION_EDIT: 'competitions/:competitionid/edit',
+    CREATE_COMPETITION: 'competitions/new/:clubid',
+    CLUBS: 'clubs',
+    CLUB_DETAILS: 'clubs/:clubid',
+    SPONSORS: 'sponsors',
+    SPONSOR_DETAILS: 'sponsors/:sponsorid',
+    CONTACT: 'contact',
+    LOGIN: 'auth/login',
+    REGISTER_CLUB: 'auth/registerclub',
+    REGISTER_SPONSOR: 'auth/registersponsor',
+    CLUBPROFILE: 'auth/clubprofile',
+    SPONSORPROFILE: 'auth/sponsorprofile',
+};

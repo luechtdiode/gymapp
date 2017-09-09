@@ -6,7 +6,7 @@ import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';
 import { Store, combineReducers } from '@ngrx/store';
 import { AppState, isMemberOfClub } from '../../app-state.reducer';
-import { RouterPath } from '../../app.routing';
+import { RouterPath } from '../../router-path';
 import { Router } from '@angular/router';
 
 @Component({
