@@ -12,6 +12,7 @@ install:
   - npm i
 script:
   - npm run test-once
+  - npm run build
 deploy:
   provider: pages
   skip_cleanup: false
