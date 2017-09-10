@@ -35,11 +35,18 @@ module.exports = function (config) {
     reporters: config.angularCli && config.angularCli.codeCoverage ?
           ['progress', 'coverage-istanbul'] :
           ['progress', 'kjhtml'],
+    customLaunchers: {
+      MyHeadlessChrome: {
+        base: 'ChromeHeadless',
+        flags: ['--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
+      }
+    },
     port: 9877,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    browsers: ['MyHeadlessChrome'],
+    singleRun: false,
+    concurrency: Infinity
   });
 };
