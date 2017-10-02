@@ -3,6 +3,8 @@
 [![bitHound Overall Score](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap/badges/score.svg)](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap)
 [![Travis](https://travis-ci.org/luechtdiode/gymapp-bootstrap.svg?branch=master)](https://travis-ci.org/luechtdiode/gymapp-bootstrap.svg?branch=master)
 
+[![App-Link (on github-pages, without backend-services)](https://luechtdiode.github.io/gymapp/)](https://luechtdiode.github.io/gymapp/)
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.25.5.
 Actually updated to version `1.2.6`
 
