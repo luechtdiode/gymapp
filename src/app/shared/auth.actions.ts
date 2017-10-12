@@ -10,10 +10,14 @@ export const LOGIN =                   '[LOGIN] user login';
 export const LOGIN_SUCCESS =           '[LOGIN_SUCCESS] user login Success';
 export const LOGOUT =                  '[LOGOUT] user logout';
 export const LOGOUT_SUCCESS =          '[LOGOUT_SUCCESS] user logout Success';
+export const PROFILE =                 '[PROFILE] loadProfile';
+export const PROFILE_SUCCESS =         '[PROFILE] loadProfile Success';
 export const REGISTER_CLUB =           '[REGISTER_CLUB] club register';
   // export const REGISTER_CLUB_SUCCESS =   '[REGISTER_CLUB_SUCCESS] club register Success';
 export const REGISTER_SPONSOR =        '[REGISTER_SPONSOR] sponsor register';
   // export const REGISTER_SPONSOR_SUCCESS ='[REGISTER_SPONSOR_SUCCESS] sponsor register Success';
+export const CONNECT_TO_FACEBOOK =     '[CONNECT_TO_FACEBOOK] connect';
+export const DISCONNECT_TO_FACEBOOK =  '[DISCONNECT_TO_FACEBOOK] disconnect';
 
 export class LoadCredentialsAction implements Action {
   type = LOAD_CREDENTIALS;
@@ -55,6 +59,17 @@ export class RegisterSponsorAction implements Action {
     payload: {user: user, sponsor: sponsor },
   };
 }*/
+export class ProfileAction implements Action {
+  type = PROFILE;
+  payload: any;
+}
+export class ProfileSuccessAction implements Action {
+  type = PROFILE_SUCCESS;
+  payload: any;
+  constructor(token: string, user: User, sponsor: Sponsor, club: Club) {
+    this.payload = {token: token, user: user, sponsor: sponsor, club: club };
+  }
+}
 export class LoginAction implements Action {
   type = LOGIN;
   payload: any;
@@ -78,6 +93,19 @@ export class LogoutSuccessAction implements Action {
   payload: any = undefined;
 }
 
+export class ConnectToFacebookAction implements Action {
+  type = CONNECT_TO_FACEBOOK;
+  payload: any = undefined;
+}
+
+export class DisconnectToFacebookAction implements Action {
+  type = DISCONNECT_TO_FACEBOOK;
+  payload: any;
+  constructor(user: User) {
+    this.payload = {user: user};
+  }
+}
+
 export type Actions =
     LoadCredentialsAction
   | RemoveCredentialsAction
@@ -87,4 +115,8 @@ export type Actions =
   | LoginAction
   | LoginSuccessAction
   | LogoutAction
-  | LogoutSuccessAction;
+  | LogoutSuccessAction
+  | ConnectToFacebookAction
+  | DisconnectToFacebookAction
+  | ProfileAction
+  | ProfileSuccessAction;

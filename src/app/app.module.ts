@@ -65,7 +65,9 @@ import { CompetitionFormComponent } from './competition/competition-form/competi
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { CompetitionActionFormComponent } from './competition/competition-action-form/competition-action-form.component';
 import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
-import { environment } from '../environments/environment'; // Angular CLI environment
+import { environment } from '../environments/environment';
+import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile-page.component'; // Angular CLI environment
+import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
 
 @NgModule({
   declarations: [
@@ -106,6 +108,7 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
     CreateCompetitionPageComponent,
     CompetitionActionFormComponent,
     EditCompetitionPageComponent,
+    EditProfilePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,6 +143,7 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
     ClubEffects,
     SponsorService,
     SponsorEffects,
+    IsLoggedInGuard,
     IsClubUserGuardGuard,
     IsSponsorUserGuardGuard,
     CompetitionsLoadedGuard,

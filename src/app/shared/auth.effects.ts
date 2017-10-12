@@ -18,8 +18,10 @@ import * as authActions from './auth.actions';
 import { Router } from '@angular/router';
 import { of } from 'rxjs/observable/of';
 import { defer } from 'rxjs/observable/defer';
+import { DisconnectToFacebookAction, ProfileSuccessAction } from './auth.actions';
 
 const TOKEN_KEY = 'GCToken';
+const AUTHPROVIDER_KEY = 'AUTHPROVIDER';
 
 @Injectable()
 export class AuthEffects {
@@ -53,6 +55,7 @@ export class AuthEffects {
         .mergeMap((action: authActions.RegisterClubAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
+                  email: '',
                   firstname : '',
                   lastname : '',
                   homepage: '',
@@ -81,6 +84,7 @@ export class AuthEffects {
         .mergeMap((action: authActions.RegisterSponsorAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
+                  email: '',
                   firstname : '',
                   lastname : '',
                   homepage: action.payload.sponsor.homepage,
@@ -112,12 +116,13 @@ export class AuthEffects {
             .map((credentialsAccepted: User) => {
                 console.log('login success');
                 if (action.payload.rememberMe) {
-                    this.localStorage.storeObject(TOKEN_KEY, {
-                        username: credentialsAccepted.username,
-                        token: credentialsAccepted.token,
-                        isMemberOfClub: credentialsAccepted.isMemberOfClub,
-                        isMemberOfSponsor: credentialsAccepted.isMemberOfSponsor,
-                    });
+                    this.localStorage.storeObject(TOKEN_KEY, credentialsAccepted);
+                    // this.localStorage.storeObject(TOKEN_KEY, {
+                    //     username: credentialsAccepted.username,
+                    //     token: credentialsAccepted.token,
+                    //     isMemberOfClub: credentialsAccepted.isMemberOfClub,
+                    //     isMemberOfSponsor: credentialsAccepted.isMemberOfSponsor,
+                    // });
                 }
                 return new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl);
             })
@@ -166,6 +171,34 @@ export class AuthEffects {
         .map(() => this.authService.logout())
         .map(logoutCompleted => new authActions.LogoutSuccessAction())
         .catch(() => Observable.of(new authActions.LogoutSuccessAction()));
+
+    @Effect()
+    profile = this.actions$
+    .ofType(authActions.PROFILE)
+    .filter((action) => (action as authActions.ProfileAction).payload === undefined)
+    .mergeMap((action: authActions.ProfileAction) => this.authService.profile()
+        .map((profiledata: any) =>
+            new authActions.ProfileSuccessAction(profiledata.token, profiledata.user, profiledata.sponsor, profiledata.club))
+        // TODO integrate toastr component
+    ).catch((e) => {
+        this.router.navigate([RouterPath.HOME]);
+        return [new authActions.RemoveCredentialsAction()];
+    });
+
+    @Effect({ dispatch: false })
+    connectToFacebook = this.actions$
+        .ofType(authActions.CONNECT_TO_FACEBOOK)
+        .do(() => this.authService.connectWithFacebook());
+        // .do((credentialsAccepted: User) => {
+        //     console.log('connect to facebook login success');
+        //     this.localStorage.storeObject(AUTHPROVIDER_KEY, 'fb');
+        //     return new authActions.LoginSuccessAction( credentialsAccepted, undefined);
+        // });
+
+    @Effect({dispatch: false})
+    disconnectToFacebook = this.actions$
+        .ofType(authActions.DISCONNECT_TO_FACEBOOK)
+        .do((action: DisconnectToFacebookAction) => this.localStorage.storeObject(AUTHPROVIDER_KEY, {}));
 
     constructor(
         private actions$: Actions,

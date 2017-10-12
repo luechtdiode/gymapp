@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-sm fixed-top sticky-top navbar-inverse">
+<nav class="navbar navbar-expand-sm fixed-top sticky-top">
   <div class="container">
     <a class="navbar-brand" routerLink="home"><img src="./assets/images/logo.png" height=30 width=30></a>
     <button class="navbar-toggler" type="button" 
@@ -49,22 +49,39 @@
           data-toggle="collapse" data-target=".navbar-collapse.show">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
-        <li class="nav-item" [routerLink]="editClubProfileLink" routerLinkActive="active"
-          *ngIf="(loggedIn | async) && (clubid | async) !== undefined">
-          <a [routerLink]="editClubProfileLink" class="nav-link" routerLinkActive="active" 
-          data-toggle="collapse" data-target=".navbar-collapse.show">
-          {{username | async}} (as Club)</a>
-        </li>
-        <li class="nav-item" [routerLink]="editSponsorProfileLink" routerLinkActive="active"
-          *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined">
-          <a [routerLink]="editSponsorProfileLink" class="nav-link" routerLinkActive="active" 
-          data-toggle="collapse" data-target=".navbar-collapse.show">
-          {{username | async}} (as Sponsor)</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!(loggedIn | async)">
+            <a (click)="logInFacebook()" class="nav-link" routerLinkActive="active" 
+            data-toggle="collapse" data-target=".navbar-collapse.show">
+              <i class="fa fa-sign-in" aria-hidden="true"></i> Login via Facebook</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="(loggedIn | async)">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" 
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+             [ngClass]="isProfileMenuActive()">
+              {{username | async}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div class="nav-item dropdown-item" *ngIf="(loggedIn | async)"
+                  data-toggle="collapse" data-target=".navbar-collapse.show"
+                  routerLinkActive="active">
+              <a [routerLink]="editMyProfileLink" routerLinkActive="active">
+              My Profile</a></div>
+            <div class="nav-item dropdown-item" *ngIf="(loggedIn | async) && (clubid | async) !== undefined"
+                  data-toggle="collapse" data-target=".navbar-collapse.show"
+                  routerLinkActive="active">
+              <a [routerLink]="editClubProfileLink" routerLinkActive="active">
+              Clubdetails</a></div>
+            <div class="nav-item dropdown-item" *ngIf="(loggedIn | async) && (sponsorid | async) !== undefined"
+                  data-toggle="collapse" data-target=".navbar-collapse.show"
+                  routerLinkActive="active">
+              <a [routerLink]="editSponsorProfileLink" routerLinkActive="active">
+              Sponsordetails</a></div>
+          </div>
         </li>
         <li class="nav-item" *ngIf="(loggedIn | async)">
           <a (click)="logOut()" class="nav-link" 
           data-toggle="collapse" data-target=".navbar-collapse.show">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout {{username | async}}</a>
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
       </ul>
     </div>

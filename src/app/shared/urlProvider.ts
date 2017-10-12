@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 
+declare var window: any;
+
 @Injectable()
 export class UrlProvider {
   originHRef: string = window.location.origin;
@@ -12,7 +14,7 @@ export class UrlProvider {
     // } else if (host === '127.0.0.1') {
     //   return 'http://127.0.0.1:4200' + path;
     // }
-    return '.' + path;
+    return window.location.origin + path;
   }
 
   constructor(private location: Location) { }

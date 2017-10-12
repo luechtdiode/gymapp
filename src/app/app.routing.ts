@@ -21,6 +21,8 @@ import { CompetitionsLoadedGuard } from './competition/competitions-loaded.guard
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
 import { RouterPath } from './router-path';
+import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
+import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile-page.component';
 
 export function composeRoute(toPath: string, activeRoute: ActivatedRoute): string[] {
     const activePath: string[][] = activeRoute.snapshot.pathFromRoot
@@ -74,5 +76,7 @@ export const appRoutes: Routes = [
   { path: RouterPath.REGISTER_CLUB, component: RegisterClubPageComponent},
   { path: RouterPath.SPONSORPROFILE, component: EditSponsorPageComponent, canActivate: [IsSponsorUserGuardGuard]},
   { path: RouterPath.REGISTER_SPONSOR, component: RegisterSponsorPageComponent},
+  { path: RouterPath.PROFILE, component: EditProfilePageComponent, canActivate: [IsLoggedInGuard]},
+  { path: RouterPath.PROFILE + '/:token', component: EditProfilePageComponent, canActivate: [IsLoggedInGuard]},
   { path: '**', redirectTo: RouterPath.HOME },
 ];

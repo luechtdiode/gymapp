@@ -58,6 +58,8 @@ export const isMemberOfSponsor = createSelector(getAuthState, fromAuth.isMemberO
 export const getUsername = createSelector(getAuthState, fromAuth.username);
 export const getGWToken = createSelector(getAuthState, fromAuth.gwtoken);
 export const getBackUrl = createSelector(getAuthState, fromAuth.backUrl);
+export const getProfile = createSelector(getAuthState, fromAuth.getProfile);
+export const getUser = createSelector(getAuthState, fromAuth.getUser);
 
 export const getCompetitionsState = (state: AppState) => state.competitions;
 export const getCompetitions = createSelector(getCompetitionsState, fromCompetitions.getCompetitions);

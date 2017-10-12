@@ -1,19 +1,30 @@
 import { Observable } from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
-import { Competition, User } from '../model/backend-typings';
+import { Competition, User, Sponsor, Club } from '../model/backend-typings';
 import * as auth from './auth.actions';
 
+export interface Profile {
+    user: User;
+    sponsor: Sponsor;
+    club: Club;
+}
 export interface AuthState {
     backUrl: string;
+    token?: string;
+    profile?: Profile;
     user?: User;
     isAuthenticated: boolean;
 };
 
 const initialState: AuthState = {
     backUrl: undefined,
+    profile: undefined,
+    token: undefined,
     user: {
         username: undefined,
-        token: undefined,
+        email: undefined,
+        firstname: undefined,
+        lastname: undefined,
         isMemberOfSponsor: undefined,
         isMemberOfClub: undefined,
     },
@@ -37,9 +48,32 @@ export function reducer(state = initialState, action: auth.Actions): AuthState {
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.LOGIN_SUCCESS: {
             return Object.assign({}, state, {
+                token: action.payload.user.token,
                 user: action.payload.user,
                 isAuthenticated: action.payload.user.success,
             });
+        }
+        // tslint:disable-next-line:no-switch-case-fall-through
+        case auth.PROFILE: {
+            const token = action.payload;
+            if (token !== undefined) {
+                const newstate = Object.assign({}, state, {
+                    token: token,
+                    isAuthenticated: true,
+                });
+                return newstate;
+            } else {
+                return state;
+            }
+        }
+        case auth.PROFILE_SUCCESS: {
+            const profile = action.payload as Profile;
+            const newstate = Object.assign({}, state, {
+                user: Object.assign({}, state.user, profile.user),
+                isAuthenticated: true,
+                profile: profile,
+            });
+            return newstate;
         }
         // tslint:disable-next-line:no-switch-case-fall-through
         case auth.LOGOUT_SUCCESS: {
@@ -57,5 +91,7 @@ export const isLoggedIn = (state: AuthState) => state.isAuthenticated;
 export const isMemberOfClub = (state: AuthState) => state.user.isMemberOfClub;
 export const isMemberOfSponsor = (state: AuthState) => state.user.isMemberOfSponsor;
 export const username = (state: AuthState) => state.user.username;
-export const gwtoken = (state: AuthState) => state.user.token;
+export const gwtoken = (state: AuthState) => state.token;
 export const backUrl = (state: AuthState) => state.backUrl;
+export const getProfile = (state: AuthState) => state.profile;
+export const getUser = (state: AuthState) => state.user;

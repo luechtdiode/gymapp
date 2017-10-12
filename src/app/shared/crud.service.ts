@@ -22,7 +22,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         headerPrefix: '',
         noTokenScheme: true,
         tokenName: 'x-access-token',
-        tokenGetter: (() => sessionStorage.getItem(JWT_TOKEN_NAME)),
+        tokenGetter: (() => {
+          console.log('getting jwt-token');
+          return sessionStorage.getItem(JWT_TOKEN_NAME); }),
         globalHeaders: [ {'Content-Type': 'application/json'} ],
         noJwtError: false,
       },

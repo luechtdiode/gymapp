@@ -1,12 +1,6 @@
 <div [formGroup]="form">
   <div class="row" >
     <div class="col-12 col-sm-6">
-      <h3>User</h3>
-    </div>
-  </div>
-
-  <div class="row" >
-    <div class="col-12 col-sm-6">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control input-sm" id="username" name="username" placeholder="Username" formControlName="username" required/>
@@ -15,9 +9,20 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Password" formControlName="password" required>
+        <span *ngIf="form.controls.password.errors && form.controls.firstname.touched" class="help-block">Password is required.</span>
+      </div>
+      <div class="form-group">
+        <label for="password2">confirm Password</label>
+        <input type="password" class="form-control input-sm" id="password2" name="password2" placeholder="Password-Verify" formControlName="password2" required>
+        <span *ngIf="form.controls.password2.errors && form.controls.firstname.touched" class="help-block">Verified Passowrd is required.</span>
       </div>
     </div>
     <div class="col-12 col-sm-6">
+      <div class="form-group">
+        <label for="email">EMail</label>
+        <input type="text" class="form-control input-sm" id="email" name="email" placeholder="EMail" formControlName="email" required/>
+        <span *ngIf="form.controls.email.errors && form.controls.firstname.touched" class="help-block">EMail is required.</span>
+      </div>
       <div class="form-group">
         <label for="firstname">Firstname</label>
         <input type="text" class="form-control input-sm" id="firstname" name="firstname" placeholder="Firstname" formControlName="firstname" required/>

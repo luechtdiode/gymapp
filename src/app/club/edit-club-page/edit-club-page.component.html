@@ -8,6 +8,8 @@
     <gymapp-club-form [form]="form" class="col-12"></gymapp-club-form>
     <div class="row">
       <div class="col-12">
+        <a type="button" class="btn btn-blue pull-right" [href]="'api/connect/facebook'">Connect with Facebook</a>
+        <button type="button" class="btn btn-blue pull-right" (click)="onConnectToFacebook()">Connect with Facebook</button>
         <button type="button" class="btn btn-danger btn-sm pull-right" (click)="onDelete()">Unregister me</button>
         <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="clubsLink">Cancel</button>
         <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Save</button>

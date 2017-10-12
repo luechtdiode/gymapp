@@ -7,6 +7,7 @@ import { LogoutAction, ElevateAction } from '../shared/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
 import { RouterPath } from '../router-path';
 import { UrlProvider } from '../shared/urlProvider';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'gymapp-header',
@@ -31,11 +32,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   contactLink = '/' + RouterPath.CONTACT;
   editClubProfileLink = '/' + RouterPath.CLUBPROFILE;
   editSponsorProfileLink = '/' + RouterPath.SPONSORPROFILE;
+  editMyProfileLink = '/' + RouterPath.PROFILE;
   registerClubLink = '/' + RouterPath.REGISTER_CLUB;
   registerSponsorLink = '/' + RouterPath.REGISTER_SPONSOR;
 
   constructor(private store: Store<AppState>,
-              private location: UrlProvider) {
+              private location: UrlProvider,
+              private authservice: AuthService) {
   }
 
   activeLocation() {
@@ -62,9 +65,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logIn() {
     this.store.dispatch(new ElevateAction(this.backUrl + ''));
   }
+  logInFacebook() {
+    this.authservice.loginViaFacebookAccount();
+  }
 
   logOut() {
     this.store.dispatch(new LogoutAction());
   }
 
+  isProfileMenuActive() {
+    return {'active': this.backUrl && this.backUrl.indexOf('/auth/') > -1};
+  }
 }

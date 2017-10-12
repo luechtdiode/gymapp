@@ -40,7 +40,7 @@ export class ClubService {
   getClub(id: string): Observable<Club> {
     console.log('getClub');
     // return Observable.of(this.data[+id]);
-    return this.crud.unsave().get<Club>(`${BASE_URL}${id}`);
+    return this.crud.get<Club>(`${BASE_URL}${id}`);
       // .flatMap(club => this.mapService.enrichLocationWithCoordinate(club));
   }
 

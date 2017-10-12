@@ -53,11 +53,14 @@
   position: absolute;
   top: 0;
 }
-.navbar-inverse {
-  background: #303f9f;
-  color: rgb(200, 237, 204); 
+.navbar {
+  background: rgb(48, 65, 159);
+  // color: rgb(200, 237, 204); 
   padding-top: 0px; 
   padding-bottom: 0px;
+  a {
+    color: inherit;// rgb(200, 237, 204); 
+  }
 }
 .navbar-toggler {
   color: rgb(200, 237, 204); 
@@ -79,10 +82,14 @@
 .navbar-toggler-right {
   margin-top: 6px;
 }
-.navbar-inverse .navbar-nav > .nav-item {
- 
-  & :hover {
-    background: rgb(65, 150, 65);  
+.navbar .navbar-nav > .nav-item {
+
+  & :hover:not(.dropdown-menu) {
+    background: rgb(65, 150, 65);
+    .active {
+      color: #1a237e;
+      background: inherit;
+    }
   }
   & :focus {
     background: rgb(65, 150, 65);
@@ -95,7 +102,19 @@
 }
 .navbar-nav .nav-link {
     padding-left: 8px;
-    color: rgb(158, 195, 248);
+    // color: rgb(158, 195, 248);
+}
+
+.nav-item {
+  > .dropdown-menu {
+    background: rgba(48, 65, 159, 0.86);
+    & :hover {
+      background: rgb(65, 150, 65);  
+    }
+    > .dropdown-item {
+      color: rgb(255, 255, 255);
+    }
+  }
 }
 
 .label-warning {

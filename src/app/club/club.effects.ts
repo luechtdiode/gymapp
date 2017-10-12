@@ -70,7 +70,7 @@ export class ClubEffects {
         new clubActions.DeleteFailedAction(comp))));
 
   @Effect()
-  deleteSponsorSuccess = this.actions$
+  deleteClubSuccess = this.actions$
     .ofType(clubActions.DELETE_CLUB_SUCCESS)
     .mapTo(new LogoutAction());
 

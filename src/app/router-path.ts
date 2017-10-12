@@ -15,4 +15,5 @@ export const RouterPath = {
     REGISTER_SPONSOR: 'auth/registersponsor',
     CLUBPROFILE: 'auth/clubprofile',
     SPONSORPROFILE: 'auth/sponsorprofile',
+    PROFILE: 'auth/profile',
 };

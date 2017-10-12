@@ -1,0 +1,13 @@
+<div class="container">
+  <form class="row-content" (ngSubmit)="doSave(form.value)" novalidate>
+    <gymapp-register-user-form  [form]="userForm" class="col-12"></gymapp-register-user-form>
+    <!--gymapp-club-form *ngIf="profile?.user?.isMemberOfClub" [form]="clubForm" class="col-12"></gymapp-club-form>
+    <gymapp-sponsor-form *ngIf="profile?.user?.isMemberOfSponsor" [form]="sponsorForm" [sponsor]="sponsor" [regactions]="regactions | async" class="col-12"></gymapp-sponsor-form-->
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="clubsLink">Cancel</button>
+        <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
