@@ -4,7 +4,6 @@ import { AppState } from '../../app-state.reducer';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ClubFormModel } from '../club-form/club-form.model';
 import * as fromClubs from '../club.actions';
-import * as fromAuth from '../../shared/auth.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
 import { Subscription } from 'rxjs/Subscription';
 import { Club } from '../../model/backend-typings';
@@ -54,15 +53,5 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
 
   doSave(value) {
     this.store.dispatch(new fromClubs.SaveAction(Object.assign({}, this.clubOrigin, value, {kind: value.kind.split(',')})));
-  }
-
-  onConnectToFacebook() {
-    this.store.dispatch(new fromAuth.ConnectToFacebookAction())
-  }
-  onDisconnectFromFacebook() {
-    // this.store.dispatch(new fromAuth.DisconnectToFacebookAction(this.clubOrigin))
-  }
-  onDelete() {
-    this.store.dispatch(new fromClubs.DeleteAction(this.clubOrigin));
   }
 }

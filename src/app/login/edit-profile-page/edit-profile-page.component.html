@@ -1,13 +1,56 @@
 <div class="container">
   <form class="row-content" (ngSubmit)="doSave(form.value)" novalidate>
-    <gymapp-register-user-form  [form]="userForm" class="col-12"></gymapp-register-user-form>
-    <!--gymapp-club-form *ngIf="profile?.user?.isMemberOfClub" [form]="clubForm" class="col-12"></gymapp-club-form>
-    <gymapp-sponsor-form *ngIf="profile?.user?.isMemberOfSponsor" [form]="sponsorForm" [sponsor]="sponsor" [regactions]="regactions | async" class="col-12"></gymapp-sponsor-form-->
-    <div class="row">
-      <div class="col-12">
-        <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="clubsLink">Cancel</button>
-        <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="form.invalid">Save</button>
+   <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#standardProfile" role="tab"><i class="fa fa-user"></i>&nbsp;GymCompetition-Account</a>
+      </li>
+      <li class="nav-item" *ngFor="let connection of socialConnections">
+        <a class="nav-link" data-toggle="tab" [href]="'#' + connection.key + 'Profile'" role="tab"><i [class]="connection.iconClass"></i>&nbsp;-Link</a>
+      </li>
+    </ul>
+    
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="standardProfile" role="tabpanel">
+          <gymapp-register-user-form  [form]="userForm"></gymapp-register-user-form>
+      </div>
+      <div class="tab-pane fade" [id]="connection.key + 'Profile'" role="tabpanel"  *ngFor="let connection of socialConnections">
+        <div class="media" *ngIf="profile.user[connection.key] && profile.user[connection.key].token">
+          <img *ngIf="profile.user[connection.key].photourls[0]" class="rounded d-flex mr-3" [src]="profile.user[connection.key].photourls[0]" alt="Card image cap">
+          <div *ngIf="!profile.user[connection.key].photourls[0]"[class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
+          <div class="media-body">
+            <h5 class="mt-0">Your {{[connection.name]}} connected Account</h5>
+            You're currently connected with your {{[connection.name]}}-Account. 
+            This allows you a quick integration, including a Login with your {{[connection.name]}}-Account.<br>
+            If you want to quit this integration, please click the button beside to disconnect from Your {{[connection.name]}}-Account.
+          </div>
+          <div class="media-footer">
+              <button type="button" class="btn btn-sm btn-danger" (click)="onDisconnectFromSocialAccount(connection.key)">Disconnect from {{[connection.name]}}</button>  
+          </div>
+        </div>
+        <div class="media" *ngIf="!profile.user[connection.key] || !profile.user[connection.key].token">
+          <div [class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
+          <div class="media-body">
+            <h5 class="mt-0">You're currently not connected with a {{[connection.name]}}-Account.</h5>
+            You're currently not connected with a {{[connection.name]}}-Account. 
+            This would you allow a quick integration, including a Login with your {{[connection.name]}}-Account.<br>
+            If you want to activate this integration, please click the butten beside to connect to Your {{[connection.name]}}-Account.
+          </div>
+          <div class="media-footer">
+              <button type="button" [class]="'btn btn-sm ' + connection.buttonClass" (click)="onConnectToSocialAccount(connection.key)">Connect with {{[connection.name]}}</button>
+          </div>
+        </div>
       </div>
     </div>
   </form>
+  <div class="row">
+    <div class="col-12">
+      <div class="btn-group pull-right"role="group" >
+          <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="userForm.invalid">Save</button>
+        <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="home">Cancel</button>
+        <button type="button" class="btn btn-danger btn-sm pull-right" (click)="onDelete()">Unregister me</button>
+      </div>
+    </div>
+  </div>
 </div>

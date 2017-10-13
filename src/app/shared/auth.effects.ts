@@ -18,7 +18,6 @@ import * as authActions from './auth.actions';
 import { Router } from '@angular/router';
 import { of } from 'rxjs/observable/of';
 import { defer } from 'rxjs/observable/defer';
-import { DisconnectToFacebookAction, ProfileSuccessAction } from './auth.actions';
 
 const TOKEN_KEY = 'GCToken';
 const AUTHPROVIDER_KEY = 'AUTHPROVIDER';
@@ -117,12 +116,6 @@ export class AuthEffects {
                 console.log('login success');
                 if (action.payload.rememberMe) {
                     this.localStorage.storeObject(TOKEN_KEY, credentialsAccepted);
-                    // this.localStorage.storeObject(TOKEN_KEY, {
-                    //     username: credentialsAccepted.username,
-                    //     token: credentialsAccepted.token,
-                    //     isMemberOfClub: credentialsAccepted.isMemberOfClub,
-                    //     isMemberOfSponsor: credentialsAccepted.isMemberOfSponsor,
-                    // });
                 }
                 return new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl);
             })
@@ -187,18 +180,17 @@ export class AuthEffects {
 
     @Effect({ dispatch: false })
     connectToFacebook = this.actions$
-        .ofType(authActions.CONNECT_TO_FACEBOOK)
-        .do(() => this.authService.connectWithFacebook());
-        // .do((credentialsAccepted: User) => {
-        //     console.log('connect to facebook login success');
-        //     this.localStorage.storeObject(AUTHPROVIDER_KEY, 'fb');
-        //     return new authActions.LoginSuccessAction( credentialsAccepted, undefined);
-        // });
+        .ofType(authActions.CONNECT_TO_SOCIALPROVIDER)
+        .do((action: authActions.ConnectToSocialProviderAction) =>
+            this.authService.connectWithSocialProvider(action.payload));
 
     @Effect({dispatch: false})
-    disconnectToFacebook = this.actions$
-        .ofType(authActions.DISCONNECT_TO_FACEBOOK)
-        .do((action: DisconnectToFacebookAction) => this.localStorage.storeObject(AUTHPROVIDER_KEY, {}));
+    disconnectFromSocialProvider = this.actions$
+        .ofType(authActions.DISCONNECT_FROM_SOCIALPROVIDER)
+        .do((action: authActions.DisconnectFromSocialProviderAction) =>
+            this.localStorage.storeObject(AUTHPROVIDER_KEY, {}))
+        .do((action: authActions.DisconnectFromSocialProviderAction) =>
+            this.authService.disconnectFromSocialProvider(action.payload.user.id, action.payload.provider));
 
     constructor(
         private actions$: Actions,

@@ -16,8 +16,8 @@ export const REGISTER_CLUB =           '[REGISTER_CLUB] club register';
   // export const REGISTER_CLUB_SUCCESS =   '[REGISTER_CLUB_SUCCESS] club register Success';
 export const REGISTER_SPONSOR =        '[REGISTER_SPONSOR] sponsor register';
   // export const REGISTER_SPONSOR_SUCCESS ='[REGISTER_SPONSOR_SUCCESS] sponsor register Success';
-export const CONNECT_TO_FACEBOOK =     '[CONNECT_TO_FACEBOOK] connect';
-export const DISCONNECT_TO_FACEBOOK =  '[DISCONNECT_TO_FACEBOOK] disconnect';
+export const CONNECT_TO_SOCIALPROVIDER =     '[CONNECT_TO_FACEBOOK] connect';
+export const DISCONNECT_FROM_SOCIALPROVIDER =  '[DISCONNECT_TO_FACEBOOK] disconnect';
 
 export class LoadCredentialsAction implements Action {
   type = LOAD_CREDENTIALS;
@@ -93,16 +93,19 @@ export class LogoutSuccessAction implements Action {
   payload: any = undefined;
 }
 
-export class ConnectToFacebookAction implements Action {
-  type = CONNECT_TO_FACEBOOK;
-  payload: any = undefined;
+export class ConnectToSocialProviderAction implements Action {
+  type = CONNECT_TO_SOCIALPROVIDER;
+  payload: string;
+  constructor(provider: string) {
+    this.payload = provider;
+  }
 }
 
-export class DisconnectToFacebookAction implements Action {
-  type = DISCONNECT_TO_FACEBOOK;
+export class DisconnectFromSocialProviderAction implements Action {
+  type = DISCONNECT_FROM_SOCIALPROVIDER;
   payload: any;
-  constructor(user: User) {
-    this.payload = {user: user};
+  constructor(user: User, provider: string) {
+    this.payload = {user: user, provider: provider};
   }
 }
 
@@ -116,7 +119,7 @@ export type Actions =
   | LoginSuccessAction
   | LogoutAction
   | LogoutSuccessAction
-  | ConnectToFacebookAction
-  | DisconnectToFacebookAction
+  | ConnectToSocialProviderAction
+  | DisconnectFromSocialProviderAction
   | ProfileAction
   | ProfileSuccessAction;

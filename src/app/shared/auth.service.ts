@@ -29,9 +29,9 @@ export class AuthService {
 
   login(loginData): Observable<any> {
     if (!(loginData.password) && (loginData.token) && this.crud.authenticated(loginData.token)) {
-      return Observable.of(Object.assign({}, loginData, {success: true}));
+      // return Observable.of(Object.assign({}, loginData, {success: true}));
+      return this.remote.post('/api/auth/login/renew', loginData);
     }
-
     return this.remote.post('/api/auth/login', loginData);
   }
 
@@ -41,10 +41,6 @@ export class AuthService {
 
   register(registerData) {
     return this.remote.post('/api/auth/register', registerData);
-  }
-
-  loginCallback() {
-    // return this.remote.post('/api/users/profile/callback',{});
   }
 
   profile() {
@@ -57,11 +53,11 @@ export class AuthService {
     // return this.remote.get('/api/auth/facebook');
   }
 
-  connectWithFacebook() {
+  connectWithSocialProvider(provider: string) {
     // const handle = this.createWindow(document.location.href + '/api/connect/facebook', 'Facebook connect');
-    const url = document.location.origin + '/api/connect/facebook';
+    const url = document.location.origin + '/api/connect/' + provider;
     window.location.href = url;
-    
+
     // let loopCount = 600;
     // const fbPromise = new Subject();
     // function closeWindow() {
@@ -90,8 +86,8 @@ export class AuthService {
     // return this.crud.get('/api/connect/facebook');
   }
 
-  disconnectWithFacebook(userid) {
-    return this.crud.put('/api/disconnect/facebook/', {id: userid});
+  disconnectFromSocialProvider(userid: string, provider: string) {
+    return this.crud.put('/api/disconnect/' + provider + '/', {id: userid});
   }
 
 }

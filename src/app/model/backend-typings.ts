@@ -7,6 +7,9 @@ export interface User {
     password?: string;
     isMemberOfSponsor?: string;
     isMemberOfClub?: string;
+    facebook?: boolean;
+    twitter?: boolean;
+    google?: boolean;
 }
 
 export interface Club {
