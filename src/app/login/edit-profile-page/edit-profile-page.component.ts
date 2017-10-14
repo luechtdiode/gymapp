@@ -10,6 +10,7 @@ import { SponsorFormModel } from '../../sponsor/sponsor-form/sponsor-form.model'
 import { ClubFormModel } from '../../club/club-form/club-form.model';
 import { Profile } from '../../shared/auth.reducer';
 import { ProfileAction } from '../../shared/auth.actions';
+import { RouterPath } from '../../router-path';
 
 @Component({
   selector: 'gymapp-edit-profile-page',
@@ -17,7 +18,7 @@ import { ProfileAction } from '../../shared/auth.actions';
   styleUrls: ['./edit-profile-page.component.scss'],
 })
 export class EditProfilePageComponent implements OnInit {
-
+  home = RouterPath.HOME;
   userForm: FormGroup;
   profile = <Profile>{};
   socialConnections = [
