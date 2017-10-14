@@ -13,6 +13,8 @@ import { AppState, activeRoute } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
 import { ElevateAction } from './auth.actions';
 
+declare var sessionStorage: any;
+
 const JWT_TOKEN_NAME = 'x-access-token';
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(
@@ -47,7 +49,8 @@ export class CrudService implements OnDestroy {
     private http?: Http,
     private authHttp?: AuthHttp,
     private store?: Store<AppState>,
-    private route?: ActivatedRoute) {
+    private route?: ActivatedRoute,
+    private urlProvider?: UrlProvider) {
 
     this.subscriptions.push(store.select(fromRoot.getGWToken).subscribe((token) => {
       sessionStorage.setItem(JWT_TOKEN_NAME, token);
@@ -72,21 +75,21 @@ export class CrudService implements OnDestroy {
   }
 
   public get<T>(url: string): Observable<T> {
-    return this.wrapCallAndMap<T>(this.getRemote().get(UrlProvider.getBackendUrl(url)));
+    return this.wrapCallAndMap<T>(this.getRemote().get(this.urlProvider.getBackendUrl(url)));
   }
 
   public post<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.getRemote().post(UrlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCallAndMap<T>(this.getRemote().post(this.urlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public put<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.getRemote().put(UrlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCallAndMap<T>(this.getRemote().put(this.urlProvider.getBackendUrl(url), json, HEADER));
   }
 
   public doDelete(url: string): Observable<Response> {
-    return this.wrapCall<Response>(this.getRemote().delete(UrlProvider.getBackendUrl(url)));
+    return this.wrapCall<Response>(this.getRemote().delete(this.urlProvider.getBackendUrl(url)));
   }
 
   private wrapCallAndMap<T>(observable: Observable<Response>): Observable<T> {

@@ -1,23 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
+import { Injectable, Inject } from '@angular/core';
+import { Location, APP_BASE_HREF } from '@angular/common';
 
 declare var window: any;
 
 @Injectable()
 export class UrlProvider {
-  originHRef: string = window.location.origin;
+  originHRef: string;
 
-  public static getBackendUrl(path: string): string {
-    // let host: string = window.location.hostname;
-    // if (host === 'localhost') {
-    //   return 'http://localhost:4200' + path;
-    // } else if (host === '127.0.0.1') {
-    //   return 'http://127.0.0.1:4200' + path;
-    // }
-    return window.location.origin + path;
+  public getBackendUrl(path: string): string {
+    return this.originHRef + path;
   }
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,
+              @Inject(APP_BASE_HREF) private baseHref: string) {
+    this.originHRef = window.location.origin + baseHref;
+  }
 
   activeLocation() {
     return this.location.path();

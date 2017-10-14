@@ -68,7 +68,11 @@ import { EditCompetitionPageComponent } from './competition/edit-competition-pag
 import { environment } from '../environments/environment';
 import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile-page.component'; // Angular CLI environment
 import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
+import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
 
+export function getBaseHref(platformLocation: PlatformLocation): string {
+  return platformLocation.getBaseHrefFromDOM();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,6 +131,11 @@ import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
       , SponsorEffects]),
   ],
   providers: [
+    {
+      provide: APP_BASE_HREF,
+      useFactory: getBaseHref,
+      deps: [PlatformLocation],
+    },
     UrlProvider,
     CachedCrudService,
     CrudService,
