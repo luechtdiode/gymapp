@@ -65,8 +65,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logIn() {
     this.store.dispatch(new ElevateAction(this.backUrl + ''));
   }
-  logInFacebook() {
-    this.authservice.loginViaFacebookAccount();
+  logInSocialAccount(provider: string) {
+    this.authservice.loginViaSocialAccount(provider);
   }
 
   logOut() {

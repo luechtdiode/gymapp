@@ -47,8 +47,8 @@ export class AuthService {
     return this.remote.get('/api/users/profile');
   }
 
-  loginViaFacebookAccount() {
-    const url = document.location.origin + '/api/auth/facebook';
+  loginViaSocialAccount(provider: string) {
+    const url = document.location.origin + '/api/auth/' + provider;
     window.location.href = url;
     // return this.remote.get('/api/auth/facebook');
   }
