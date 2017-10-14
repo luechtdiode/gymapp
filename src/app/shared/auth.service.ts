@@ -4,6 +4,7 @@ import { CrudService } from './crud.service';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { User } from '../model/backend-typings';
+import { UrlProvider } from './urlProvider';
 
 declare var window: any;
 declare var document: any;
@@ -13,6 +14,12 @@ export class AuthService {
 
   private remote: CrudService;
 
+  constructor(private crud: CrudService,
+    private router: Router,
+    private urlProvider?: UrlProvider) {
+    this.remote = crud.unsave();
+  }
+
   createWindow(url: string, name: string = 'Window', width: number = 500, height: number = 600, left: number = 0, top: number = 0) {
     if (url == null) {
         return null;
@@ -21,11 +28,6 @@ export class AuthService {
     const options = `width=${width},height=${height},left=${left},top=${top}`;
 
     return window.open(url, name, options);
-  }
-
-  constructor(private crud: CrudService,
-              private router: Router) {
-    this.remote = crud.unsave();
   }
 
   login(loginData): Observable<any> {
@@ -53,14 +55,14 @@ export class AuthService {
   }
 
   loginViaSocialAccount(provider: string) {
-    const url = document.location.origin + '/api/auth/' + provider;
+    const url = this.urlProvider.getBackendUrl('/api/auth/' + provider);
     window.location.href = url;
     // return this.remote.get('/api/auth/facebook');
   }
 
   connectWithSocialProvider(provider: string) {
     // const handle = this.createWindow(document.location.href + '/api/connect/facebook', 'Facebook connect');
-    const url = document.location.origin + '/api/connect/' + provider;
+    const url = this.urlProvider.getBackendUrl('/api/connect/' + provider);
     window.location.href = url;
 
     // let loopCount = 600;
