@@ -7,6 +7,7 @@ import { AppState } from '../app-state.reducer';
 import { User } from '../model/backend-typings';
 import { ProfileAction, LoginAction } from '../shared/auth.actions';
 import { RouterPath } from '../router-path';
+import { goRelative } from '../app.routing';
 
 @Injectable()
 export class IsLoggedInGuard implements CanActivate {
@@ -16,7 +17,7 @@ export class IsLoggedInGuard implements CanActivate {
   canActivate (
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.loggedInValue  &&  next.paramMap.get('token') !== undefined) {
+    if (!this.loggedInValue && next.paramMap.get('token')) {
       const action = new LoginAction(true, <User>{token: next.paramMap.get('token')}, RouterPath.PROFILE);
       this.store.dispatch(action);
     }

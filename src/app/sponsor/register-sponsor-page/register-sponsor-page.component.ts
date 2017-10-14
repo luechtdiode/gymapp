@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
+import { createWithModel } from '../../login/register-user-form/register-user-form.model';
 import { AppState, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { RegisterSponsorAction } from '../../shared/auth.actions';
@@ -23,7 +23,7 @@ export class RegisterSponsorPageComponent implements OnInit {
 
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
-    this.userForm = this.fb.group(RegisterUserFormModel);
+    this.userForm = createWithModel(fb);
     this.sponsorForm = this.fb.group(SponsorFormModel);
     this.form = this.fb.group({
       user: this.userForm,

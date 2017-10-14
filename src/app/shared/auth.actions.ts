@@ -1,6 +1,7 @@
 import { type } from '../shared/util';
 import { Action } from '@ngrx/store';
 import { User, Club, Sponsor } from '../model/backend-typings';
+import { Profile } from './auth.reducer';
 
 
 export const LOAD_CREDENTIALS =        '[LOAD_CREDENTIALS] load user creds';
@@ -11,6 +12,7 @@ export const LOGIN_SUCCESS =           '[LOGIN_SUCCESS] user login Success';
 export const LOGOUT =                  '[LOGOUT] user logout';
 export const LOGOUT_SUCCESS =          '[LOGOUT_SUCCESS] user logout Success';
 export const PROFILE =                 '[PROFILE] loadProfile';
+export const SAVE_PROFILE =            '[SAVE_PROFILE] saveProfile';
 export const PROFILE_SUCCESS =         '[PROFILE] loadProfile Success';
 export const REGISTER_CLUB =           '[REGISTER_CLUB] club register';
   // export const REGISTER_CLUB_SUCCESS =   '[REGISTER_CLUB_SUCCESS] club register Success';
@@ -63,11 +65,18 @@ export class ProfileAction implements Action {
   type = PROFILE;
   payload: any;
 }
+export class SaveProfileAction implements Action {
+  type = SAVE_PROFILE;
+  payload: User;
+  constructor(user: User) {
+    this.payload = user;
+  }
+}
 export class ProfileSuccessAction implements Action {
   type = PROFILE_SUCCESS;
-  payload: any;
-  constructor(token: string, user: User, sponsor: Sponsor, club: Club) {
-    this.payload = {token: token, user: user, sponsor: sponsor, club: club };
+  payload: Profile;
+  constructor(profile: Profile) {
+    this.payload = profile;
   }
 }
 export class LoginAction implements Action {
@@ -122,4 +131,5 @@ export type Actions =
   | ConnectToSocialProviderAction
   | DisconnectFromSocialProviderAction
   | ProfileAction
+  | SaveProfileAction
   | ProfileSuccessAction;

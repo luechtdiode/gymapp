@@ -70,9 +70,11 @@ import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile
 import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
 import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
 
+// see https://stackoverflow.com/questions/39287444/angular2-how-to-get-app-base-href-programatically
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
 }
+
 @NgModule({
   declarations: [
     AppComponent,

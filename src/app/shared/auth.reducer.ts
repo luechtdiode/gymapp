@@ -4,9 +4,9 @@ import { Competition, User, Sponsor, Club } from '../model/backend-typings';
 import * as auth from './auth.actions';
 
 export interface Profile {
+    token: string;
     user: User;
-    sponsor: Sponsor;
-    club: Club;
+    socialAccounts: any;
 }
 export interface AuthState {
     backUrl: string;

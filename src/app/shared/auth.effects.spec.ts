@@ -104,7 +104,7 @@ describe('The Auth Effect', () => {
   });
 
   describe('registerClub', () => {
-    it('should trigger go login-action after successful registration service call', () => {
+    it('should trigger go loginsuccess-action after successful registration service call', () => {
       const user = <User>{
         username: 'tester',
       };
@@ -117,8 +117,10 @@ describe('The Auth Effect', () => {
       const expected = cold('--b', { b: new LoginAction(undefined, user, 'auth/clubprofile') });
       expect(authEffects.registerClub).toBeObservable(expected);
       */
+      const authReplay = Observable.of(user);
+      spyOn(authService, 'register').and.returnValue(authReplay);
       const triggeraction = new RegisterClubAction(user, club);
-      const expectedaction = new LoginAction(undefined, user, 'auth/clubprofile');
+      const expectedaction = new LoginSuccessAction(user, 'auth/clubprofile');
       actions = new ReplaySubject(1);
       (actions as ReplaySubject<any>).next(triggeraction);
       authEffects.registerClub.subscribe(action => {
@@ -134,7 +136,9 @@ describe('The Auth Effect', () => {
         name: 'testclub',
         kind: [],
       };
-      spyOn(authService, 'register').and.throwError('testexception');
+      const authReplay = new ReplaySubject(1);
+      authReplay.error(new Error('testexception'));
+      spyOn(authService, 'register').and.returnValue(authReplay);
       spyOn(router, 'navigate');
       /*
       actions = hot('--a-', {a: new RegisterClubAction(user, club)});
@@ -155,7 +159,7 @@ describe('The Auth Effect', () => {
   });
 
   describe('registerSponsor', () => {
-    it('should trigger go login-action after successful registration service call', () => {
+    it('should trigger go loginsuccess-action after successful registration service call', () => {
       const user = <User>{
         username: 'tester',
       };
@@ -163,7 +167,7 @@ describe('The Auth Effect', () => {
         name: 'testsponsor',
         kind: [],
       };
-      const expectedResult = new LoginAction(undefined, user, 'auth/sponsorprofile');
+      const expectedResult = new LoginSuccessAction(user, 'auth/sponsorprofile');
       spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
       /*
       actions = hot('--a-', {a: new RegisterSponsorAction(user, sponsor)});
@@ -189,7 +193,9 @@ describe('The Auth Effect', () => {
       };
 
       spyOn(router, 'navigate');
-      spyOn(authService, 'register').and.throwError('testexception');
+      const authReplay = new ReplaySubject(1);
+      authReplay.error(new Error('testexception'));
+      spyOn(authService, 'register').and.returnValue(authReplay);
       /*
       actions = hot('--a-', {a: new RegisterSponsorAction(user, sponsor)});
       const expected = cold('--b', { b: new RemoveCredentialsAction() });

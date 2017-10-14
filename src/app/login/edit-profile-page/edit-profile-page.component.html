@@ -16,9 +16,9 @@
           <gymapp-register-user-form  [form]="userForm"></gymapp-register-user-form>
       </div>
       <div class="tab-pane fade" [id]="connection.key + 'Profile'" role="tabpanel"  *ngFor="let connection of socialConnections">
-        <div class="media" *ngIf="profile.user[connection.key] && profile.user[connection.key].token">
-          <img *ngIf="profile.user[connection.key].photourls[0]" class="rounded d-flex mr-3" [src]="profile.user[connection.key].photourls[0]" alt="Card image cap">
-          <div *ngIf="!profile.user[connection.key].photourls[0]"[class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
+        <div class="media" *ngIf="user[connection.key] && profile && profile.socialAccounts[connection.key]">
+          <img *ngIf="profile.socialAccounts[connection.key].photourls[0]" class="rounded d-flex mr-3" [src]="profile.socialAccounts[connection.key].photourls[0]" alt="Card image cap">
+          <div *ngIf="!profile.socialAccounts[connection.key].photourls[0]"[class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
           <div class="media-body">
             <h5 class="mt-0">Your {{[connection.name]}} connected Account</h5>
             You're currently connected with your {{[connection.name]}}-Account. 
@@ -29,7 +29,7 @@
               <button type="button" class="btn btn-sm btn-danger" (click)="onDisconnectFromSocialAccount(connection.key)">Disconnect from {{[connection.name]}}</button>  
           </div>
         </div>
-        <div class="media" *ngIf="!profile.user[connection.key] || !profile.user[connection.key].token">
+        <div class="media" *ngIf="!user[connection.key]">
           <div [class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
           <div class="media-body">
             <h5 class="mt-0">You're currently not connected with a {{[connection.name]}}-Account.</h5>
@@ -43,14 +43,14 @@
         </div>
       </div>
     </div>
-  </form>
-  <div class="row">
-    <div class="col-12">
-      <div class="btn-group pull-right"role="group" >
-          <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="userForm.invalid">Save</button>
-        <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="'home'">Cancel</button>
-        <button type="button" class="btn btn-danger btn-sm pull-right" (click)="onDelete()">Unregister me</button>
+    <div class="row">
+      <div class="col-12">
+        <div class="btn-group pull-right"role="group" >
+            <button type="submit" class="btn btn-info btn-sm pull-right" [disabled]="userForm.invalid">Save</button>
+          <button type="button" class="btn btn-default btn-sm pull-right" [routerLink]="home">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm pull-right" (click)="onDelete()">Unregister me</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>  
 </div>

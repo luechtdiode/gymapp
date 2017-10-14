@@ -11,9 +11,13 @@ export class RegisterUserFormComponent implements OnInit {
   @Input()
   form: FormGroup;
 
+  @Input()
+  initial = true;
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

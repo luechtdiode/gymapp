@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { SponsorAction, Sponsor } from '../../model/backend-typings';
+import { SponsorAction, Sponsor, User } from '../../model/backend-typings';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../shared/auth.actions';
 import { AppState, getSponsorActions, getProfile, getUser } from '../../app-state.reducer';
-import { RegisterUserFormModel } from '../register-user-form/register-user-form.model';
+import { createWithModel } from '../register-user-form/register-user-form.model';
 import { SponsorFormModel } from '../../sponsor/sponsor-form/sponsor-form.model';
 import { ClubFormModel } from '../../club/club-form/club-form.model';
 import { Profile } from '../../shared/auth.reducer';
@@ -18,9 +18,12 @@ import { RouterPath } from '../../router-path';
   styleUrls: ['./edit-profile-page.component.scss'],
 })
 export class EditProfilePageComponent implements OnInit {
-  home = RouterPath.HOME;
+  home = '/' + RouterPath.HOME;
   userForm: FormGroup;
-  profile = <Profile>{};
+  user: User = {};
+  profile = <Profile>{
+    user: this.user,
+  };
   socialConnections = [
     {key: 'facebook', name: 'Facebook', iconClass: 'fa fa-facebook', buttonClass: 'btn-facebook'},
     {key: 'twitter', name: 'Twitter', iconClass: 'fa fa-twitter', buttonClass: 'btn-twitter'},
@@ -31,11 +34,12 @@ export class EditProfilePageComponent implements OnInit {
 
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
-    this.userForm = this.fb.group(RegisterUserFormModel);
+    this.userForm = createWithModel(fb, false);
     this.store.dispatch(new ProfileAction());
   }
 
   ngOnInit() {
+    this.store.select(getUser).subscribe(user => this.user = user);
 
     this.store.select(getProfile).subscribe(profile => {
       this.profile = profile;
@@ -48,7 +52,7 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   doSave(value) {
-    // this.store.dispatch(new SaveProfileAction(value.user));
+    this.store.dispatch(new fromAuth.SaveProfileAction(value));
   }
 
   onConnectToSocialAccount(provider: string) {

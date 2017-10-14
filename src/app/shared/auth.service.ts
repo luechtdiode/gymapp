@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { CrudService } from './crud.service';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
+import { User } from '../model/backend-typings';
 
 declare var window: any;
 declare var document: any;
@@ -30,7 +31,7 @@ export class AuthService {
   login(loginData): Observable<any> {
     if (!(loginData.password) && (loginData.token) && this.crud.authenticated(loginData.token)) {
       // return Observable.of(Object.assign({}, loginData, {success: true}));
-      return this.remote.post('/api/auth/login/renew', loginData);
+      return this.remote.post('/api/auth/renew', loginData);
     }
     return this.remote.post('/api/auth/login', loginData);
   }
@@ -45,6 +46,10 @@ export class AuthService {
 
   profile() {
     return this.remote.get('/api/users/profile');
+  }
+
+  saveProfile(user: User) {
+    return this.crud.put('/api/users/profile', user);
   }
 
   loginViaSocialAccount(provider: string) {
@@ -86,7 +91,7 @@ export class AuthService {
     // return this.crud.get('/api/connect/facebook');
   }
 
-  disconnectFromSocialProvider(userid: string, provider: string) {
+  disconnectFromSocialProvider(userid: string, provider: string): Observable<any> {
     return this.crud.put('/api/disconnect/' + provider + '/', {id: userid});
   }
 

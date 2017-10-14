@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { ClubFormModel } from '../club-form/club-form.model';
-import { RegisterUserFormModel } from '../../login/register-user-form/register-user-form.model';
+import { createWithModel } from '../../login/register-user-form/register-user-form.model';
 import { RegisterClubAction } from '../../shared/auth.actions';
 import { RouterPath } from '../../router-path';
 
@@ -22,7 +22,7 @@ export class RegisterClubPageComponent implements OnInit {
 
   constructor(protected store: Store<AppState>,
               private fb: FormBuilder) {
-    this.user = this.fb.group(RegisterUserFormModel);
+    this.user = createWithModel(fb);
     this.clubdetails = this.fb.group(ClubFormModel);
     this.form = this.fb.group({
       user: this.user,

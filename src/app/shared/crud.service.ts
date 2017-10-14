@@ -89,7 +89,7 @@ export class CrudService implements OnDestroy {
   }
 
   public doDelete(url: string): Observable<Response> {
-    return this.wrapCall<Response>(this.getRemote().delete(this.urlProvider.getBackendUrl(url)));
+    return this.wrapCall<Response>(this.getRemote().delete(this.urlProvider.getBackendUrl(url), HEADER));
   }
 
   private wrapCallAndMap<T>(observable: Observable<Response>): Observable<T> {
@@ -104,6 +104,7 @@ export class CrudService implements OnDestroy {
         if (!this.interceptError(error)) {
           subject.error(error);
         }
+        subject.complete();
       },
       () => subject.complete(),
     );
