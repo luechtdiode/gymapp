@@ -5,6 +5,7 @@ import { CrudService } from './crud.service';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
+import { Router } from '@angular/router';
 
 describe('AuthService', () => {
   const crudStub: CrudService = <CrudService>{
@@ -13,9 +14,11 @@ describe('AuthService', () => {
     post: (url: string, loginData) => {},
     get: (url: string) => Observable.of({}),
   };
+  const routerStub: Router = <Router>{
 
+  }
 
-  const service = new AuthService(crudStub);
+  const service = new AuthService(crudStub, routerStub);
 
   it('should register new user...', () => {
     const spy = spyOn(crudStub, 'post');

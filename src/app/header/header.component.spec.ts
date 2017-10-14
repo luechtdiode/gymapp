@@ -7,6 +7,7 @@ import { UrlProvider } from '../shared/urlProvider';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../shared/auth.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -16,7 +17,9 @@ describe('HeaderComponent', () => {
     activeLocation: () => {},
     originHRef: {},
   };
-
+  const authProviderStub = {
+    
+  };
   const storeStub: Store<AppState> = <Store<AppState>> {
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
@@ -33,6 +36,7 @@ describe('HeaderComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: UrlProvider, useValue: urlProviderStub },
+          { provide: AuthService, useValue: authProviderStub },
           { provide: Store, useValue: storeStub },
         ],
     })

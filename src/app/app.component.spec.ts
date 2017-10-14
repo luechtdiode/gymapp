@@ -34,6 +34,8 @@ import { SponsorDetailPageComponent } from './sponsor/sponsor-detail-page/sponso
 import { CompetitionDetailPageComponent } from './competition/competition-detail-page/competition-detail-page.component';
 import { CreateCompetitionPageComponent } from './competition/create-competition-page/create-competition-page.component';
 import { EditCompetitionPageComponent } from './competition/edit-competition-page/edit-competition-page.component';
+import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile-page.component';
+import { AuthService } from './shared/auth.service';
 
 describe('AppComponent', () => {
 
@@ -57,6 +59,9 @@ describe('AppComponent', () => {
       snapshot: {},
     },
     snapshot: {},
+  };
+  const authProviderStub = {
+
   };
 
   beforeEach(() => {
@@ -86,6 +91,7 @@ describe('AppComponent', () => {
         SponsorDetailPageComponent,
         CreateCompetitionPageComponent,
         EditCompetitionPageComponent,
+        EditProfilePageComponent,
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
@@ -96,6 +102,7 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/'},
+        { provide: AuthService, useValue: authProviderStub },
         { provide: UrlProvider, useValue: urlProviderStub },
         { provide: Store, useValue: storeStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
