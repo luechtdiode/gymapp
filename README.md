@@ -1,7 +1,7 @@
 # GymappBootstrap
 
 [![bitHound Overall Score](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap/badges/score.svg)](https://www.bithound.io/github/luechtdiode/gymapp-bootstrap)
-[![Travis](https://travis-ci.org/luechtdiode/gymapp-bootstrap.svg?branch=master)](https://travis-ci.org/luechtdiode/gymapp-bootstrap.svg?branch=master)
+[![Travis](https://travis-ci.org/luechtdiode/gymapp.svg?branch=master)](https://travis-ci.org/luechtdiode/gymapp.svg?branch=master)
 
 [![App-Link (on github-pages, without backend-services)](https://luechtdiode.github.io/gymapp/)](https://luechtdiode.github.io/gymapp/)
 
