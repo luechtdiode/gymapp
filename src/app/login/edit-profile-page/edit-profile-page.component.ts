@@ -25,11 +25,16 @@ export class EditProfilePageComponent implements OnInit {
     user: this.user,
   };
   socialConnections = [
-    {key: 'facebook', name: 'Facebook', iconClass: 'fa fa-facebook', buttonClass: 'btn-facebook'},
-    {key: 'twitter', name: 'Twitter', iconClass: 'fa fa-twitter', buttonClass: 'btn-twitter'},
-    {key: 'google', name: 'Google +', iconClass: 'fa fa-google-plus', buttonClass: 'btn-google-plus'},
-    {key: 'linkedin', name: 'LinkedIn', iconClass: 'fa fa-linkedin', buttonClass: 'btn-linkedin'},
-    {key: 'instagram', name: 'Instagram', iconClass: 'fa fa-instagram', buttonClass: 'btn-instagram'},
+    {key: 'facebook', name: 'Facebook', iconClass: 'fa fa-facebook', buttonClass: 'btn-facebook',
+    appAdminPage: 'https://www.facebook.com/settings?tab=applications'},
+    {key: 'twitter', name: 'Twitter', iconClass: 'fa fa-twitter', buttonClass: 'btn-twitter',
+    appAdminPage: 'https://twitter.com/settings/applications'},
+    {key: 'google', name: 'Google+', iconClass: 'fa fa-google-plus', buttonClass: 'btn-google-plus',
+    appAdminPage: 'https://myaccount.google.com/permissions'},
+    {key: 'linkedin', name: 'LinkedIn', iconClass: 'fa fa-linkedin', buttonClass: 'btn-linkedin',
+    appAdminPage: 'https://www.linkedin.com/psettings/permitted-services'},
+    {key: 'instagram', name: 'Instagram', iconClass: 'fa fa-instagram', buttonClass: 'btn-instagram',
+    appAdminPage: 'https://www.instagram.com/accounts/manage_access/'},
   ];
 
   constructor(protected store: Store<AppState>,

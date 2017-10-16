@@ -17,16 +17,26 @@
       </div>
       <div class="tab-pane fade" [id]="connection.key + 'Profile'" role="tabpanel"  *ngFor="let connection of socialConnections">
         <div class="media" *ngIf="user[connection.key] && profile && profile.socialAccounts[connection.key]">
-          <img *ngIf="profile.socialAccounts[connection.key].photourls[0]" class="rounded d-flex mr-3" [src]="profile.socialAccounts[connection.key].photourls[0]" alt="Card image cap">
+          <a [href]='connection.appAdminPage' target="_blank"><img *ngIf="profile.socialAccounts[connection.key].photourls[0]" class="rounded d-flex mr-3" [src]="profile.socialAccounts[connection.key].photourls[0]" alt="Card image cap"></a>
           <div *ngIf="!profile.socialAccounts[connection.key].photourls[0]"[class]="'d-flex mr-3 btn ' + connection.buttonClass"><i [class]="connection.iconClass"></i></div>
           <div class="media-body">
-            <h5 class="mt-0">Your {{[connection.name]}} connected Account</h5>
-            You're currently connected with your {{[connection.name]}}-Account. 
-            This allows you a quick integration, including a Login with your {{[connection.name]}}-Account.<br>
-            If you want to quit this integration, please click the button beside to disconnect from Your {{[connection.name]}}-Account.
-          </div>
-          <div class="media-footer">
-              <button type="button" class="btn btn-sm btn-danger" (click)="onDisconnectFromSocialAccount(connection.key)">Disconnect from {{[connection.name]}}</button>  
+            <div class="row">
+              <div class="col-12">
+                  <h5 class="mt-0">Your {{[connection.name]}} connected Account</h5>                  
+              </div>
+              <div class="col-12 col-md-8">
+                  You're currently connected with your <a [href]='connection.appAdminPage' target="_blank">{{[connection.name]}}-Account <i class="fa fa-external-link" aria-hidden="true"></i></a>. 
+                  This allows you a quick integration, including a Login with your {{[connection.name]}}-Account.<br>
+                  If you want to quit this integration, please click the button beside to disconnect from Your {{[connection.name]}}-Account.
+      
+              </div>
+              <div class="col-12 col-md-4">
+                  <div class="btn-group-vertical pull-right">
+                      <a class="btn btn-sm btn-success" [href]='connection.appAdminPage' target="_blank">Go to Admin-Page <i class="fa fa-external-link" aria-hidden="true"></i></a>               
+                      <a class="btn btn-sm btn-danger" (click)="onDisconnectFromSocialAccount(connection.key)">Disconnect from {{[connection.name]}}</a> 
+                    </div>          
+              </div>
+            </div>
           </div>
         </div>
         <div class="media" *ngIf="!user[connection.key]">
