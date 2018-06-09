@@ -1,8 +1,8 @@
 {
    "/api/**": {
       "target__": "http://pluto:3000/",
-      "target_": "https://gymapp.shareit.net:443/",
-      "target": "https://localhost:3443",
+      "target": "https://gymapp.sharevic.net:443",
+      "target_": "https://localhost:3443",
       "autoRewrite": true,
       "xfwd": true,
       "secure": false,

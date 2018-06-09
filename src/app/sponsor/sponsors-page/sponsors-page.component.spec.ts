@@ -38,7 +38,7 @@ describe('SponsorsPageComponent', () => {
         { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.forRoot({ reducers }),
+        StoreModule.forRoot(reducers),
       ],
     })
       .compileComponents();

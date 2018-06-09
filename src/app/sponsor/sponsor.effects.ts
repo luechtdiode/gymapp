@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import { Effect, toPayload, Actions } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { SponsorService } from './sponsor.service';
 import * as sponsorActions from './sponsor.actions';
 import { Sponsor } from '../model/backend-typings';
@@ -37,21 +37,21 @@ export class SponsorEffects {
   @Effect()
   loadSponsor = this.actions$
     .ofType(sponsorActions.LOAD_SPONSOR)
-    .map(toPayload)
+    .map((action: sponsorActions.LoadAction) => action.payload)
     .mergeMap(id => this.sponsorService.getSponsor(id))
     .map(sponsor => new sponsorActions.LoadSuccessAction(sponsor));
 
   @Effect()
   loadDetailSponsor = this.actions$
     .ofType(sponsorActions.LOAD_DETAIL_SPONSOR)
-    .map(toPayload)
+    .map((action: sponsorActions.LoadDetailAction) => action.payload)
     .mergeMap(id => this.sponsorService.getSponsor(id))
     .map(sponsor => new sponsorActions.LoadDetailSuccessAction(sponsor));
 
   @Effect()
   saveSponsor = this.actions$
     .ofType(sponsorActions.SAVE_SPONSOR)
-    .map(toPayload)
+    .map((action: sponsorActions.SaveAction) => action.payload)
     .mergeMap(sponsor => this.sponsorService.saveSponsor(sponsor)
       .map(savedSponsor => new sponsorActions.SaveSuccessAction(savedSponsor))
       .catch(() => Observable.of(
@@ -60,13 +60,13 @@ export class SponsorEffects {
   @Effect({ dispatch: false })
   saveSponsorSuccess = this.actions$
     .ofType(sponsorActions.SAVE_SPONSOR_SUCCESS)
-    .map(toPayload)
+    .map((action: sponsorActions.SaveSuccessAction) => action.payload)
     .do(sponsor => this.router.navigate(['/sponsors/', sponsor._id]));
 
   @Effect()
   deleteSponsor = this.actions$
     .ofType(sponsorActions.DELETE_SPONSOR)
-    .map(toPayload)
+    .map((action: sponsorActions.DeleteAction) => action.payload)
     .mergeMap(comp => this.sponsorService.deleteSponsor(comp._id)
       .mapTo(new sponsorActions.DeleteSuccessAction(comp))
       .catch(() => Observable.of(

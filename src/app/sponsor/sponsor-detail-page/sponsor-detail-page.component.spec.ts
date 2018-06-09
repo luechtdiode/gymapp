@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 describe('SponsorDetailPageComponent', () => {
   let component: SponsorDetailPageComponent;
@@ -27,7 +28,7 @@ describe('SponsorDetailPageComponent', () => {
   const storeStub = {
       dispatch: () => ({}),
       select: () => ({
-        subscribe: () => Observable.of({}),
+        subscribe: () => new Subscription(),
       }),
     };
 

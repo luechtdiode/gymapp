@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import { Effect, toPayload, Actions } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { CompetitionService } from './competition.service';
 import * as compActions from './competition.actions';
 import { SaveAction, SaveSuccessAction, DeleteAction } from './competition.actions';

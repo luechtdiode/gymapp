@@ -4,10 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HttpModule, Http, RequestOptions } from '@angular/http';
-import { CachedCrudService } from './shared/cached-crud.service';
-import { CrudService, authHttpServiceFactory } from './shared/crud.service';
-import { AuthHttp } from 'angular2-jwt';
+import { RequestOptions } from '@angular/http';
+import { CrudService } from './shared/crud.service';
 
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routing';
@@ -69,10 +67,17 @@ import { environment } from '../environments/environment';
 import { EditProfilePageComponent } from './login/edit-profile-page/edit-profile-page.component'; // Angular CLI environment
 import { IsLoggedInGuard } from './login/is-logged-in-guard.guard';
 import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
 
 // see https://stackoverflow.com/questions/39287444/angular2-how-to-get-app-base-href-programatically
 export function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
+}
+
+declare var sessionStorage: any;
+export function tokenGetter() {
+  return sessionStorage.getItem('x-access-token');
 }
 
 @NgModule({
@@ -121,7 +126,15 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    HttpModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        headerName: 'x-access-token',
+        whitelistedDomains: ['localhost', '*.sharevic.net'],
+        blacklistedRoutes: [],
+      },
+    }),
     StoreModule.forRoot(reducers),
     RouterModule.forRoot(appRoutes, { useHash: true }),
     StoreRouterConnectingModule,
@@ -139,15 +152,9 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       deps: [PlatformLocation],
     },
     UrlProvider,
-    CachedCrudService,
     CrudService,
     LocalStorageService,
     AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions],
-    },
     CompetitionService,
     CompetitionEffects,
     ClubService,

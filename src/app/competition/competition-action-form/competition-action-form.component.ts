@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 import { SelectionChangedEvent } from '../../shared/util';
 import { Competition, CompSponsorAction } from '../../model/backend-typings';
@@ -11,9 +11,6 @@ import { CompetitionActionModel } from './competition-action-form.model';
   styleUrls: ['./competition-action-form.component.scss'],
 })
 export class CompetitionActionFormComponent implements OnInit, OnChanges {
-
-  // https://juristr.com/blog/2016/04/angular2-change-detection/
-  // private differ: any;
 
   @Input()
   action: CompSponsorAction;
@@ -35,9 +32,7 @@ export class CompetitionActionFormComponent implements OnInit, OnChanges {
     this.toggleSelected.emit({origin: this.action, selected: this.isSelected});
   }
 
-  constructor(private fb: FormBuilder,
-              private differs: KeyValueDiffers) {
-    // this.differ = differs.find({}).create(null);
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group(CompetitionActionModel);
   }
 

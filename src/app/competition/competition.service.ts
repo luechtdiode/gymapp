@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import { Response, Http, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
@@ -10,7 +9,7 @@ import {Competition} from '../model/backend-typings';
 import {CrudService} from '../shared/crud.service';
 import {TestDataGenerator} from '../model/test.data.generator';
 
-const BASE_URL = '/api/competitions/';
+const BASE_URL = 'api/competitions/';
 
 @Injectable()
 export class CompetitionService {
@@ -53,7 +52,7 @@ export class CompetitionService {
       // .flatMap(competition => this.mapService.enrichLocationWithCoordinate(competition));
   }
 
-  deleteCompetition(id: string): Observable<Response> {
+  deleteCompetition(id: string): Observable<any> {
     console.log('deleteCompetition');
     // this.data = [...this.data.filter(c => c._id !== id)];
     // return Observable.of(undefined);

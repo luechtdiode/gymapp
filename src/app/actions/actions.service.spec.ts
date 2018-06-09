@@ -4,8 +4,6 @@ import { ActionsService } from './actions.service';
 import { Action } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 

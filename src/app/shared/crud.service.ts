@@ -1,10 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Response, Headers, RequestOptions, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-import { AuthHttp, AuthConfig, tokenNotExpired } from 'angular2-jwt';
 
 import { UrlProvider } from './urlProvider';
 import { ActivatedRoute } from '@angular/router';
@@ -12,31 +10,14 @@ import { Store } from '@ngrx/store';
 import { AppState, activeRoute } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
 import { ElevateAction } from './auth.actions';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 declare var sessionStorage: any;
 
 const JWT_TOKEN_NAME = 'x-access-token';
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(
-    new AuthConfig(
-      {
-        headerName: 'x-access-token',
-        headerPrefix: '',
-        noTokenScheme: true,
-        tokenName: 'x-access-token',
-        tokenGetter: (() => {
-          console.log('getting jwt-token');
-          return sessionStorage.getItem(JWT_TOKEN_NAME); }),
-        globalHeaders: [ {'Content-Type': 'application/json'} ],
-        noJwtError: false,
-      },
-    ),
-    http,
-    options,
-  );
-}
 
-const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+const HEADER = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
 export class CrudService implements OnDestroy {
@@ -46,8 +27,8 @@ export class CrudService implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private http?: Http,
-    private authHttp?: AuthHttp,
+    private http?: HttpClient,
+    private jwtHelper?: JwtHelperService,
     private store?: Store<AppState>,
     private route?: ActivatedRoute,
     private urlProvider?: UrlProvider) {
@@ -67,7 +48,7 @@ export class CrudService implements OnDestroy {
   public authenticated(token: string) {
     const t = token === undefined ? sessionStorage.getItem(JWT_TOKEN_NAME) : token;
     return t !== undefined
-        && tokenNotExpired(JWT_TOKEN_NAME, t.toString());
+        && this.jwtHelper.isTokenExpired(JWT_TOKEN_NAME, t.toString());
   }
 
   public unsave(): CrudService {
@@ -75,31 +56,30 @@ export class CrudService implements OnDestroy {
   }
 
   public get<T>(url: string): Observable<T> {
-    return this.wrapCallAndMap<T>(this.getRemote().get(this.urlProvider.getBackendUrl(url)));
+    return this.wrapCall<T>(this.getRemote().get<T>(this.urlProvider.getBackendUrl(url)));
   }
 
   public post<T>(url: string, data: T): Observable<T> {
-    const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.getRemote().post(this.urlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCall<T>(this.getRemote().post<T>(this.urlProvider.getBackendUrl(url), data, HEADER));
   }
 
   public put<T>(url: string, data: T): Observable<T> {
     const json = JSON.stringify(data);
-    return this.wrapCallAndMap<T>(this.getRemote().put(this.urlProvider.getBackendUrl(url), json, HEADER));
+    return this.wrapCall<T>(this.getRemote().put<T>(this.urlProvider.getBackendUrl(url), json, HEADER));
   }
 
-  public doDelete(url: string): Observable<Response> {
-    return this.wrapCall<Response>(this.getRemote().delete(this.urlProvider.getBackendUrl(url), HEADER));
+  public doDelete<T>(url: string): Observable<T> {
+    return this.wrapCall<T>(this.getRemote().delete<T>(this.urlProvider.getBackendUrl(url), HEADER));
   }
 
-  private wrapCallAndMap<T>(observable: Observable<Response>): Observable<T> {
-    return this.wrapCall<T>(observable, this.responseToJsonObject);
+  private wrapCallAndMap<T>(observable: Observable<T>): Observable<T> {
+    return this.wrapCall<T>(observable);
   }
 
-  private wrapCall<T>(observable: Observable<Response>, mapper: (n: Response) => any = n => n): Observable<T> {
+  private wrapCall<T>(observable: Observable<T>): Observable<T> {
     const subject = new Subject<T>();
     observable.subscribe(
-      value => subject.next(mapper(value)),
+      value => subject.next(value),
       error => {
         if (!this.interceptError(error)) {
           subject.error(error);
@@ -109,11 +89,6 @@ export class CrudService implements OnDestroy {
       () => subject.complete(),
     );
     return subject.asObservable();
-  }
-
-  private responseToJsonObject(res: Response): any {
-    const body = res.json();
-    return body || {};
   }
 
   private interceptError(error: Error) {
@@ -131,9 +106,9 @@ export class CrudService implements OnDestroy {
     return false;
   }
 
-  private getRemote(): Http | AuthHttp {
+  private getRemote(): HttpClient {
     if (this.useAuth) {
-      return this.authHttp;
+      return this.http;
     } else {
       return this.http;
     }

@@ -9,26 +9,7 @@ import * as fromSponsors from './sponsor/sponsor.reducer';
 import * as fromAuth from './shared/auth.reducer';
 import * as fromActions from './actions/actions.reducer';
 
-
-/**
- * The compose function is one of our most handy tools. In basic terms, you give
- * it any number of functions and it returns a function. This new function
- * takes a value and chains it through every composed function, returning
- * the output.
- *
- * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
- */
-import { compose } from '@ngrx/core';
-
-/**
- * combineReducers is another useful metareducer that takes a map of reducer
- * functions and creates a new reducer that stores the gathers the values
- * of each reducer and stores them using the reducer's key. Think of it
- * almost like a database, where every reducer is a table in the db.
- *
- * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
- */
-import { combineReducers, ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import { SponsorsState } from './sponsor/sponsor.reducer';
 import { isLoadingDetail } from './competition/competition.reducer';
 

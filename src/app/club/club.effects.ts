@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import { Effect, toPayload, Actions } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { ClubService } from './club.service';
 import * as clubActions from './club.actions';
 import { LogoutAction } from '../shared/auth.actions';

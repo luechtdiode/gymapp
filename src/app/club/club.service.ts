@@ -4,7 +4,7 @@ import { Club } from '../model/backend-typings';
 import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
 
-const BASE_URL = '/api/clubs/';
+const BASE_URL = 'api/clubs/';
 
 @Injectable()
 export class ClubService {

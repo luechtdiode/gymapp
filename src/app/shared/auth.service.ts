@@ -33,9 +33,9 @@ export class AuthService {
   login(loginData): Observable<any> {
     if (!(loginData.password) && (loginData.token) && this.crud.authenticated(loginData.token)) {
       // return Observable.of(Object.assign({}, loginData, {success: true}));
-      return this.remote.post('/api/auth/renew', loginData);
+      return this.remote.post('api/auth/renew', loginData);
     }
-    return this.remote.post('/api/auth/login', loginData);
+    return this.remote.post('api/auth/login', loginData);
   }
 
   logout(): Observable<boolean> {
@@ -43,26 +43,26 @@ export class AuthService {
   }
 
   register(registerData) {
-    return this.remote.post('/api/auth/register', registerData);
+    return this.remote.post('api/auth/register', registerData);
   }
 
   profile() {
-    return this.remote.get('/api/users/profile');
+    return this.remote.get('api/users/profile');
   }
 
   saveProfile(user: User) {
-    return this.crud.put('/api/users/profile', user);
+    return this.crud.put('api/users/profile', user);
   }
 
   loginViaSocialAccount(provider: string) {
-    const url = this.urlProvider.getBackendUrl('/api/auth/' + provider);
+    const url = this.urlProvider.getBackendUrl('api/auth/' + provider);
     window.location.href = url;
     // return this.remote.get('/api/auth/facebook');
   }
 
   connectWithSocialProvider(provider: string) {
     // const handle = this.createWindow(document.location.href + '/api/connect/facebook', 'Facebook connect');
-    const url = this.urlProvider.getBackendUrl('/api/connect/' + provider);
+    const url = this.urlProvider.getBackendUrl('api/connect/' + provider);
     window.location.href = url;
 
     // let loopCount = 600;
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   disconnectFromSocialProvider(userid: string, provider: string): Observable<any> {
-    return this.crud.put('/api/disconnect/' + provider + '/', {id: userid});
+    return this.crud.put('api/disconnect/' + provider + '/', {id: userid});
   }
 
 }

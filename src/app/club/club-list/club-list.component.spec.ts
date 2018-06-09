@@ -58,7 +58,7 @@ describe('ClubListComponent', () => {
       ],
       schemas: [ NO_ERRORS_SCHEMA ],
       imports: [
-        StoreModule.forRoot({reducers}),
+        StoreModule.forRoot(reducers),
       ],
     })
     .compileComponents();

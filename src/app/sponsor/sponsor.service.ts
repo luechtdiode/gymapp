@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Sponsor } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
-import { Response } from '@angular/http';
 
-const BASE_URL = '/api/sponsors/';
+const BASE_URL = 'api/sponsors/';
 
 @Injectable()
 export class SponsorService {
@@ -44,7 +43,7 @@ export class SponsorService {
       // .flatMap(sponsor => this.mapService.enrichLocationWithCoordinate(sponsor));
   }
 
-  deleteSponsor(id: string): Observable<Response> {
+  deleteSponsor(id: string): Observable<any> {
     console.log('deleteSponsor');
     // this.data = [...this.data.filter(c => c._id !== id)];
     // return Observable.of(undefined);
