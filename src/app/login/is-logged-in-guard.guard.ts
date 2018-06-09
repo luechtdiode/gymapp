@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import * as fromRoot from '../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import { User } from '../model/backend-typings';

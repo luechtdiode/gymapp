@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractListComponent } from '../../shared/abstract-list.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Competition, Sponsor, SponsorAction, CompSponsorAction, Club } from '../../model/backend-typings';
 import * as fromRoot from '../../app-state.reducer';
 import * as fromCompetitions from '../competition.actions';

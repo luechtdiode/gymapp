@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Competition, CompSponsorAction, Club } from '../../model/backend-typings';
 import { Store } from '@ngrx/store';
 import { AppState, getSponsorActions, isMemberOfClub, getMemberOfClub, getDetailClub } from '../../app-state.reducer';
@@ -43,13 +45,13 @@ export class CreateCompetitionPageComponent implements OnInit {
       this.store.dispatch(new LoadDetailAction(moc));
     });
     this.store.select(getDetailClub).subscribe(club => this.club = club);
-    this.regactions = this.store.select(getSponsorActions)
-    .map(a =>
+    this.regactions = this.store.select(getSponsorActions).pipe(
+    map(a =>
       a.map(aa => <CompSponsorAction>{
         action: aa,
         costperaction: '10.00',
         maxcnt: 100,
-    }));
+    })));
   }
 
   doSave() {

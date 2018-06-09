@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -6,7 +8,7 @@ import { AppState, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { RegisterSponsorAction } from '../../shared/auth.actions';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'gymapp-register-sponsor-page',
@@ -33,14 +35,14 @@ export class RegisterSponsorPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.regactions = this.store.select(getSponsorActions)
-    .map(a =>
+    this.regactions = this.store.select(getSponsorActions).pipe(
+    map(a =>
       a.map(aa => <SponsorAction>{
         action: aa,
         bidperaction: '10.00',
         maxcnt: 100,
         kinds: [],
-    }));
+    })));
   }
 
   doSave(value) {

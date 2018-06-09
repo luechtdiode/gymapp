@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Sponsor } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
 

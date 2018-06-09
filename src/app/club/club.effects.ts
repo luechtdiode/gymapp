@@ -1,13 +1,8 @@
+
+import {of as observableOf, Observable} from 'rxjs';
+import {map, catchError, tap, mapTo, mergeMap} from 'rxjs/operators';
 import {Injectable, OnDestroy} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
 import { Effect, Actions } from '@ngrx/effects';
 import { ClubService } from './club.service';
 import * as clubActions from './club.actions';
@@ -19,60 +14,60 @@ export class ClubEffects {
 
   @Effect()
   loadFeaturedClub = this.actions$
-    .ofType(clubActions.LOAD_FEATURED_CLUB)
-    .mergeMap(() => this.clubService.getFeaturedClub())
-    .map(clubs => new clubActions.LoadFeaturedSuccessAction(clubs))
-    .catch((err) => {
+    .ofType(clubActions.LOAD_FEATURED_CLUB).pipe(
+    mergeMap(() => this.clubService.getFeaturedClub()),
+    map(clubs => new clubActions.LoadFeaturedSuccessAction(clubs)),
+    catchError((err) => {
       console.log(err);
-      return Observable.of(new clubActions.LoadFeaturedFailedAction());
-    });
+      return observableOf(new clubActions.LoadFeaturedFailedAction());
+    }),);
   @Effect()
   loadClubs = this.actions$
-    .ofType(clubActions.LOAD_CLUBS)
-    .mergeMap(() => this.clubService.getClubs())
-    .map(clubs => new clubActions.LoadAllSuccessAction(clubs));
+    .ofType(clubActions.LOAD_CLUBS).pipe(
+    mergeMap(() => this.clubService.getClubs()),
+    map(clubs => new clubActions.LoadAllSuccessAction(clubs)),);
 
   @Effect()
   loadClub = this.actions$
-    .ofType(clubActions.LOAD_CLUB)
-    .map((action: clubActions.LoadAction) => action.payload)
-    .mergeMap(id => this.clubService.getClub(id))
-    .map(club => new clubActions.LoadSuccessAction(club));
+    .ofType(clubActions.LOAD_CLUB).pipe(
+    map((action: clubActions.LoadAction) => action.payload),
+    mergeMap(id => this.clubService.getClub(id)),
+    map(club => new clubActions.LoadSuccessAction(club)),);
 
   @Effect()
   loadDetailClub = this.actions$
-    .ofType(clubActions.LOAD_DETAIL_CLUB)
-    .map((action: clubActions.LoadDetailAction) => action.payload)
-    .mergeMap(id => this.clubService.getClub(id))
-    .map(club => new clubActions.LoadDetailSuccessAction(club));
+    .ofType(clubActions.LOAD_DETAIL_CLUB).pipe(
+    map((action: clubActions.LoadDetailAction) => action.payload),
+    mergeMap(id => this.clubService.getClub(id)),
+    map(club => new clubActions.LoadDetailSuccessAction(club)),);
 
   @Effect()
   saveClub = this.actions$
-    .ofType(clubActions.SAVE_CLUB)
-    .map((action: clubActions.SaveAction) => action.payload)
-    .mergeMap(club => this.clubService.saveClub(club)
-      .map(savedClub => new clubActions.SaveSuccessAction(savedClub))
-      .catch(() => Observable.of(
-        new clubActions.SaveFailedAction(club))));
+    .ofType(clubActions.SAVE_CLUB).pipe(
+    map((action: clubActions.SaveAction) => action.payload),
+    mergeMap(club => this.clubService.saveClub(club).pipe(
+      map(savedClub => new clubActions.SaveSuccessAction(savedClub)),
+      catchError(() => observableOf(
+        new clubActions.SaveFailedAction(club))),)),);
 
   @Effect({ dispatch: false })
   saveClubSuccess = this.actions$
-    .ofType(clubActions.SAVE_CLUB_SUCCESS)
-    .do((action: clubActions.SaveSuccessAction) => this.router.navigate(['/clubs/', action.payload._id]));
+    .ofType(clubActions.SAVE_CLUB_SUCCESS).pipe(
+    tap((action: clubActions.SaveSuccessAction) => this.router.navigate(['/clubs/', action.payload._id])));
 
   @Effect()
   deleteClub = this.actions$
-    .ofType(clubActions.DELETE_CLUB)
-    .map((action: clubActions.DeleteAction) => action.payload)
-    .mergeMap(comp => this.clubService.deleteClub(comp._id)
-      .mapTo(new clubActions.DeleteSuccessAction(comp))
-      .catch(() => Observable.of(
-        new clubActions.DeleteFailedAction(comp))));
+    .ofType(clubActions.DELETE_CLUB).pipe(
+    map((action: clubActions.DeleteAction) => action.payload),
+    mergeMap(comp => this.clubService.deleteClub(comp._id).pipe(
+      mapTo(new clubActions.DeleteSuccessAction(comp)),
+      catchError(() => observableOf(
+        new clubActions.DeleteFailedAction(comp))),)),);
 
   @Effect()
   deleteClubSuccess = this.actions$
-    .ofType(clubActions.DELETE_CLUB_SUCCESS)
-    .mapTo(new LogoutAction());
+    .ofType(clubActions.DELETE_CLUB_SUCCESS).pipe(
+    mapTo(new LogoutAction()));
 
   constructor(private actions$: Actions,
               private clubService: ClubService,

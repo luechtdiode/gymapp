@@ -1,13 +1,14 @@
+
+import {map, filter} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription ,  Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import * as fromSponsors from '../sponsor.actions';
 import { isMemberOfSponsor, getMemberOfSponsor, getSponsorActions } from '../../app-state.reducer';
 import { SponsorFormModel } from '../sponsor-form/sponsor-form.model';
 import { SponsorAction, Sponsor } from '../../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
 import { SaveAction } from '../sponsor.actions';
 
 @Component({
@@ -30,23 +31,23 @@ export class EditSponsorPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.regactions = this.store.select(getSponsorActions)
-    .map(a =>
+    this.regactions = this.store.select(getSponsorActions).pipe(
+    map(a =>
       a.map(aa => <SponsorAction>{
         action: aa,
         bidperaction: '10.00',
         maxcnt: 100,
         kinds: [],
-    }));
+    })));
 
-    this.sponsor = this.store.select(getMemberOfSponsor)
-                .filter(sponsor => sponsor !== undefined)
-                .map(sponsor => Object.assign({sponsoractions: []}, sponsor))
+    this.sponsor = this.store.select(getMemberOfSponsor).pipe(
+                filter(sponsor => sponsor !== undefined),
+                map(sponsor => Object.assign({sponsoractions: []}, sponsor)),)
                 ;
 
     this.subscriptions.push(
-      this.store.select(isMemberOfSponsor)
-        .filter(id => id && id.length > 0)
+      this.store.select(isMemberOfSponsor).pipe(
+        filter(id => id && id.length > 0))
         .subscribe(sponsorid => {
           this.store.dispatch(new fromSponsors.LoadAction(sponsorid));
           this.subscriptions.push(this.sponsor.subscribe(sponsor => {

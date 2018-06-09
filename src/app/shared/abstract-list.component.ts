@@ -1,8 +1,10 @@
+
+import {combineLatest as observableCombineLatest,  Subscription ,  Subject } from 'rxjs';
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/combineLatest';
+
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
@@ -57,7 +59,7 @@ export class AbstractListComponent<T> implements OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe);
     let filteredItemsObserver = this.unfilteredItemsObserver;
     this.extraFilter.forEach(filterFn => {
-       filteredItemsObserver = filteredItemsObserver.map(list => list.filter(filterFn));
+       filteredItemsObserver = filteredItemsObserver.pipe(map(list => list.filter(filterFn)));
     });
     this.subscriptions.push(filteredItemsObserver.subscribe((items) => {
       this.allKindsMap = {};
@@ -88,7 +90,7 @@ export class AbstractListComponent<T> implements OnDestroy {
       });
     }));
 
-    this.subscriptions.push(Observable.combineLatest(
+    this.subscriptions.push(observableCombineLatest(
       filteredItemsObserver,
       this.selectedTabSubject, (items, predicate) => {
         return items.filter(item => this.filter(item, predicate));

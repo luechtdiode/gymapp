@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/concatAll';
-import 'rxjs/add/operator/toArray';
+import {Observable} from 'rxjs';
+
+
+
+
 
 import {Competition} from '../model/backend-typings';
 import {CrudService} from '../shared/crud.service';

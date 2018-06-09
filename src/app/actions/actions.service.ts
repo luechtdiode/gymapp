@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CrudService } from '../shared/crud.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Action } from '../model/backend-typings';
 
 const BASE_URL = 'api/actions/';

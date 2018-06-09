@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState, getFeaturedClub, isLoadingFeaturedClub } from '../app-state.reducer';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Competition, Club, Sponsor } from '../model/backend-typings';
 import * as fromRoot from '../app-state.reducer';
 import * as fromCompetition from '../competition/competition.actions';

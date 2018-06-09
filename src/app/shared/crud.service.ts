@@ -1,8 +1,8 @@
+
+import {filter} from 'rxjs/operators';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map';
+import { Observable ,  Subscription ,  Subject } from 'rxjs';
+
 
 import { UrlProvider } from './urlProvider';
 import { ActivatedRoute } from '@angular/router';
@@ -36,7 +36,7 @@ export class CrudService implements OnDestroy {
     this.subscriptions.push(store.select(fromRoot.getGWToken).subscribe((token) => {
       sessionStorage.setItem(JWT_TOKEN_NAME, token);
     } ));
-    this.subscriptions.push(store.select(activeRoute).filter(rt => !!rt).subscribe((rt) => {
+    this.subscriptions.push(store.select(activeRoute).pipe(filter(rt => !!rt)).subscribe((rt) => {
       this.currentUrl = rt.state.url;
     } ));
   }

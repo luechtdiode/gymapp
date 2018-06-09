@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterStateSnapshot, RouterState, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, getDetailClub, isMemberOfClub } from '../../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Club } from '../../model/backend-typings';
 import { LoadDetailAction } from '../club.actions';
 import { RouterPath } from '../../router-path';

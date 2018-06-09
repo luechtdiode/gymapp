@@ -1,7 +1,9 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import * as fromRoot from '../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 
@@ -12,7 +14,7 @@ export class IsClubUserGuardGuard implements CanActivate {
   canActivate (
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.clubid.map((id: string) => !!id);
+    return this.clubid.pipe(map((id: string) => !!id));
   }
 
   constructor(private store: Store<AppState>) {

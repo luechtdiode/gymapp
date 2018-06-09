@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterStateSnapshot, Router, RouterState, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, getCompetition } from '../../app-state.reducer';
 import { LoadAction } from '../competition.actions';

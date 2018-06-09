@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, getSponsors } from '../../app-state.reducer';
 import { AbstractListComponent } from '../../shared/abstract-list.component';

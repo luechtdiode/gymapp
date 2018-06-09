@@ -1,13 +1,7 @@
+import {of as observableOf, Observable} from 'rxjs';
+import {map, tap, mapTo, mergeMap, catchError} from 'rxjs/operators';
 import {Injectable, OnDestroy} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
 import { Effect, Actions } from '@ngrx/effects';
 import { SponsorService } from './sponsor.service';
 import * as sponsorActions from './sponsor.actions';
@@ -21,61 +15,61 @@ export class SponsorEffects {
 
   @Effect()
   loadFeaturedSponsor = this.actions$
-    .ofType(sponsorActions.LOAD_FEATURED_SPONSOR)
-    .mergeMap(() => this.sponsorService.getFeaturedSponsor())
-    .map(sponsors => new sponsorActions.LoadFeaturedSuccessAction(sponsors))
-    .catch((err) => {
+    .ofType(sponsorActions.LOAD_FEATURED_SPONSOR).pipe(
+    mergeMap(() => this.sponsorService.getFeaturedSponsor()),
+    map(sponsors => new sponsorActions.LoadFeaturedSuccessAction(sponsors)),
+    catchError((err) => {
       console.log(err);
-      return Observable.of(new sponsorActions.LoadFeaturedFailedAction());
-    });
+      return observableOf(new sponsorActions.LoadFeaturedFailedAction());
+    }),);
   @Effect()
   loadSponsors = this.actions$
-    .ofType(sponsorActions.LOAD_SPONSORS)
-    .mergeMap(() => this.sponsorService.getSponsors())
-    .map(sponsors => new sponsorActions.LoadAllSuccessAction(sponsors));
+    .ofType(sponsorActions.LOAD_SPONSORS).pipe(
+    mergeMap(() => this.sponsorService.getSponsors()),
+    map(sponsors => new sponsorActions.LoadAllSuccessAction(sponsors)),);
 
   @Effect()
   loadSponsor = this.actions$
-    .ofType(sponsorActions.LOAD_SPONSOR)
-    .map((action: sponsorActions.LoadAction) => action.payload)
-    .mergeMap(id => this.sponsorService.getSponsor(id))
-    .map(sponsor => new sponsorActions.LoadSuccessAction(sponsor));
+    .ofType(sponsorActions.LOAD_SPONSOR).pipe(
+    map((action: sponsorActions.LoadAction) => action.payload),
+    mergeMap(id => this.sponsorService.getSponsor(id)),
+    map(sponsor => new sponsorActions.LoadSuccessAction(sponsor)),);
 
   @Effect()
   loadDetailSponsor = this.actions$
-    .ofType(sponsorActions.LOAD_DETAIL_SPONSOR)
-    .map((action: sponsorActions.LoadDetailAction) => action.payload)
-    .mergeMap(id => this.sponsorService.getSponsor(id))
-    .map(sponsor => new sponsorActions.LoadDetailSuccessAction(sponsor));
+    .ofType(sponsorActions.LOAD_DETAIL_SPONSOR).pipe(
+    map((action: sponsorActions.LoadDetailAction) => action.payload),
+    mergeMap(id => this.sponsorService.getSponsor(id)),
+    map(sponsor => new sponsorActions.LoadDetailSuccessAction(sponsor)),);
 
   @Effect()
   saveSponsor = this.actions$
-    .ofType(sponsorActions.SAVE_SPONSOR)
-    .map((action: sponsorActions.SaveAction) => action.payload)
-    .mergeMap(sponsor => this.sponsorService.saveSponsor(sponsor)
-      .map(savedSponsor => new sponsorActions.SaveSuccessAction(savedSponsor))
-      .catch(() => Observable.of(
-        new sponsorActions.SaveFailedAction(sponsor))));
+    .ofType(sponsorActions.SAVE_SPONSOR).pipe(
+    map((action: sponsorActions.SaveAction) => action.payload),
+    mergeMap(sponsor => this.sponsorService.saveSponsor(sponsor).pipe(
+      map(savedSponsor => new sponsorActions.SaveSuccessAction(savedSponsor)),
+      catchError(() => observableOf(
+        new sponsorActions.SaveFailedAction(sponsor))),)),);
 
   @Effect({ dispatch: false })
   saveSponsorSuccess = this.actions$
-    .ofType(sponsorActions.SAVE_SPONSOR_SUCCESS)
-    .map((action: sponsorActions.SaveSuccessAction) => action.payload)
-    .do(sponsor => this.router.navigate(['/sponsors/', sponsor._id]));
+    .ofType(sponsorActions.SAVE_SPONSOR_SUCCESS).pipe(
+    map((action: sponsorActions.SaveSuccessAction) => action.payload),
+    tap(sponsor => this.router.navigate(['/sponsors/', sponsor._id])),);
 
   @Effect()
   deleteSponsor = this.actions$
-    .ofType(sponsorActions.DELETE_SPONSOR)
-    .map((action: sponsorActions.DeleteAction) => action.payload)
-    .mergeMap(comp => this.sponsorService.deleteSponsor(comp._id)
-      .mapTo(new sponsorActions.DeleteSuccessAction(comp))
-      .catch(() => Observable.of(
-        new sponsorActions.DeleteFailedAction(comp))));
+    .ofType(sponsorActions.DELETE_SPONSOR).pipe(
+    map((action: sponsorActions.DeleteAction) => action.payload),
+    mergeMap(comp => this.sponsorService.deleteSponsor(comp._id).pipe(
+      mapTo(new sponsorActions.DeleteSuccessAction(comp)),
+      catchError(() => observableOf(
+        new sponsorActions.DeleteFailedAction(comp))),)),);
 
   @Effect()
   deleteSponsorSuccess = this.actions$
-    .ofType(sponsorActions.DELETE_SPONSOR_SUCCESS)
-    .mapTo(new LogoutAction());
+    .ofType(sponsorActions.DELETE_SPONSOR_SUCCESS).pipe(
+    mapTo(new LogoutAction()));
 
   constructor(private actions$: Actions,
               private sponsorService: SponsorService,

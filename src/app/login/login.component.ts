@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { LoginAction } from '../shared/auth.actions';
 import { User } from '../model/backend-typings';
 import { AppState } from '../app-state.reducer';

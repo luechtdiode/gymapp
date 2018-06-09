@@ -1,7 +1,9 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import * as fromRoot from '../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import { LoadAllAction } from './competition.actions';
@@ -13,12 +15,12 @@ export class CompetitionsLoadedGuard implements CanActivate {
   canActivate (
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.loaded.map(ready => {
+    return this.loaded.pipe(map(ready => {
       if (!ready) {
         this.store.dispatch(new LoadAllAction());
       }
       return true;
-    });
+    }));
   }
 
   constructor(private store: Store<AppState>) {

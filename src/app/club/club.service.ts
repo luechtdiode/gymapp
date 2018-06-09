@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CrudService } from '../shared/crud.service';
 import { Club } from '../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
 
 const BASE_URL = 'api/clubs/';

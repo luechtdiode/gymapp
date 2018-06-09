@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SponsorAction, Sponsor, User } from '../../model/backend-typings';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../shared/auth.actions';

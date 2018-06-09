@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
@@ -5,9 +6,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ClubFormModel } from '../club-form/club-form.model';
 import * as fromClubs from '../club.actions';
 import { isMemberOfClub, getMemberOfClub } from '../../app-state.reducer';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Club } from '../../model/backend-typings';
 import { RouterPath } from '../../router-path';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'gymapp-edit-club-page',
@@ -29,13 +31,13 @@ export class EditClubPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      this.store.select(isMemberOfClub)
-        .filter(id => id && id.length > 0)
+      this.store.select(isMemberOfClub).pipe(
+        filter(id => id && id.length > 0))
         .subscribe(clubid => {
           this.store.dispatch(new fromClubs.LoadAction(clubid));
           this.subscriptions.push(
-            this.store.select(getMemberOfClub)
-              .filter(club => club !== undefined)
+            this.store.select(getMemberOfClub).pipe(
+              filter(club => club !== undefined))
               .subscribe(club => {
                 const toEdit = Object.assign({}, club, {kind: club.kind ? club.kind.join(',') : []});
                 this.clubOrigin = toEdit;

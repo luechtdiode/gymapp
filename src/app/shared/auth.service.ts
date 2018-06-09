@@ -1,7 +1,7 @@
+
+import {of as observableOf,  Observable ,  Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { CrudService } from './crud.service';
-import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { User } from '../model/backend-typings';
 import { UrlProvider } from './urlProvider';
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    return Observable.of(true);
+    return observableOf(true);
   }
 
   register(registerData) {

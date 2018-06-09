@@ -1,10 +1,13 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {map} from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppState, getSponsorActions, getCompetition } from '../../app-state.reducer';
 import { CompetitionFormModel } from '../competition-form/competition-form.model';
 import { CompSponsorAction, Competition } from '../../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
 import { CompetitionFormComponent } from '../competition-form/competition-form.component';
 import { Router, RouterState, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { RouterPath } from '../../router-path';
@@ -19,7 +22,7 @@ export class EditCompetitionPageComponent implements OnInit {
   form: FormGroup;
   regactions: Observable<CompSponsorAction[]>;
   competitionsLink = '/' + RouterPath.COMPETITIONS;
-  competition = Observable.of(<Competition>{
+  competition = observableOf(<Competition>{
     sponsoractions: [],
     dates: [],
   });
@@ -41,13 +44,13 @@ export class EditCompetitionPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.regactions = this.store.select(getSponsorActions)
-    .map(a =>
+    this.regactions = this.store.select(getSponsorActions).pipe(
+    map(a =>
       a.map(aa => <CompSponsorAction>{
         action: aa,
         costperaction: '10.00',
         maxcnt: 100,
-    }));
+    })));
 
     // this.competition.filter(c => c !== undefined).subscribe(competition => {
     //   this.form.patchValue(competition);

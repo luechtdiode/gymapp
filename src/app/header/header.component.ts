@@ -1,10 +1,11 @@
+
+import {filter} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import * as fromRoot from '../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { LogoutAction, ElevateAction } from '../shared/auth.actions';
-import { Subscription } from 'rxjs/Subscription';
 import { RouterPath } from '../router-path';
 import { UrlProvider } from '../shared/urlProvider';
 import { AuthService } from '../shared/auth.service';
@@ -46,7 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.store.select(fromRoot.activeRoute).filter(rt => !!rt).subscribe((rt) => {
+    this.subscriptions.push(this.store.select(fromRoot.activeRoute).pipe(filter(rt => !!rt)).subscribe((rt) => {
       this.backUrl = rt.state.url !== '/' + RouterPath.LOGIN ? rt.state.url : this.backUrl;
     } ));
     this.clubid = this.store.select(fromRoot.isMemberOfClub);

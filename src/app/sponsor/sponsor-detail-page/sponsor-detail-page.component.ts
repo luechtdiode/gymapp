@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isMemberOfSponsor, AppState, getDetailSponsor } from '../../app-state.reducer';
 import { RouterState, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { LoadDetailAction } from '../sponsor.actions';
 import { Sponsor } from '../../model/backend-typings';
 

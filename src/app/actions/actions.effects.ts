@@ -1,11 +1,11 @@
+
+import {map, mergeMap, startWith} from 'rxjs/operators';
 import * as actionActions from './actions.actions';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { ActionsService } from './actions.service';
-import { defer } from 'rxjs/observable/defer';
-import { Observable } from 'rxjs/Observable';
+import { defer ,  Observable ,  of } from 'rxjs';
 import { Action } from '@ngrx/store';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class ActionsEffects {
@@ -16,10 +16,10 @@ export class ActionsEffects {
 
   @Effect()
   loadActions = this.actions$
-    .ofType(actionActions.LOAD_SPONSORACTIONS)
-    .startWith(new actionActions.LoadAllAction())
-    .mergeMap(() => this.actionsService.loadActions())
-    .map(a => new actionActions.LoadAllSuccessAction(a));
+    .ofType(actionActions.LOAD_SPONSORACTIONS).pipe(
+    startWith(new actionActions.LoadAllAction()),
+    mergeMap(() => this.actionsService.loadActions()),
+    map(a => new actionActions.LoadAllSuccessAction(a)),);
 
   constructor(private actions$: Actions,
               private actionsService: ActionsService) {}

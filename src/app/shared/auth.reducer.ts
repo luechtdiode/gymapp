@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { Competition, User, Sponsor, Club } from '../model/backend-typings';
 import * as auth from './auth.actions';

@@ -1,14 +1,8 @@
+import {switchMap, catchError, startWith, tap, filter, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of as observableOf,  defer } from 'rxjs';
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/mergeMapTo';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
 import { User } from '../model/backend-typings';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
@@ -16,8 +10,6 @@ import { isMemberOfClub, isMemberOfSponsor, Profile } from './auth.reducer';
 import { RouterPath } from '../router-path';
 import * as authActions from './auth.actions';
 import { Router } from '@angular/router';
-import { of } from 'rxjs/observable/of';
-import { defer } from 'rxjs/observable/defer';
 
 const TOKEN_KEY = 'GCToken';
 const AUTHPROVIDER_KEY = 'AUTHPROVIDER';
@@ -45,13 +37,13 @@ export class AuthEffects {
 
     @Effect({ dispatch: false })
     elevate = this.actions$
-        .ofType(authActions.ELEVATE)
-        .do((action) => this.router.navigate([RouterPath.LOGIN]));
+        .ofType(authActions.ELEVATE).pipe(
+        tap((action) => this.router.navigate([RouterPath.LOGIN])));
 
     @Effect()
     registerClub = this.actions$
-        .ofType(authActions.REGISTER_CLUB)
-        .switchMap((action: authActions.RegisterClubAction) => this.authService.register(Object.assign(
+        .ofType(authActions.REGISTER_CLUB).pipe(
+        switchMap((action: authActions.RegisterClubAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
                   email: '',
@@ -66,21 +58,21 @@ export class AuthEffects {
                   name : '',
                   label : '',
                   kind : '',
-                }, action.payload.user, action.payload.club))
-            .map((response) => {
+                }, action.payload.user, action.payload.club)).pipe(
+            map((response) => {
                 console.log('register success: ', response);
                 return new authActions.LoginSuccessAction(response, RouterPath.CLUBPROFILE);
-            })
+            }),
         // TODO integrate toastr component
-            .catch(() => {
+            catchError(() => {
                 this.router.navigate([RouterPath.HOME]);
-                return Observable.of(new authActions.RemoveCredentialsAction());
-        }));
+                return observableOf(new authActions.RemoveCredentialsAction());
+        }),)));
 
     @Effect()
     registerSponsor = this.actions$
-        .ofType(authActions.REGISTER_SPONSOR)
-        .switchMap((action: authActions.RegisterSponsorAction) => this.authService.register(Object.assign(
+        .ofType(authActions.REGISTER_SPONSOR).pipe(
+        switchMap((action: authActions.RegisterSponsorAction) => this.authService.register(Object.assign(
             {     username : '',
                   password : '',
                   email: '',
@@ -97,115 +89,115 @@ export class AuthEffects {
                   budget : action.payload.sponsor.budget,
                   regactions : action.payload.sponsor.sponsoractions ? action.payload.sponsor.sponsoractions.map(ra =>
                     Object.assign({}, ra, {selected: true, kinds: ra.kinds ? ra.kinds.join(',') : []})) : [],
-                }, action.payload.user))
-            .map((response) => {
+                }, action.payload.user)).pipe(
+            map((response) => {
                 // console.log('register success: ' + response);
-                return Observable.of(new authActions.LoginSuccessAction(response, RouterPath.SPONSORPROFILE));
-            })
+                return observableOf(new authActions.LoginSuccessAction(response, RouterPath.SPONSORPROFILE));
+            }),
         // TODO integrate toastr component
-            .catch((e) => {
+            catchError((e) => {
                 this.router.navigate([RouterPath.HOME]);
-                return Observable.of(new authActions.RemoveCredentialsAction());
-            }));
+                return observableOf(new authActions.RemoveCredentialsAction());
+            }),)));
 
     @Effect()
     login = this.actions$
-        .ofType(authActions.LOGIN)
-        .switchMap((action: authActions.LoginAction) => this.authService.login(action.payload.user)
-            .map((credentialsAccepted: User) => {
+        .ofType(authActions.LOGIN).pipe(
+        switchMap((action: authActions.LoginAction) => this.authService.login(action.payload.user).pipe(
+            map((credentialsAccepted: User) => {
                 console.log('login success');
                 if (action.payload.rememberMe) {
                     this.localStorage.storeObject(TOKEN_KEY, credentialsAccepted);
                 }
                 return new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl);
-            })
-            .catch(() => {
-                this.router.navigate([RouterPath.HOME]);
-                return Observable.of(new authActions.RemoveCredentialsAction());
             }),
+            catchError(() => {
+                this.router.navigate([RouterPath.HOME]);
+                return observableOf(new authActions.RemoveCredentialsAction());
+            }),),
         // TODO integrate toastr component
-        );
+        ));
 
     @Effect({ dispatch: false })
     removeCredentials = this.actions$
-        .ofType(authActions.REMOVE_CREDENTIALS)
-        .do(() => this.localStorage.storeObject(TOKEN_KEY, {}));
+        .ofType(authActions.REMOVE_CREDENTIALS).pipe(
+        tap(() => this.localStorage.storeObject(TOKEN_KEY, {})));
 
     @Effect()
     loadCredentials = this.actions$
-        .ofType(authActions.LOAD_CREDENTIALS)
-        .startWith(new authActions.LoadCredentialsAction())
-        .switchMap((action) => {
+        .ofType(authActions.LOAD_CREDENTIALS).pipe(
+        startWith(new authActions.LoadCredentialsAction()),
+        switchMap((action) => {
             const credentials = this.localStorage.getObject(TOKEN_KEY, {}) as User;
             if (credentials && credentials.username) {
-                return Observable.of(new authActions.LoginAction(true, credentials));
+                return observableOf(new authActions.LoginAction(true, credentials));
             } else {
-                return Observable.of(new authActions.RemoveCredentialsAction());
+                return observableOf(new authActions.RemoveCredentialsAction());
             };
-        });
+        }),);
 
     @Effect({ dispatch: false })
     loginSuccess = this.actions$
-        .ofType(authActions.LOGIN_SUCCESS)
-        .filter((action: authActions.LoginSuccessAction) => action.payload.backUrl)
-        .do((action: authActions.LoginSuccessAction) => this.router.navigate([action.payload.backUrl]));
+        .ofType(authActions.LOGIN_SUCCESS).pipe(
+        filter((action: authActions.LoginSuccessAction) => action.payload.backUrl),
+        tap((action: authActions.LoginSuccessAction) => this.router.navigate([action.payload.backUrl])),);
 
     @Effect()
     logoutSuccess = this.actions$
-        .ofType(authActions.LOGOUT_SUCCESS)
-        .map(() => {
+        .ofType(authActions.LOGOUT_SUCCESS).pipe(
+        map(() => {
             this.router.navigate([RouterPath.HOME]);
             return new authActions.RemoveCredentialsAction();
-        });
+        }));
 
     @Effect()
     logout = this.actions$
-        .ofType(authActions.LOGOUT)
-        .switchMap(() => this.authService.logout()
-            .map(logoutCompleted => new authActions.LogoutSuccessAction()))
-        .catch(() => Observable.of(new authActions.LogoutSuccessAction()));
+        .ofType(authActions.LOGOUT).pipe(
+        switchMap(() => this.authService.logout().pipe(
+            map(logoutCompleted => new authActions.LogoutSuccessAction()))),
+        catchError(() => observableOf(new authActions.LogoutSuccessAction())),);
 
     @Effect()
     profile = this.actions$
-    .ofType(authActions.PROFILE)
-    .filter((action) => (action as authActions.ProfileAction).payload === undefined)
-    .switchMap((action: authActions.ProfileAction) => this.authService.profile()
-        .map((profiledata: any) =>
-            new authActions.ProfileSuccessAction(profiledata))
-        .catch((e) => {
+    .ofType(authActions.PROFILE).pipe(
+    filter((action) => (action as authActions.ProfileAction).payload === undefined),
+    switchMap((action: authActions.ProfileAction) => this.authService.profile().pipe(
+        map((profiledata: any) =>
+            new authActions.ProfileSuccessAction(profiledata)),
+        catchError((e) => {
         // this.router.navigate([RouterPath.HOME]);
-        return Observable.of({type: ''});
-    }));
+        return observableOf({type: ''});
+    }),)),);
 
     @Effect()
     saveProfile = this.actions$
-    .ofType(authActions.SAVE_PROFILE)
-    .switchMap((action: authActions.SaveProfileAction) => this.authService.saveProfile(action.payload)
-        .map((profiledata: Profile) => new authActions.ProfileSuccessAction(profiledata))
-        .catch((e) =>
+    .ofType(authActions.SAVE_PROFILE).pipe(
+    switchMap((action: authActions.SaveProfileAction) => this.authService.saveProfile(action.payload).pipe(
+        map((profiledata: Profile) => new authActions.ProfileSuccessAction(profiledata)),
+        catchError((e) =>
             // this.router.navigate([RouterPath.HOME]);
-            Observable.of(new  authActions.ProfileAction())));
+            observableOf(new  authActions.ProfileAction())),)));
 
     @Effect({ dispatch: false })
     connectToFacebook = this.actions$
-        .ofType(authActions.CONNECT_TO_SOCIALPROVIDER)
-        .do((action: authActions.ConnectToSocialProviderAction) =>
-            this.authService.connectWithSocialProvider(action.payload));
+        .ofType(authActions.CONNECT_TO_SOCIALPROVIDER).pipe(
+        tap((action: authActions.ConnectToSocialProviderAction) =>
+            this.authService.connectWithSocialProvider(action.payload)));
 
     @Effect()
     disconnectFromSocialProvider = this.actions$
-        .ofType(authActions.DISCONNECT_FROM_SOCIALPROVIDER)
-        .do((action: authActions.DisconnectFromSocialProviderAction) =>
-            this.localStorage.storeObject(AUTHPROVIDER_KEY, {}))
-        .switchMap((action: authActions.DisconnectFromSocialProviderAction) =>
-            this.authService.disconnectFromSocialProvider(action.payload.user.id, action.payload.provider)
-            .map((credentialsAccepted: User) => new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl))
-            .catch(() => {
+        .ofType(authActions.DISCONNECT_FROM_SOCIALPROVIDER).pipe(
+        tap((action: authActions.DisconnectFromSocialProviderAction) =>
+            this.localStorage.storeObject(AUTHPROVIDER_KEY, {})),
+        switchMap((action: authActions.DisconnectFromSocialProviderAction) =>
+            this.authService.disconnectFromSocialProvider(action.payload.user.id, action.payload.provider).pipe(
+            map((credentialsAccepted: User) => new authActions.LoginSuccessAction( credentialsAccepted, action.payload.backUrl)),
+            catchError(() => {
                 // this.router.navigate([RouterPath.HOME]);
-                return Observable.of({type: ''});
-            }),
+                return observableOf({type: ''});
+            }),),
         // TODO integrate toastr component
-        );
+        ),);
 
     constructor(
         private actions$: Actions,
