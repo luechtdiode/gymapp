@@ -6,7 +6,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { EditClubPageComponent } from './edit-club-page.component';
 import { FormBuilder } from '@angular/forms';
 import { Store, Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { Club } from '../../model/backend-typings';
 import { AppState } from '../../app-state.reducer';
 
@@ -26,7 +26,7 @@ describe('EditClubPageComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
-      return Observable.of(clubListStub);
+      return of(clubListStub);
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);

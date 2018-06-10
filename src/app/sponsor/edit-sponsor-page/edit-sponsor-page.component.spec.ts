@@ -5,7 +5,7 @@ import { SponsorFormComponent } from '../sponsor-form/sponsor-form.component';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { Sponsor } from '../../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
@@ -25,7 +25,7 @@ describe('EditSponsorPageComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
-      return Observable.of(sponsorListStub);
+      return of(sponsorListStub);
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CompetitionDetailPageComponent } from './competition-detail-page.component';
 import { CompetitionListComponent } from '../competition-list/competition-list.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 describe('CompetitionDetailPageComponent', () => {
   let comp: CompetitionDetailPageComponent;
@@ -27,7 +27,7 @@ describe('CompetitionDetailPageComponent', () => {
     const storeStub = {
       dispatch: () => ({}),
       select: () => ({
-        subscribe: () => Observable.of({}),
+        subscribe: () =>of({}),
       }),
     };
 

@@ -23,7 +23,7 @@ export class ClubService {
 
   getFeaturedClub(): Observable<Club> {
     console.log('getFeaturedClub');
-    // return Observable.of(this.data[0]);
+    // returnof(this.data[0]);
     return this.crud.unsave().get<Club>(BASE_URL + 'month/');
   }
 
@@ -39,7 +39,7 @@ export class ClubService {
 
   getClub(id: string): Observable<Club> {
     console.log('getClub');
-    // return Observable.of(this.data[+id]);
+    // returnof(this.data[+id]);
     return this.crud.get<Club>(`${BASE_URL}${id}`);
       // .flatMap(club => this.mapService.enrichLocationWithCoordinate(club));
   }
@@ -47,7 +47,7 @@ export class ClubService {
   deleteClub(id: string): Observable<Response> {
     console.log('deleteClub');
     // this.data = [...this.data.filter(c => c._id !== id)];
-    // return Observable.of(undefined);
+    // returnof(undefined);
     return this.crud.doDelete(`${BASE_URL}${id}`);
   }
 }

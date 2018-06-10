@@ -21,7 +21,7 @@ export class CompetitionService {
   saveCompetition(competition: Competition): Observable<Competition> {
     console.log('saveCompetition');
     // this.data = [...this.data.filter(c => c._id !== competition._id), competition];
-    // return Observable.of(competition);
+    // returnof(competition);
     if (competition._id) {
       return this.crud.put<Competition>(`${BASE_URL}${competition._id}`, competition);
     } else {
@@ -31,7 +31,7 @@ export class CompetitionService {
 
   getFeaturedCompetition(): Observable<Competition> {
     console.log('getFeaturedCompetition');
-    // return Observable.of(this.data[0]);
+    // returnof(this.data[0]);
     return this.crud.unsave().get<Competition>(BASE_URL + 'next/');
   }
 
@@ -47,7 +47,7 @@ export class CompetitionService {
 
   getCompetition(id: string): Observable<Competition> {
     console.log('getCompetition');
-    // return Observable.of(this.data[+id]);
+    // returnof(this.data[+id]);
     return this.crud.unsave().get<Competition>(`${BASE_URL}${id}`);
       // .flatMap(competition => this.mapService.enrichLocationWithCoordinate(competition));
   }
@@ -55,7 +55,7 @@ export class CompetitionService {
   deleteCompetition(id: string): Observable<any> {
     console.log('deleteCompetition');
     // this.data = [...this.data.filter(c => c._id !== id)];
-    // return Observable.of(undefined);
+    // returnof(undefined);
     return this.crud.doDelete(`${BASE_URL}${id}`);
   }
 }

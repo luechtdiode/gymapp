@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { ClubDetailPageComponent } from './club-detail-page.component';
 import { ClubListComponent } from '../club-list/club-list.component';
 import { ClubMediaComponent } from '../club-media/club-media.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 describe('ClubDetailPageComponent', () => {
   let comp: ClubDetailPageComponent;
@@ -28,7 +28,7 @@ describe('ClubDetailPageComponent', () => {
     const storeStub = {
       dispatch: () => ({}),
       select: () => ({
-        subscribe: () => Observable.of({}),
+        subscribe: () =>of({}),
       }),
     };
     TestBed.configureTestingModule({

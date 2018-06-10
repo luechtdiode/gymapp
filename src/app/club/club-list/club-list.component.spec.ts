@@ -5,12 +5,13 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { reducers } from '../../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+
 
 import { ClubListComponent } from './club-list.component';
 import { ClubMediaComponent } from '../club-media/club-media.component';
 import { Club } from '../../model/backend-typings';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 describe('ClubListComponent', () => {
   let component: ClubListComponent;
@@ -28,7 +29,7 @@ describe('ClubListComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
         select: (selector: any, ...paths: string[]) => {
           console.log('selecting ', selector);
-          return Observable.of(clubListStub);
+          return of(clubListStub);
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);

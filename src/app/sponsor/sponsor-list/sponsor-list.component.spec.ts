@@ -8,7 +8,7 @@ import { SponsorMediaComponent } from '../sponsor-media/sponsor-media.component'
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { AppState, reducers } from '../../app-state.reducer';
 import { Sponsor, Competition, CompSponsorAction, Action as RawAction, SponsorAction } from '../../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 const action1 = <RawAction>{
     _id: 'testaction1',
@@ -71,7 +71,7 @@ describe('SponsorListComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
         select: (selector: any, ...paths: string[]) => {
           console.log('selecting ', selector);
-          return Observable.of(sponsorListStub);
+          return of(sponsorListStub);
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);
@@ -86,7 +86,7 @@ describe('SponsorListComponent', () => {
         {provide: Store, useValue: storeStub},
       ],
       imports: [
-        StoreModule.forRoot({reducers}),
+        StoreModule.forRoot(reducers),
       ],
     })
     .compileComponents();

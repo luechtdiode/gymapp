@@ -3,13 +3,13 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { IsClubUserGuardGuard } from './is-club-user-guard.guard';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 describe('IsClubUserGuard', () => {
   const storeStub = <Store<AppState>> {
-    select: (selector) => Observable.of(undefined),
+    select: (selector) =>of(undefined),
   };
 
   beforeEach(() => {
@@ -30,18 +30,18 @@ describe('IsClubUserGuard', () => {
     const result = guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{}) as Observable<boolean>;
 
     result.subscribe(can => {
-      expect(guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{})).toEqual(Observable.of(false));
+      expect(guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{})).toEqual(of(false));
       done();
     });
   }));
 
   it('should enable activation on logged in club-user',
     inject([IsClubUserGuardGuard], (guard: IsClubUserGuardGuard) => done => {
-    spyOn(this.store, 'subscribe').and.returnValue(Observable.of('test-clubid'));
+    spyOn(this.store, 'subscribe').and.returnValue(of('test-clubid'));
     const result = guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{}) as Observable<boolean>;
 
     result.subscribe(can => {
-      expect(guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{})).toEqual(Observable.of(true));
+      expect(guard.canActivate(<ActivatedRouteSnapshot>{}, <RouterStateSnapshot>{})).toEqual(of(true));
       done();
     });
   }));

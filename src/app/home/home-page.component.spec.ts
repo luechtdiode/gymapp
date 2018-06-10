@@ -14,7 +14,7 @@ import * as fromRoot from '../app-state.reducer';
 import * as fromCompetition from '../competition/competition.actions';
 import * as fromClub from '../club/club.actions';
 import * as fromSponsor from '../sponsor/sponsor.actions';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 describe('HomeComponent', () => {
   let component: HomePageComponent;
@@ -51,15 +51,15 @@ describe('HomeComponent', () => {
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
       if (selector === fromRoot.getFeaturedCompetition) {
-        return Observable.of(competitionStub);
+        return of(competitionStub);
       }
       if (selector === fromRoot.getFeaturedClub) {
-        return Observable.of(clubStub);
+        return of(clubStub);
       }
       if (selector === fromRoot.getFeaturedSponsor) {
-        return Observable.of(sponsorStub);
+        return of(sponsorStub);
       }
-      return Observable.of(false);
+      return of(false);
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);

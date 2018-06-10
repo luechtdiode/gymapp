@@ -4,7 +4,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { CompetitionService } from './competition.service';
 import { CrudService } from '../shared/crud.service';
 import { Competition } from '../model/backend-typings';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 describe('CompetitionService', () => {
   const competitionListStub: Competition[] = [

@@ -22,7 +22,7 @@ export class SponsorService {
 
   getFeaturedSponsor(): Observable<Sponsor> {
     console.log('getFeaturedSponsor');
-    // return Observable.of(this.data[0]);
+    // returnof(this.data[0]);
     return this.crud.unsave().get<Sponsor>(BASE_URL + 'month/');
   }
 
@@ -38,7 +38,7 @@ export class SponsorService {
 
   getSponsor(id: string): Observable<Sponsor> {
     console.log('getSponsor');
-    // return Observable.of(this.data[+id]);
+    // returnof(this.data[+id]);
     return this.crud.unsave().get<Sponsor>(`${BASE_URL}${id}`);
       // .flatMap(sponsor => this.mapService.enrichLocationWithCoordinate(sponsor));
   }
@@ -46,7 +46,7 @@ export class SponsorService {
   deleteSponsor(id: string): Observable<any> {
     console.log('deleteSponsor');
     // this.data = [...this.data.filter(c => c._id !== id)];
-    // return Observable.of(undefined);
+    // returnof(undefined);
     return this.crud.doDelete(`${BASE_URL}${id}`);
   }
 }

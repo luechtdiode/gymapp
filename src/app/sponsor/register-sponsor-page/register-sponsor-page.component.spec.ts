@@ -6,7 +6,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RegisterSponsorPageComponent } from './register-sponsor-page.component';
 import { Sponsor } from '../../model/backend-typings';
 import { Store, Action, StoreModule } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { AppState, reducers } from '../../app-state.reducer';
 import { FormBuilder } from '@angular/forms';
 
@@ -27,7 +27,7 @@ describe('RegisterSponsorPageComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>>{
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
-      return Observable.of(sponsorListStub);
+      return of(sponsorListStub);
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);
@@ -49,7 +49,7 @@ describe('RegisterSponsorPageComponent', () => {
         { provide: Store, useValue: storeStub },
       ],
       imports: [
-        StoreModule.forRoot({ reducers }),
+        StoreModule.forRoot(reducers),
       ],
     })
     .compileComponents();

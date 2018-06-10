@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { CrudService } from '../shared/crud.service';
 import { ClubService } from './club.service';
 import { Club } from '../model/backend-typings';
@@ -20,7 +20,7 @@ describe('ClubService', () => {
     unsave: () => crudStub,
     authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(clubListStub),
+    get: (url: string) =>of(clubListStub),
   };
 
   beforeEach(async(() => {

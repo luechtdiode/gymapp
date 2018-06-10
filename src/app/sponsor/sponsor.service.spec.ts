@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { SponsorService } from './sponsor.service';
 import { Sponsor } from '../model/backend-typings';
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { CrudService } from '../shared/crud.service';
 
 
@@ -22,7 +22,7 @@ describe('SponsorService', () => {
     unsave: () => crudStub,
     authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(sponsorListStub),
+    get: (url: string) => of(sponsorListStub),
   };
 
   beforeEach(async(() => {

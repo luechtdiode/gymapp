@@ -161,10 +161,10 @@ describe('CompetitionFormComponent', () => {
     });
   });
 
-  xdescribe('updateFormGroupActions', () => {
+  describe('updateFormGroupActions', () => {
     it('makes expected calls', () => {
       const formBuilderStub = fixture.debugElement.injector.get(FormBuilder);
-      spyOn(formBuilderStub, 'group');
+      spyOn(formBuilderStub, 'group').and.callThrough();
       comp.updateFormGroupActions();
       expect(formBuilderStub.group).toHaveBeenCalled();
     });

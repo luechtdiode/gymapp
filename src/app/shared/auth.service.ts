@@ -1,5 +1,5 @@
 
-import {of as observableOf,  Observable ,  Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CrudService } from './crud.service';
 import { Router } from '@angular/router';
@@ -32,14 +32,14 @@ export class AuthService {
 
   login(loginData): Observable<any> {
     if (!(loginData.password) && (loginData.token) && this.crud.authenticated(loginData.token)) {
-      // return Observable.of(Object.assign({}, loginData, {success: true}));
+      // returnof(Object.assign({}, loginData, {success: true}));
       return this.remote.post('api/auth/renew', loginData);
     }
     return this.remote.post('api/auth/login', loginData);
   }
 
   logout(): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   register(registerData) {

@@ -2,7 +2,7 @@ import {TestBed, inject} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from 'jasmine-marbles';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 
 import {EffectsModule} from '@ngrx/effects';
 import { AuthEffects } from './auth.effects';
@@ -13,17 +13,17 @@ import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
 import { appRoutes } from '../app.routing';
 import { username, isMemberOfSponsor } from './auth.reducer';
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../app-state.reducer';
 
-fdescribe('The Auth Effect', () => {
+describe('The Auth Effect', () => {
   let actions: Observable<any>;
   const authServiceStub = <AuthService> {
-    register: (registerdata) => Observable.of({}),
-    login: (logindata: User) => Observable.of({}),
-    logout: () => Observable.of({}),
+    register: (registerdata) => of({}),
+    login: (logindata: User) => of({}),
+    logout: () => of({}),
   };
   const routerStub = {
     navigate: () => {},
@@ -53,7 +53,7 @@ fdescribe('The Auth Effect', () => {
     authEffects = TestBed.get(AuthEffects);
   });
 
-  xit('should smoketest', () => {
+  it('should smoketest', () => {
       actions = hot('--a-', {a: new LoadCredentialsAction()});
       const expected = cold('--b', { b: new LoginAction(true, {}) });
   });
@@ -117,7 +117,7 @@ fdescribe('The Auth Effect', () => {
       const expected = cold('--b', { b: new LoginAction(undefined, user, 'auth/clubprofile') });
       expect(authEffects.registerClub).toBeObservable(expected);
       */
-      const authReplay = Observable.of(user);
+      const authReplay =of(user);
       spyOn(authService, 'register').and.returnValue(authReplay);
       const triggeraction = new RegisterClubAction(user, club);
       const expectedaction = new LoginSuccessAction(user, 'auth/clubprofile');
@@ -168,7 +168,7 @@ fdescribe('The Auth Effect', () => {
         kind: [],
       };
       const expectedResult = new LoginSuccessAction(user, 'auth/sponsorprofile');
-      spyOn(authService, 'register').and.returnValue(Observable.of(expectedResult));
+      spyOn(authService, 'register').and.returnValue(of(expectedResult));
       /*
       actions = hot('--a-', {a: new RegisterSponsorAction(user, sponsor)});
       const expected = cold('--b', { b: expectedResult });
@@ -224,7 +224,7 @@ fdescribe('The Auth Effect', () => {
         isMemberOfClub: 'clubid',
         isMemberOfSponsor: undefined,
       };
-      spyOn(authService, 'login').and.returnValue(Observable.of(registereduser));
+      spyOn(authService, 'login').and.returnValue(of(registereduser));
       /*
       actions = hot('--a-', {a: new LoginAction(false, user, 'backurl-test')});
       const expected = cold('--b', { b: expectedResult });
@@ -263,7 +263,7 @@ fdescribe('The Auth Effect', () => {
         },
       ];
       const localStorCallsSpy = localStorageSpy.calls;
-      spyOn(authService, 'login').and.returnValue(Observable.of(registereduser));
+      spyOn(authService, 'login').and.returnValue(of(registereduser));
 
       /*
       actions = hot('--a-', {a: new LoginAction(true, user, 'backurl-test')});

@@ -3,7 +3,7 @@ import { TestBed, inject, async } from '@angular/core/testing';
 import { ActionsService } from './actions.service';
 import { Action } from '../model/backend-typings';
 import { CrudService } from '../shared/crud.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,7 +19,7 @@ describe('ActionsService', () => {
     unsave: () => crudStub,
     authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of(actionsStub),
+    get: (url: string) =>of(actionsStub),
   };
 
   beforeEach(async(() => {
@@ -36,6 +36,8 @@ describe('ActionsService', () => {
   }));
 
   it('should load Actions', inject([ActionsService], (service: ActionsService) => {
-    expect(service.loadActions()).toEqual(Observable.of(actionsStub));
+    service.loadActions().subscribe(actions => {
+      expect(actions).toEqual(actionsStub);
+    });
   }));
 });

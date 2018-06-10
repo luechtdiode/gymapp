@@ -205,9 +205,9 @@ export class CompetitionFormComponent implements OnInit {
     || (this._form.controls['sponsoractions'] as FormArray).length !== this._competition.sponsoractions.length) {
       const actionFormGroupArray = new FormArray(
         this._competition.sponsoractions
-        .map(a => this.fb.group(CompetitionActionModel)),
+        .map(a => this.fb.group(CompetitionActionModel))
       );
-      this._form.controls['sponsoractions'] = actionFormGroupArray;
+      this._form.setControl('sponsoractions', actionFormGroupArray);
     }
     this._form.patchValue({sponsoractions: this._competition.sponsoractions});
   }

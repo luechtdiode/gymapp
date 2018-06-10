@@ -6,7 +6,7 @@ import { HeaderComponent } from './header.component';
 import { UrlProvider } from '../shared/urlProvider';
 import { Store, Action } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 
 describe('HeaderComponent', () => {
@@ -23,7 +23,7 @@ describe('HeaderComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
-      return Observable.of(false);
+      return of(false);
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);

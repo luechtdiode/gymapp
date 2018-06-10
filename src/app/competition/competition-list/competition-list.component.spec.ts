@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, Action, StoreModule } from '@ngrx/store';
 import { AppState } from '../../app-state.reducer';
 import { reducers } from '../../app-state.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 import { CompetitionListComponent } from './competition-list.component';
 import { CompetitionMediaComponent } from '../competition-media/competition-media.component';
@@ -100,7 +100,7 @@ describe('CompetitionListComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>> {
         select: (selector: any, ...paths: string[]) => {
           console.log('selecting ', selector);
-          return Observable.of(competitionListStub);
+          return of(competitionListStub);
         },
         dispatch: (action: Action) => {
           console.log('dispatching ', action);
@@ -120,7 +120,7 @@ describe('CompetitionListComponent', () => {
         { provide: Router, useValue: routerStub },
       ],
       imports: [
-        StoreModule.forRoot({reducers}),
+        StoreModule.forRoot(reducers),
       ],
     })
     .compileComponents();

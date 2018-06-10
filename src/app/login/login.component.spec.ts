@@ -5,7 +5,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { LoginComponent } from './login.component';
 import { Store, Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { AppState } from '../app-state.reducer';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
   const storeStub: Store<AppState> = <Store<AppState>>{
     select: (selector: any, ...paths: string[]) => {
       console.log('selecting ', selector);
-      return Observable.of('aUrl');
+      return of('aUrl');
     },
     dispatch: (action: Action) => {
       console.log('dispatching ', action);

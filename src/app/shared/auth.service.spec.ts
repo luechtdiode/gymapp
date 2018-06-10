@@ -2,7 +2,7 @@
 
 import { AuthService } from './auth.service';
 import { CrudService } from './crud.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state.reducer';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ describe('AuthService', () => {
     unsave: () => crudStub,
     authenticated: (token: string) => false,
     post: (url: string, loginData) => {},
-    get: (url: string) => Observable.of({}),
+    get: (url: string) =>of({}),
   };
   const routerStub: Router = <Router>{
 
@@ -33,6 +33,6 @@ describe('AuthService', () => {
   });
 
   it('should logout a user...', () => {
-    expect(service.logout()).toEqual(Observable.of(true));
+    expect(service.logout()).toBeTruthy();
   });
 });
