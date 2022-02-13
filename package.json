@@ -33,7 +33,7 @@
     "@ngrx/router-store": "6.0.1",
     "@ngrx/store": "6.0.1",
     "@ngrx/store-devtools": "6.0.1",
-    "ajv": "6.5.0",
+    "ajv": "6.12.3",
     "bootstrap": "4.1.1",
     "font-awesome": "4.7.0",
     "jquery": "3.3.1",
